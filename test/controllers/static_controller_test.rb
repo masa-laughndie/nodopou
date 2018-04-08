@@ -1,28 +1,35 @@
 require 'test_helper'
 
 class StaticControllerTest < ActionDispatch::IntegrationTest
+
+  def setup
+    @base_title = "NoDoBotoke -逆ToDoリスト-"
+  end
+
   test "should get home" do
-    get static_home_url
+    get root_path
     assert_response :success
+    assert_select 'title', "#{@base_title}"
   end
 
   test "should get terms" do
-    get static_terms_url
+    get terms_path
     assert_response :success
+    assert_select 'title', "利用規約｜#{@base_title}"
   end
 
   test "should get privacy" do
-    get static_privacy_url
+    get privacy_path
     assert_response :success
   end
 
   test "should get about" do
-    get static_about_url
+    get about_path
     assert_response :success
   end
 
   test "should get help" do
-    get static_help_url
+    get help_path
     assert_response :success
   end
 
