@@ -4,9 +4,8 @@
 
 $base: #fff;  /* white */
 $main: #000;  /* black */
-$newaccent: #ffd700;  /* gold */
-$accent: #ff0000;  /* red */
-$waccent: #ff6666; /* weak red*/
+$accent: #ffd700;  /* gold */
+$waccent: #fff462; /* canry yellow*/
 $test: #e6e6fa;
 $back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
@@ -115,13 +114,92 @@ select {
   font-family: 'Yeon Sung', cursive;
 }
 
+/* botton, form */
+
+$size:(
+  big: 100%,
+  large: 80%,
+  middle: 60%,
+  small: 40%
+);
+
+@each $key, $value in $size {
+  .button-#{$key} {
+    border-radius: 5px;
+    height: 40px;
+    margin: 35px auto;
+    max-width: 320px;
+    width: $value;
+
+    input,
+    button,
+    a {
+      broder-raidus: 5px;
+      color: $base;
+      display: block;
+      font-weight: 550;
+      letter-spacing: 0.1px;
+      line-height: 40px;
+      width: 100%;
+
+      i {
+        color: $base;
+      }
+    }
+  }
+
+  .button-#{key}:hover {
+    filter: alpha(opacity = 80);
+    opacity: 0.8;
+  }
+}
+
+.button-mini {
+  height: 30px;
+  max-width: 190px;
+  width: 70%;
+
+  input,
+  button,
+  a {
+    color: $main;
+    font-size: 0.8em;
+    font-weight: 550;
+    line-height: 30px;
+
+    i {
+      color: $main;
+    }
+  }
+}
+
+$color:(
+  twitter: $twi-blue,
+  accent: $accent,
+  waccent: $waccent
+);
+
+@each $key, $value in $color {
+  .button-#{$key} {
+    background: $value;
+  }
+
+  .button-accent {
+    input,
+    button,
+    a {
+      color: $main;
+    }
+  }
+}
+
 /* layouts */
   
   /* header */
 
 header {
-  background: $newaccent;
-  border-bottom: 1px solid $newaccent;
+  background: $accent;
+  border-bottom: 1px solid $accent;
   height: 51px;
   position: fixed;
   top: 0;
