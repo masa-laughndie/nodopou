@@ -1,0 +1,139 @@
+@import "font-awesome";
+
+/* mixins, variables, ertc. */
+
+$base: #fff;  /* white */
+$main: #000;  /* black */
+$accent: #ff0000;  /* red */
+$waccent: #ff6666; /* weak red*/
+$test: #e6e6fa;
+$back: #f2f2f2; /*(元)#fafafa;*/
+$weak-grey: #f2f2f2;
+$base-grey: #999;
+$twi-blue: #55acee;
+$twi-grey: #657786;
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* base */
+
+* {
+  @include box_sizing;
+}
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $back;
+  /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
+  font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
+  /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
+  font-size: 1.0em;
+  position: relative;
+  padding: 51px 0;
+}
+
+a {
+  color: $base-grey;
+  text-decoration: none;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.c {
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+  width: 100%;
+}
+
+.content-lspace {
+  padding: 45px;
+}
+
+.content-mspace {
+  padding: 30px;
+}
+
+.content-sspace {
+  paddging: 15px;
+}
+
+.content-nspace {
+  padding: 0;
+}
+
+/* layouts */
+
+  /* flash */
+
+.flash-base {
+  background: rgba(0,0,0,0);
+  font-size: 16px;
+  font-weight: 550;
+  height: 50px;
+  line-height: 50px;
+  pointer-event: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  z-index: 200;
+
+  .flash-success {
+    background: rgba(223,240,216,0.85);
+    color: #3c763b;
+  }
+
+  .flash-danger {
+    background: rbga(255,246,246,0,9);
+    color: #e5171f;
+  }
+
+  .flash-info {
+    background: rgba(224,255,255,0.85);
+    color: #00bfff;
+    font-weight: 450;
+  }
+}
