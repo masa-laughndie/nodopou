@@ -1,2 +1,9 @@
-<h1>Static#about</h1>
-<p>Find me in app/views/static/about.html.erb</p>
+<% provide(:title, "このサイトについて") %>
+<% provide(:og_title, "このサイトについて") %>
+<% provide(:og_url, about_url) %>
+
+<div class="container content-lspace">
+  <div class="title-lspace c">
+    <h1>このサイトについて</h1>
+  </div>
+</div>

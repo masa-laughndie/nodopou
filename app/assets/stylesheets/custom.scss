@@ -4,6 +4,7 @@
 
 $base: #fff;  /* white */
 $main: #000;  /* black */
+$newaccent: #ffd700;  /* gold */
 $accent: #ff0000;  /* red */
 $waccent: #ff6666; /* weak red*/
 $test: #e6e6fa;
@@ -89,7 +90,13 @@ select {
 }
 
 .content-lspace {
+  background: $base;
   padding: 45px;
+}
+
+.title-lspace {
+  font-size: 24px;
+  margin-bottom: 30px;
 }
 
 .content-mspace {
@@ -104,7 +111,74 @@ select {
   padding: 0;
 }
 
+.logo-font {
+  font-family: 'Yeon Sung', cursive;
+}
+
 /* layouts */
+  
+  /* header */
+
+header {
+  background: $newaccent;
+  border-bottom: 1px solid $newaccent;
+  height: 51px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  .content-head {
+    height: 50px;
+    line-height: 50px;
+
+    .header-center {
+      width: 100%;
+
+      a {
+        display: block;
+
+        .logo-font {
+          color: $main;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+  /* footer */
+
+footer {
+
+  .footer-link {
+
+    a {
+      color: $base-grey;
+      display: inline-block;
+      font-size: 12px;
+      padding: 5px;
+    }
+  }
+
+  .twitter-link {
+    background: $twi-grey;
+    border-radius: 50%;
+    height: 40px;
+    margin: 10px auto;
+    width: 40px;
+
+    a {
+      color: $back;
+      display: block;
+      line-height: 40px;
+    }
+  }
+
+  .copyright a {
+    font-size: 16px;
+  }
+}
 
   /* flash */
 
@@ -135,5 +209,21 @@ select {
     background: rgba(224,255,255,0.85);
     color: #00bfff;
     font-weight: 450;
+  }
+}
+
+
+/* static */
+
+.poricy {
+  p {
+    font-size: 14.5px;
+    line-height: 30px;
+    padding-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+    padding: 30px 0;
   }
 }
