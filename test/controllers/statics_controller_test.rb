@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StaticControllerTest < ActionDispatch::IntegrationTest
+class StaticsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @base_title = "NoDoBotoke -逆ToDoリスト-"
