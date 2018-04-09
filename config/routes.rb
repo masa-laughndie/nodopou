@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
-  root 'static#home'
+  root 'statics#home'
 
-  get '/help',    to: 'static#help'
-  get '/terms',   to: 'static#terms'
-  get '/privacy', to: 'static#privacy'
-  get '/about',   to: 'static#about'
+  get '/help',    to: 'statics#help'
+  get '/terms',   to: 'statics#terms'
+  get '/privacy', to: 'statics#privacy'
+  get '/about',   to: 'statics#about'
+
+  get  '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
+
+  resources :users, param: :account_id,
+                    only: [:show, :destroy],
+                    path: '/'
 
 end

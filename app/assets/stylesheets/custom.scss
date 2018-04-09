@@ -99,19 +99,41 @@ select {
 }
 
 .content-mspace {
+  background: $base;
   padding: 30px;
 }
 
+.title-mspace {
+  font-size: 24px;
+  margin: 10px 0 30px;
+}
+
 .content-sspace {
-  paddging: 15px;
+  background: $base;
+  padding: 15px;
 }
 
 .content-nspace {
+  background: $base;
   padding: 0;
 }
 
 .logo-font {
   font-family: 'Yeon Sung', cursive;
+}
+
+.attention {
+  margin: 0 auto 30px;
+  width: 85%;
+
+  p {
+    font-size: 14px;
+
+    a {
+      color: #3599f0;
+      text-decoration: underline;
+    }
+  }
 }
 
 /* botton, form */
@@ -205,6 +227,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 100;
 
   .content-head {
     height: 50px;
@@ -228,11 +251,12 @@ header {
   /* footer */
 
 footer {
+  background: $back !important;
 
   .footer-link {
 
     a {
-      color: $base-grey;
+      color: grey;
       display: inline-block;
       font-size: 12px;
       padding: 5px;
@@ -240,7 +264,7 @@ footer {
   }
 
   .twitter-link {
-    background: $twi-grey;
+    background: grey;
     border-radius: 50%;
     height: 40px;
     margin: 10px auto;
@@ -290,6 +314,69 @@ footer {
   }
 }
 
+/* shared */
+
+  /* error_message */
+
+.error {
+  background: #fff6f6;
+  border: 1.5px solid #ebccd1;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 15px;
+  width: 100%;
+
+  .error-title {
+    color: #e5171f;
+    font-size: 1.2em;
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    color :red;
+    font-size: 0.9em;
+    font-weight: 500;
+    line-height: 35px;
+
+    i {
+      color: rbga(255,0,0,0.7);
+      margin-right: 5px;
+    }
+  }
+}
+
+/* parts */
+  
+  /* form */
+
+.form {
+  position: relative;
+  width: 100%;
+
+  .field {
+    height: 40px;
+    margin: 0 auto 35px;
+    position: relative;
+    width: 100%;
+
+    input,
+    select,
+    textarea,
+    label {
+      background: $weak-grey;
+      border-radius: 5px;
+      color: $main;
+      display: block;
+      font-size: 13px;
+      font-weigtht: 500;
+      letter-spacing: 0.2px;
+      line-height: 24px;
+      padding: 8px 20px;
+      width: 100%;
+    }
+  }
+}
 
 /* static */
 
