@@ -288,13 +288,14 @@ footer {
   background: rgba(0,0,0,0);
   font-size: 16px;
   font-weight: 550;
-  height: 50px;
-  line-height: 50px;
-  pointer-event: none;
+  height: 51px;
+  line-height: 51px;
+  pointer-events: none;
   position: fixed;
   top: 0;
   left: 0;
   text-align: center;
+  width: 100%;
   z-index: 200;
 
   .flash-success {
@@ -303,7 +304,7 @@ footer {
   }
 
   .flash-danger {
-    background: rbga(255,246,246,0,9);
+    background: rgba(255,246,246,0.9);
     color: #e5171f;
   }
 

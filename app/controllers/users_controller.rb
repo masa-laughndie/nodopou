@@ -12,8 +12,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.validate_password = true
     @user.name = params[:user][:account_id]
+    @user.email = "#{params[:user][:account_id]}@example.com"
     @user.password_confirmation = params[:user][:password]
     if @user.save
+      log_in @user
+      remember @user
       flash[:success] = "登録が完了しました！"
       redirect_to @user
     else
@@ -33,7 +36,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:account_id, :name,
+      params.require(:user).permit(:account_id, :name, :email,
                                    :password, :password_confirmation)
     end
 
