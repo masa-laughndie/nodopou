@@ -9,18 +9,18 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def is_logged_in?
-    !session[:msuid].nil?
+    !session[:aid].nil?
   end
 
   def log_in_as(user)
-    session[:msuid] = user.id
+    session[:aid] = user.id
   end
 end
 
 class ActionDispatch::IntegrationTest
 
   def log_in_as(user, password: 'password')
-    post login_path, params: { mysize_id: user.mysize_id,
+    post login_path, params: { account_id: user.account_id,
                                password:  password }
   end
 end

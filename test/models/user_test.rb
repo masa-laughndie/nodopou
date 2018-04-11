@@ -3,7 +3,8 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(account_id: "account1",
-                     password: "foobar", password_confirmation: "foobar")
+                     password: "foobar",
+                     email: "account1@exmaple.com")
   end
 
   test "should be valid" do
@@ -11,11 +12,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name should be present less than 51 characters" do
+    @user.validate_name = true
     @user.name = "a" * 51
     assert_not @user.valid?
   end
 
   test "email should be presnet less than 256 characters" do
+    @user.validate_email = true
     @user.email = "a" * 244 + "@example.com"
     assert_not @user.valid?
   end
@@ -26,6 +29,7 @@ class UserTest < ActiveSupport::TestCase
                          first.last@foo.jp alice+bob@baz.cn]
     #各アドレスで有効である
     valid_addresses.each do |valid_address|
+      @user.validate_email = true
       #ユーザーemail情報に有効なアドレスを代入
       @user.email = valid_address
       #assertの第二引数　→　失敗した場合のメッセージ
@@ -35,6 +39,7 @@ class UserTest < ActiveSupport::TestCase
 
   #無効なアドレスによるemailの有効性確認
   test "email validation should reject invalid addresses" do
+    @user.validate_email = true
     #無効なアドレスの例
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
@@ -47,6 +52,7 @@ class UserTest < ActiveSupport::TestCase
 
   #emailの一意性の確認
   test "email addresses should be unique" do
+    @user.validate_email = true
     #dup:複製
     #ユーザーの複製
     duplicate_user = @user.dup
@@ -59,6 +65,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "email addresses should be saved as lower-case" do
+    @user.validate_email = true
     #文字の大小が混在したemail
     mixed_case_email = "Foo@ExAMPle.CoM"
     #ユーザーemailに代入し保存
