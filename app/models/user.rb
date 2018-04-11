@@ -21,7 +21,8 @@ class User < ApplicationRecord
                                        message: "NoDoBoIDは英数字,_(アンダーバー)のみ使用できます",
                                        allow_blank: true },
                          uniqueness: { case_sensitive: false,
-                                       message: "そのNoDoBoIDは既に使われています" }
+                                       message: "そのNoDoBoIDは既に使われています",
+                                       allow_nil: true }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence:   { message: "メールアドレスを入力してください",
@@ -61,6 +62,34 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
+
+    def find_or_create_from_auth(auth)
+      provider   = auth[:provider]
+      uid        = auth[:uid]
+      name       = auth[:info][:name]
+      account_id = auth[:info][:nickname]
+      email      = User.dummy_email(auth)
+      # image      = auth[:info][:image].sub("_normal", "")
+
+      find_or_create_by(provider: provider, uid: uid) do |user|
+        user.name = name
+        user.password = SecureRandom.urlsafe_base64(6)
+        user.email = email
+        # user.remote_image_url = image
+        if User.find_by(account_id: account_id).nil?
+          user.account_id = account_id
+        else
+          while true
+            num = SecureRandom.urlsafe_base64(10)
+            if User.find_by(account_id: num).nil?
+              user.account_id = num
+              break
+            end
+          end
+        end
+      end
+    end
+
   end
 
   def remember

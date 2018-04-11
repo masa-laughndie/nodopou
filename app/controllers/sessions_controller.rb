@@ -18,6 +18,18 @@ class SessionsController < ApplicationController
     end
   end
 
+  def omniauth_create
+    @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
+    log_in @user
+    remember @user
+    if @user.created_at > 1.minutes.ago
+      flash[:success] = "登録・ログインに成功しました！"
+    else
+      flash[:success] = "ログインに成功しました！"
+    end
+    redirect_to @user
+  end
+
   def destroy
     if logged_in?
       log_out

@@ -12,6 +12,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name should be present less than 51 characters" do
+    @user.validate_name = true
     @user.name = "a" * 51
     assert_not @user.valid?
   end
@@ -23,12 +24,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "email validation should accept valid addresses" do
-    @user.validate_email = true
     #有効なアドレスの例
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
                          first.last@foo.jp alice+bob@baz.cn]
     #各アドレスで有効である
     valid_addresses.each do |valid_address|
+      @user.validate_email = true
       #ユーザーemail情報に有効なアドレスを代入
       @user.email = valid_address
       #assertの第二引数　→　失敗した場合のメッセージ

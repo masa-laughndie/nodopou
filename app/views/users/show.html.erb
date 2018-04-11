@@ -1,2 +1,14 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<% provide(:title, @user.name + "(@" + @user.account_id + ")さん") %>
+<% provide(:og_title, @user.name + "(@" + @user.account_id + ")さん") %>
+<% provide(:og_url, user_url(@user)) %>
+
+<div class="container content-mspace">
+  <div class="title-mspace">
+    <h1><%= @user.name %>さんのプロフィール</h1>
+  </div>
+  <div class="logout">
+    <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
+      <p>ログアウト</p>
+    </a>
+  </div>
+</div>

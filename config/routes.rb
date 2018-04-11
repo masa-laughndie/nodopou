@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get '/auth/:provider/callback', to: 'sessions#omniauth_create'
+
   resources :users, param: :account_id,
                     only: [:show, :destroy],
                     path: '/'
