@@ -7,6 +7,8 @@ class User < ApplicationRecord
   before_save :downcase_email, if: :validate_email?
   before_save :downcase_nodoboid
 
+  mount_uploader :image, ImageUploader
+
   validates :name, presence: { message: "名前を入力してください",
                                if: :validate_name? },
                    length:   { maximum: 50,
@@ -50,7 +52,7 @@ class User < ApplicationRecord
   validates :profile, length: { maximum: 160,
                                 massage: "プロフィールは160字以内で入力してください" }
 
-  # validate :image_size
+  validate :image_size
 
   class << self
 
@@ -69,13 +71,15 @@ class User < ApplicationRecord
       name       = auth[:info][:name]
       account_id = auth[:info][:nickname]
       email      = User.dummy_email(auth)
-      # image      = auth[:info][:image].sub("_normal", "")
+      profile    = auth[:info][:description]
+      image      = auth[:info][:image].sub("_normal", "")
 
       find_or_create_by(provider: provider, uid: uid) do |user|
         user.name = name
         user.password = SecureRandom.urlsafe_base64(6)
         user.email = email
-        # user.remote_image_url = image
+        user.profile = profile
+        user.remote_image_url = image
         if User.find_by(account_id: account_id).nil?
           user.account_id = account_id
         else

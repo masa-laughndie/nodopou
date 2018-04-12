@@ -4,7 +4,13 @@
 
 <div class="container content-mspace">
   <div class="title-mspace">
-    <h1><%= @user.name %>さんのプロフィール</h1>
+    <h1><%= @user.name %></h1>
+  </div>
+  <div class="user-aid">
+    <%= @user.account_id %>
+  </div>
+  <div class="user-image">
+    <%= image_tag(image_url(@user), size: 100, alt: @user.name) %>
   </div>
   <div class="logout">
     <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
