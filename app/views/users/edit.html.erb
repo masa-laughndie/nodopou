@@ -16,7 +16,7 @@
         <%= f.label :image, class: "button-upload" do %>
           <div class="icon-upload">
             <% if @user.image.blank? %>
-              <%= fa_icon("plus") %>
+              <%= fa_icon("camera") %>
             <% else %>
               <%= fa_icon("refresh") %>
             <% end %>
@@ -27,6 +27,7 @@
             <div class="preview">
               <%= image_tag(image_url(@user),
                             alt: @user.name,
+                            size: 100,
                             class: "cover" ) %>
             </div>
           <% end %>

@@ -298,18 +298,19 @@ $color:(
         width: 100%;
         z-index: 20;
 
-        .fa-plus {
-          font-size: 1.5em;
+        .fa-camera {
+          color: rgba(0,0,0,0.35);
+          font-size: 3em;
           position: relative;
           top: 50%;
           left: 50%;
-          trnsform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
         }
 
         .fa-refresh {
           background: rgba(255,255,255,0.3);
           border-radius: 50%;
-          color: rgba(0,0,0,0.6);
+          color: rgba(0,0,0,0.55);
           display: block;
           font-size: 3em;
           height: 100%;
@@ -319,8 +320,10 @@ $color:(
         }
 
         .fa-refresh:before {
+          display: block;
           position: relative;
-          top: 30%;
+          top: 50%;
+          transform: translateY(-50%);
         }
       }
 
