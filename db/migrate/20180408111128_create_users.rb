@@ -3,6 +3,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
     create_table :users do |t|
       t.string    :name
       t.string    :email
+      t.boolean   :is_send_email,     default: false
       t.string    :account_id
       t.string    :image
       t.string    :profile

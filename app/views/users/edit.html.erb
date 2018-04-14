@@ -1,2 +1,100 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<% provide(:title, "設定") %>
+<% provide(:og_title, "設定") %>
+<% provide(:og_url, setting_url) %>
+
+<div class="container content-mspace">
+  <div class="title-mspace">
+    <h1>プロフィール設定</h1>
+  </div>
+  <div class="form">
+    <%= form_for(@user, url: setting_path) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="label">
+        <%= f.label :image, "アイコン" %>
+      </div>
+      <div class="field-file">
+        <%= f.label :image, class: "button-upload" do %>
+          <div class="icon-upload">
+            <% if @user.image.blank? %>
+              <%= fa_icon("plus") %>
+            <% else %>
+              <%= fa_icon("refresh") %>
+            <% end %>
+          </div>
+          <% if @user.image.blank? %>
+            <div class="preview"></div>
+          <% else %>
+            <div class="preview">
+              <%= image_tag(image_url(@user),
+                            alt: @user.name,
+                            class: "cover" ) %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field-hidden">
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+      <div class="label">
+        <%= f.label :account_id, "ユーザー名" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :account_id %>
+      </div>
+      <div class="label">
+        <%= f.label :name, "表示名" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :name %>
+      </div>
+      <div class="label">
+        <%= f.label :password, "パスワード" %>
+      </div>
+      <div class="field">
+        <%= f.password_field :password %>
+      </div>
+      <div class="label">
+        <%= f.label :profile, "プロフィール" %>
+      </div>
+      <div class="field field-area">
+        <%= f.text_area :profile %>
+      </div>
+      <div class="button-small button-accent">
+        <%= f.submit "更新する", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="blank"></div>
+<div class="container content-mspace">
+  <div class="title-mspace">
+    <h2>メール通知設定</h2>
+  </div>
+  <div class="form">
+    <%= form_for(@user, url: email_setting_path ) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="label">
+        <%= f.label :email, "メールアドレス" %>
+      </div>
+      <div class="field">
+        <%= f.email_field :email %>
+      </div>
+      <div class="field-checkbox clear">
+        <div class="button-checkbox">
+          <%= f.check_box :is_send_email, {}, true, false %>
+          <%= f.label :is_send_email do %>
+            <span></span>
+          <% end %>
+          <div class="slide"></div>
+        </div>
+        <div class="label-checkbox">
+          期限日にメールで通知する
+        </div>
+      </div>
+      <div class="button-small button-accent">
+        <%= f.submit "更新する", data: { disable_with: "処理中..."} %>
+      </div>
+    <% end %>
+  </div>
+</div>

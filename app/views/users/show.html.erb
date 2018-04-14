@@ -2,19 +2,25 @@
 <% provide(:og_title, @user.name + "(@" + @user.account_id + ")さん") %>
 <% provide(:og_url, user_url(@user)) %>
 
-<div class="container content-mspace">
-  <div class="title-mspace">
-    <h1><%= @user.name %></h1>
-  </div>
-  <div class="user-aid">
-    <%= @user.account_id %>
+<div class="container content-mspace c">
+  <div class="user-set">
+    <%= link_to fa_icon('cog'), setting_path %>
   </div>
   <div class="user-image">
     <%= image_tag(image_url(@user), size: 100, alt: @user.name) %>
   </div>
-  <div class="logout">
-    <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
-      <p>ログアウト</p>
-    </a>
+  <div class="user-name">
+    <h1><%= @user.name %></h1>
   </div>
+  <div class="user-aid">
+    @<%= @user.account_id %>
+  </div>
+  <div class="user-profile">
+    <small><%= @user.profile %></small>
+  </div>
+</div>
+<div class="logout">
+  <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
+    <p>ログアウト</p>
+  </a>
 </div>
