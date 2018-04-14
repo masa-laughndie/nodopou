@@ -55,6 +55,7 @@ document.addEventListener('turbolinks:load', function() {
           $preview.append($('<img>').attr({
             src: e.target.result,
             class: "cover",
+            size: 100,
             title: file.name
           }));
           //icon変更
@@ -62,7 +63,7 @@ document.addEventListener('turbolinks:load', function() {
           setTimeout( function(){
             $icon.append($('<i>').attr('class', 'fa fa-refresh'));
             $icon.css('display', 'none').fadeIn('slow');
-          }, 3000);
+          }, 5000);
         };
       })(file);
       //ファイルをURLとして読み込む
