@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20180408111128) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.boolean "is_send_email", default: false
     t.string "account_id"
     t.string "image"
     t.string "profile"

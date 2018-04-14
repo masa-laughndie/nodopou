@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_create
-    @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
+    @user = User.find_or_create_from_auth(auth_params)
     log_in @user
     remember @user
     if @user.created_at > 1.minutes.ago
@@ -45,6 +45,10 @@ class SessionsController < ApplicationController
         flash[:info] = "既にログイン中です。"
         redirect_to root_url
       end
+    end
+
+    def auth_params
+      request.env['omniauth.auth']
     end
 
 end

@@ -7,6 +7,8 @@ class User < ApplicationRecord
   before_save :downcase_email, if: :validate_email?
   before_save :downcase_nodoboid
 
+  mount_uploader :image, ImageUploader
+
   validates :name, presence: { message: "名前を入力してください",
                                if: :validate_name? },
                    length:   { maximum: 50,
@@ -35,7 +37,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false,
                                   message: "そのメールアドレスは既に登録されています" }
 
-  has_secure_password validations: false
+  has_secure_password
 
   validates :password, presence:     { message: "Passwordを入力してください",
                                        if: :validate_password? },
@@ -43,14 +45,13 @@ class User < ApplicationRecord
                                        message: "Passwordは6文字以上で入力してください",
                                        allow_blank: true },
                        confirmation: { message: "PasswordとPassword確認が不一致です",
-                                       allow_blank: true }
-  validates :password_confirmation,  presence: { message: "Password確認を入力してください",
-                                                 if: :validate_password_confirmation? }
+                                       allow_blank: true },
+                       allow_nil:    true
 
   validates :profile, length: { maximum: 160,
                                 massage: "プロフィールは160字以内で入力してください" }
 
-  # validate :image_size
+  validate :image_size
 
   class << self
 
@@ -69,13 +70,15 @@ class User < ApplicationRecord
       name       = auth[:info][:name]
       account_id = auth[:info][:nickname]
       email      = User.dummy_email(auth)
-      # image      = auth[:info][:image].sub("_normal", "")
+      profile    = auth[:info][:description]
+      image      = auth[:info][:image].sub("_normal", "")
 
       find_or_create_by(provider: provider, uid: uid) do |user|
         user.name = name
         user.password = SecureRandom.urlsafe_base64(6)
         user.email = email
-        # user.remote_image_url = image
+        user.profile = profile
+        user.remote_image_url = image
         if User.find_by(account_id: account_id).nil?
           user.account_id = account_id
         else
@@ -90,6 +93,11 @@ class User < ApplicationRecord
       end
     end
 
+  end
+
+  def set_name_and_email(param)
+    self.name = param
+    self.email = "#{param}@example.com"
   end
 
   def remember

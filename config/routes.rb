@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
-
   root 'statics#home'
 
   get '/help',    to: 'statics#help'
@@ -17,6 +15,15 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
+
+  resource :setting, only: :none do
+    get '/',        to: 'users#edit'
+    patch '/',      to: 'users#update'
+    put '/',        to: 'users#update'
+    get '/email',   to: 'users#email_edit'
+    patch '/email', to: 'users#email_update'
+    put '/email',   to: 'users#email_update'
+  end
 
   resources :users, param: :account_id,
                     only: [:show, :destroy],
