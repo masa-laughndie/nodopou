@@ -78,6 +78,9 @@
       <%= render 'shared/error_messages', object: f.object %>
       <div class="label">
         <%= f.label :email, "メールアドレス" %>
+        <% if @user.email.match(/@example.com/).present? %>
+          <p class="label-comment">※ご自身の正確なメールアドレスに変更してください。</p>
+        <% end %>
       </div>
       <div class="field">
         <%= f.email_field :email %>
