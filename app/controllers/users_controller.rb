@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: :destroy
-  before_action :admin_user,     only: :destroy
-  before_action :get_user,       only: [:edit, :update, :email_update]
+  before_action :logged_in_user, except: [:new, :create]
+  before_action :get_user,       only:   [:edit, :update, :email_update]
 
   def show
     @user = User.find_by(account_id: params[:account_id])
@@ -29,7 +28,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
     @user = User.find_by(account_id: params[:account_id])
     @user.destroy
     flash[:success] = "削除が完了しました。"

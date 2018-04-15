@@ -5,14 +5,15 @@
 $base: #fff;  /* white */
 $main: #000;  /* black */
 $accent: #ffd700;  /* gold */
-$waccent: #fff462; /* canry yellow*/
+$waccent: #fff462; /* canry yellow */
 $test: #e6e6fa;
 $back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
-$on-green: #78c4ad;   /* green */
+$on-green: #78c4ad;
+$weak-red: #ff6666;
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -137,6 +138,19 @@ select {
   }
 }
 
+.text-danger {
+  color: $weak-red;
+
+  p {
+    font-size: 15px;
+
+    i {
+      font-size: 17px;
+      margin-right: 5px;
+    }
+  }
+}
+
 .cover {
   display: block;
   width: 100%;
@@ -162,7 +176,8 @@ $size:(
   big: 100%,
   large: 80%,
   middle: 60%,
-  small: 40%
+  small: 40%,
+  back: 40%
 );
 
 @each $key, $value in $size {
@@ -170,13 +185,13 @@ $size:(
     border-radius: 5px;
     height: 40px;
     margin: 35px auto;
-    max-width: 320px;
+    max-width: 320px * ($value / 100%);
     width: $value;
 
     input,
     button,
     a {
-      broder-raidus: 5px;
+      border-radius: 5px;
       color: $base;
       display: block;
       font-weight: 550;
@@ -193,6 +208,30 @@ $size:(
   .button-#{key}:hover {
     filter: alpha(opacity = 80);
     opacity: 0.8;
+  }
+}
+
+.button-back {
+  a {
+    border: 1px solid $base-grey;
+    color: $base-grey;
+    font-size: 15px;
+    line-height: 38px;
+
+    i {
+      color: $base-grey;
+      display: block;
+      float: left;
+      line-height: 38px;
+      width: 25%;
+    }
+
+    span {
+      display: block;
+      float: left;
+      margin-right: 22%;
+      width: 53%;
+    }
   }
 }
 
@@ -218,7 +257,8 @@ $size:(
 $color:(
   twitter: $twi-blue,
   accent: $accent,
-  waccent: $waccent
+  waccent: $waccent,
+  danger: $weak-red
 );
 
 @each $key, $value in $color {
@@ -244,11 +284,19 @@ $color:(
   .label {
     margin-bottom: 5px;
 
-    p,
-    span,
     label {
       display: block;
       font-weight: 550;
+
+      span {
+        font-size: 13px;
+        font-weight: 450;
+      }
+    }
+
+    p {
+      font-size: 12.5px;
+      font-weight: 400;
     }
   }
 

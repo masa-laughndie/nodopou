@@ -11,6 +11,7 @@
       <%= render 'shared/error_messages', object: f.object %>
       <div class="label">
         <%= f.label :image, "アイコン" %>
+        <p class="label-comment">※プレビューの通り、切り抜かれます。</p>
       </div>
       <div class="field-file">
         <%= f.label :image, class: "button-upload" do %>
@@ -50,10 +51,10 @@
         <%= f.text_field :name %>
       </div>
       <div class="label">
-        <%= f.label :password, "パスワード" %>
+        <label for="user_password">パスワード<span>（更新したいときのみ入力）</span></label>
       </div>
       <div class="field">
-        <%= f.password_field :password %>
+        <%= f.password_field :password, placeholder: "新しいパスワード" %>
       </div>
       <div class="label">
         <%= f.label :profile, "プロフィール" %>
@@ -99,3 +100,20 @@
     <% end %>
   </div>
 </div>
+<% if logged_in? && current_user?(@user) %>
+  <div class="blank"></div>
+  <div class="container content-mspace">
+    <div class="title-mspace">
+      <h2>退会</h2>
+    </div>
+    <div class="text-danger">
+      <p>
+        <%= fa_icon('exclamation-triangle') %>退会すると全てのリストに関する情報が削除され、復帰することはできません。
+      </p>
+    </div>
+    <div class="button-small button-danger c">
+      <%= link_to "退会する", current_user, method: :delete,
+                  data: { confirm: "退会を取り消すことはできません。本当によろしいですか？" } %>
+    </div>
+  </div>
+<% end %>
