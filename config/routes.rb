@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'lists/index'
+
   root 'statics#home'
 
   get '/help',    to: 'statics#help'
@@ -27,6 +29,11 @@ Rails.application.routes.draw do
 
   resources :users, param: :account_id,
                     only: [:show, :destroy],
-                    path: '/'
+                    path: '/' do
+
+    member do
+      resources :lists, except: :new
+    end
+  end
 
 end
