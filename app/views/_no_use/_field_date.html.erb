@@ -1,0 +1,20 @@
+<div class="field-radio">
+          <%= f.radio_button :end_date, :今日, class: "button-radio" %>
+          <%= f.label :end_date_今日, "今日" %>
+          <%= f.radio_button :end_date, :明日, class: "button-radio" %>
+          <%= f.label :end_date_明日, "明日" %>
+          <%= f.radio_button :end_date, 2, class: "button-radio" %>
+          <%= f.label :end_date_2, "この日" %>
+        </div>
+        <div class="field field-date">
+          <%= raw sprintf(
+              f.date_select(:end_date, use_month_numbers: true,
+                                       start_year: Time.now.year,
+                                       end_year: (Time.now.year + 100),
+                                       default: Date.today,
+                                       date_separator: "%s"),
+              '<span>年</span>', '<span>月</span>') + '<span>日</span>' %>
+          <%= fa_icon('chevron-down', class: "fa-year") %>
+          <%= fa_icon('chevron-down', class: "fa-month") %>
+          <%= fa_icon('chevron-down', class: "fa-day") %>
+        </div>
