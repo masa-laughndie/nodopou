@@ -1,8 +1,10 @@
-<li class="list-<%= list.id %>">
-  <div class="list-active">
-    <%= render 'lists/active_form', list: list %>
-  </div>
+<li class="list" id="list-<%= list.id %>">
+  <a class="list-link" href="<%= list_path(user, list) %>"></a>
   <div class="list-content">
-    <%= list.content %>
+    <%= render 'lists/active_form', list: list %>
+    <div class="list-text over-text">
+      <span class="middle-y"><%= list.content %></span>
+    </div>
+    <%= render 'lists/check_form', list: list %>
   </div>
 </li>

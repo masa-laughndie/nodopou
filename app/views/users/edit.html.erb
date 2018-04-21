@@ -17,7 +17,7 @@
         <%= f.label :image, class: "button-upload" do %>
           <div class="icon-upload">
             <% if @user.image.blank? %>
-              <%= fa_icon("camera") %>
+              <%= fa_icon("camera", class: "middle-xy") %>
             <% else %>
               <%= fa_icon("refresh") %>
             <% end %>
