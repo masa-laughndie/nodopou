@@ -120,6 +120,11 @@ select {
   padding: 0;
 }
 
+.title-nspace {
+  font-size: 20px;
+  padding: 20px 0;
+}
+
 .logo-font {
   font-family: 'Yeon Sung', cursive;
 }
@@ -151,6 +156,10 @@ select {
   }
 }
 
+.active {
+  color: $accent !important;
+}
+
 .cover {
   display: block;
   width: 100%;
@@ -162,6 +171,7 @@ select {
   height: 30px;
   width: 100%;
 }
+
 .clear:after {
   content: " ";
   display: block;
@@ -583,7 +593,7 @@ header {
   width: 100%;
   z-index: 100;
 
-  .content-head {
+  .content-header {
     height: 50px;
     line-height: 50px;
 
@@ -633,6 +643,44 @@ footer {
 
   .copyright a {
     font-size: 16px;
+  }
+}
+
+  /* nav */
+
+nav {
+  background: $base;
+  border-top: 1px solid $weak-grey;
+  height: 51px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+
+  .content-nav {
+    height: 50px;
+
+    .nav-link {
+      float: left;
+      height: 100%;
+      position: relative;
+      width: 33.3%;
+
+      a {
+        display: block;
+        height: 100%;
+        padding-top: 10px;
+
+        i {
+          font-size: 1.1em;
+        }
+
+        p {
+          font-size: 12.5px;
+        }
+      }
+    }
   }
 }
 

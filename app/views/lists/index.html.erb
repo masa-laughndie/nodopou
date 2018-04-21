@@ -1,2 +1,13 @@
-<h1>Lists#index</h1>
-<p>Find me in app/views/lists/index.html.erb</p>
+<% provide(:title, @user.name + "(@" + @user.account_id + ")さんのリスト一覧") %>
+<% provide(:og_title, @user.name + "(@" + @user.account_id + ")さんのリスト一覧") %>
+<% provide(:og_url, lists_url(@user)) %>
+
+<div class="container content-nspace">
+  <div class="title-nspace c">
+    <h2><%= @user.name %>さんのリスト一覧</h2>
+  </div>
+  <ul>
+    <%= render partial: @lists,
+               locals: { user: @user } %>
+  </ul>
+</div>

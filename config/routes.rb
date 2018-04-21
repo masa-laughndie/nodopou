@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'lists/index'
-
   root 'statics#home'
 
   get '/help',    to: 'statics#help'
@@ -17,6 +15,13 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
+
+  resources :lists, only: :none do
+    member do
+      patch '/active',  to: 'lists#update_active'
+      put   '/active',  to: 'lists#update_active'
+    end
+  end
 
   resource :setting, only: :none do
     get '/',        to: 'users#edit'

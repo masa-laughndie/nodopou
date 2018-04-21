@@ -71,3 +71,34 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+//現在位置active化
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.alist').each(function() {
+      var
+        nowPath = location.pathname + location.search,
+        link = $(this).find('a'),
+        linkPath = link.attr('href');
+      if ( nowPath == linkPath ) {
+        link.addClass('active');  
+      }
+    });
+  });
+});
+
+
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $("[id^=list-checkbox").on('click', function(e) {
+      var
+        str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $('#edit_list_' + num).submit();
+      setTimeout(function() {
+        e.preventDefault();
+        return false;
+      }, 300);
+    })
+  });
+});
