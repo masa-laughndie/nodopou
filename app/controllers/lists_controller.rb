@@ -1,8 +1,9 @@
 class ListsController < ApplicationController
+  protect_from_forgery except: :update_active 
 
   before_action :logged_in_user
-  before_action :get_user
-  before_action :set_and_check_list_exist, only: [:show]
+  before_action :get_user,                 except: [:update_active]
+  before_action :set_and_check_list_exist, only:   [:show, :edit, :update]
 
   def index
     @user = User.find_by(account_id: params[:account_id])
@@ -22,6 +23,12 @@ class ListsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
   def destroy
     @list.destroy
     flash[:success] = "リストの削除に成功しました！"
@@ -32,15 +39,10 @@ class ListsController < ApplicationController
     @list = current_user.lists.find_by(id: params[:id])
     if @list
       @list.toggle_active!
-      
-      respond_to do |format|
-        format.html { redirect_to lists_path(current_user) }
-        format.js
-      end
     else
       flash[:danger] = "権限がありません"
-      redirect_to lists_path(current_user)
     end
+    redirect_to lists_path(current_user)
   end
 
   private
