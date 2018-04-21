@@ -1,17 +1,15 @@
 <div class="form">
-  <%= form_for(list, url: active_list_path(list), remote: true, format: :js) do |f| %>
-    <div class="field-checkbox clear">
-      <div class="button-checkbox">
-        <% if list.active? %>
-          <%= check_box 'list', 'active_' + list.id.to_s, {checked: true}, true, false %>
-        <% else %>
-          <%= check_box 'list', 'active_' + list.id.to_s, {}, true, false %>
-        <% end %>
-        <%= label_tag 'list_active_' + list.id.to_s, id: "list-checkbox-" + list.id.to_s do %>
-          <span></span>
-        <% end %>
-        <div class="slide"></div>
-      </div>
+  <div class="field-checkbox clear">
+    <div class="button-checkbox">
+      <% if list.active? %>
+        <%= check_box 'list', 'active_' + list.id.to_s, {checked: true}, true, false %>
+      <% else %>
+        <%= check_box 'list', 'active_' + list.id.to_s, {}, true, false %>
+      <% end %>
+      <%= label_tag 'list_active_' + list.id.to_s, id: "list-checkbox-" + list.id.to_s do %>
+        <span></span>
+      <% end %>
+      <div class="slide"></div>
     </div>
-  <% end %>
+  </div>
 </div>

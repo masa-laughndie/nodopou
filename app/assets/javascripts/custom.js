@@ -90,15 +90,23 @@ document.addEventListener('turbolinks:load', function() {
 
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    $("[id^=list-checkbox").on('click', function(e) {
+    $("[id^=list-checkbox").on('click', function() {
       var
         str = $(this).attr("id"),
         num = str.match(/\d/g).join("");
-      $('#edit_list_' + num).submit();
-      setTimeout(function() {
-        e.preventDefault();
+      $.ajax({
+        type: 'PATCH',
+        url: '/lists/' + num + '/active',
+        dataType: 'html',
+        timeout: 20000
+      })
+      .done(function(data) {
+      })
+      .fail(function() {
+        alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
         return false;
-      }, 300);
-    })
+      });
+      // $('#edit_list_' + num).submit();
+    });
   });
 });
