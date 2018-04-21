@@ -1,0 +1,1 @@
+$('#list-active-<%= @list.id %>').html("<%= escape_javascript(render partial: 'lists/active_form', locals: { list: @list }) %>");
