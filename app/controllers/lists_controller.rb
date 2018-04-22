@@ -38,11 +38,26 @@ class ListsController < ApplicationController
   def update_active
     @list = current_user.lists.find_by(id: params[:id])
     if @list
-      @list.toggle_active!
+      @list.toggle!(:active)
     else
       flash[:danger] = "権限がありません"
     end
     redirect_to lists_path(current_user)
+  end
+
+  def update_check
+    @list = current_user.lists.find_by(id: params[:id])
+    if @list
+      @list.toggle!(:check)
+      
+      respond_to do |format|
+        format.html { redirect_to lists_path(current_user) }
+        format.js
+      end
+    else
+      flash[:danger] = "権限がありません"
+      redirect_to lists_path(current_user)
+    end
   end
 
   private
