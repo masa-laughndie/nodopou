@@ -65,6 +65,10 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
 
+    def new_reset_token
+      SecureRandom.uuid
+    end
+
     def find_or_create_from_auth(auth)
       provider   = auth[:provider]
       uid        = auth[:uid]
@@ -122,6 +126,17 @@ class User < ApplicationRecord
     mail.deliver_now
   end
 
+  def create_reset_digest_and_etoken
+    self.reset_token = User.new_reset_token
+    update_columns(reset_digest:   User.digest(reset_token),
+                   e_token:       User.digest(email),
+                   reset_sent_at: Time.zone.now)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
   def to_param
     account_id
   end
@@ -158,10 +173,6 @@ class User < ApplicationRecord
 
     def downcase_nodoboid
       account_id.downcase!
-    end
-
-    def password_update
-
     end
 
     def image_size
