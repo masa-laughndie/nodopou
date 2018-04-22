@@ -90,7 +90,7 @@ document.addEventListener('turbolinks:load', function() {
 
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    $("[id^=list-checkbox").on('click', function() {
+    $(document).on('click', "[id^=list-checkbox]", function() {
       var
         str = $(this).attr("id"),
         num = str.match(/\d/g).join("");
