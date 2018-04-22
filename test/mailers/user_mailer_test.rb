@@ -18,7 +18,7 @@ class UserMailerTest < ActionMailer::TestCase
   test "password_reset" do
     mail = UserMailer.password_reset(@user)
     mail.transport_encoding = "8bit"
-    assert_equal "パスワード再設定URL発行",        mail.subject
+    assert_equal "仮ログインURL発行",        mail.subject
     assert_equal ["noreply@nodobotoke.com"],  mail.from
     assert_equal [@user.email],               mail.to
     # assert_match "Hi", mail.body.encoded

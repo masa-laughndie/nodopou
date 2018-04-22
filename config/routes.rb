@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+
   root 'statics#home'
 
   get '/help',    to: 'statics#help'
@@ -22,6 +24,14 @@ Rails.application.routes.draw do
       put   '/active',  to: 'lists#update_active'
       patch '/check',   to: 'lists#update_check'
       put   '/check',   to: 'lists#update_check'
+    end
+  end
+
+  resource :password_reset, only: [:new, :create],
+                            path_names: { new: '' } do
+    collection do
+      get :confirm
+      get '/login', to: 'password_resets#edit'
     end
   end
 
