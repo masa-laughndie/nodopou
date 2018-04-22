@@ -551,6 +551,10 @@ $color:(
           .fa-check-square-o {
             color: $weak-red;
           }
+
+          .fa-check-square-o:before {
+            margin-left: 3.5px;
+          }
         }
       }
     }
