@@ -1,0 +1,9 @@
+<% provide(:title, @user.name + "(@" + @user.account_id + ")さんのリスト") %>
+<% provide(:og_title, @user.name + "(@" + @user.account_id + ")さんのリスト") %>
+<% provide(:og_url, list_url(@user, @list)) %>
+
+<div class="container content-mspace">
+  <div class="">
+    <%= @list.content %>
+  </div>
+</div>

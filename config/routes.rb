@@ -16,6 +16,15 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
 
+  resources :lists, only: :none do
+    member do
+      patch '/active',  to: 'lists#update_active'
+      put   '/active',  to: 'lists#update_active'
+      patch '/check',   to: 'lists#update_check'
+      put   '/check',   to: 'lists#update_check'
+    end
+  end
+
   resource :setting, only: :none do
     get '/',        to: 'users#edit'
     patch '/',      to: 'users#update'
@@ -27,6 +36,11 @@ Rails.application.routes.draw do
 
   resources :users, param: :account_id,
                     only: [:show, :destroy],
-                    path: '/'
+                    path: '/' do
+
+    member do
+      resources :lists, except: :new
+    end
+  end
 
 end

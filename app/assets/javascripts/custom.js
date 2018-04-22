@@ -71,3 +71,43 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+//現在位置active化
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.alist').each(function() {
+      var
+        nowPath = location.pathname + location.search,
+        link = $(this).find('a'),
+        linkPath = link.attr('href');
+      if ( nowPath == linkPath ) {
+        link.addClass('active');  
+      }
+    });
+  });
+});
+
+//listのactiveをスライドバーでupdateする
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    //documentにしないとスマホ無効になる
+    $(document).on('click', "[id^=list-checkbox]", function() {
+      var
+        str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $.ajax({
+        type: 'PATCH',
+        url: '/lists/' + num + '/active',
+        dataType: 'html',
+        timeout: 20000
+      })
+      .done(function(data) {
+      })
+      .fail(function() {
+        alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
+        return false;
+      });
+      // $('#edit_list_' + num).submit();
+    });
+  });
+});

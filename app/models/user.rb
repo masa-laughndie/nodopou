@@ -1,7 +1,6 @@
 class User < ApplicationRecord
 
-  attr_accessor :validate_name, :validate_email,
-                :validate_password, :validate_password_confirmation,
+  attr_accessor :validate_name, :validate_email, :validate_password,
                 :remember_token, :reset_token
 
   before_save :downcase_email, if: :validate_email?
@@ -9,11 +8,13 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  validates :name, presence: { message: "名前を入力してください",
-                               if: :validate_name? },
+  has_many :lists, dependent: :destroy
+
+  validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
                                message: "名前は50文字以内まで有効です",
-                               allow_blank: true }
+                               allow_blank: true },
+                   if: :validate_name?
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
   validates :account_id, presence:   { message: "NoDoBoIDを入力してください" },
@@ -27,26 +28,26 @@ class User < ApplicationRecord
                                        allow_nil: true }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  validates :email, presence:   { message: "メールアドレスを入力してください",
-                                  if: :validate_email? },
+  validates :email, presence:   { message: "メールアドレスを入力してください" },
                     length:     { maximum: 255,
                                   message: "メールアドレスは255文字以内まで有効です" },
                     format:     { with: VALID_EMAIL_REGEX,
                                   message: "そのメールアドレスは不正な値を含んでいます",
                                   allow_blank: true },
                     uniqueness: { case_sensitive: false,
-                                  message: "そのメールアドレスは既に登録されています" }
+                                  message: "そのメールアドレスは既に登録されています" },
+                    if: :validate_email?
 
-  has_secure_password
+  has_secure_password validations: false
 
   validates :password, presence:     { message: "Passwordを入力してください",
-                                       if: :validate_password? },
+                                       on: :create },
                        length:       { minimum: 6,
                                        message: "Passwordは6文字以上で入力してください",
                                        allow_blank: true },
                        confirmation: { message: "PasswordとPassword確認が不一致です",
                                        allow_blank: true },
-                       allow_nil:    true
+                       if: :validate_password?
 
   validates :profile, length: { maximum: 160,
                                 massage: "プロフィールは160字以内で入力してください" }
@@ -119,6 +120,17 @@ class User < ApplicationRecord
     account_id
   end
 
+=begin
+  def validate_on?(attribute)
+    validate_target = self.send("validate_#{attribute}")
+    unless validate_target.nil?
+      validate_target.in?(['true', true])
+    else
+      return false
+    end
+  end
+=end
+
   def validate_name?
     validate_name.in?(['true', true])
   end
@@ -131,10 +143,6 @@ class User < ApplicationRecord
     validate_password.in?(['true', true])
   end
 
-  def validate_password_confirmation?
-    validate_password_confirmation.in?(['true', true])
-  end
-
 
   private
 
@@ -144,6 +152,10 @@ class User < ApplicationRecord
 
     def downcase_nodoboid
       account_id.downcase!
+    end
+
+    def password_update
+
     end
 
     def image_size

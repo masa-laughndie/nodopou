@@ -14,5 +14,8 @@
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
+    <% if logged_in? %>
+      <%= render 'layouts/navi' %>
+    <% end %>
   </body>
 </html>
