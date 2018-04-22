@@ -87,9 +87,10 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-
+//listのactiveをスライドバーでupdateする
 document.addEventListener('turbolinks:load', function() {
   $(function() {
+    //documentにしないとスマホ無効になる
     $(document).on('click', "[id^=list-checkbox]", function() {
       var
         str = $(this).attr("id"),
