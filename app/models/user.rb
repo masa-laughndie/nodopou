@@ -116,6 +116,12 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  def send_email(subject)
+    mail = UserMailer.send("#{subject}", self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
+  end
+
   def to_param
     account_id
   end
