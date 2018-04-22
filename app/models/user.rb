@@ -120,6 +120,17 @@ class User < ApplicationRecord
     account_id
   end
 
+=begin
+  def validate_on?(attribute)
+    validate_target = self.send("validate_#{attribute}")
+    unless validate_target.nil?
+      validate_target.in?(['true', true])
+    else
+      return false
+    end
+  end
+=end
+
   def validate_name?
     validate_name.in?(['true', true])
   end

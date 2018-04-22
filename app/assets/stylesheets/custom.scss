@@ -519,6 +519,43 @@ $color:(
     }
   }
 
+  .field-checkbox2 {
+    height: 100%;
+    width: 100%;
+
+    .button-checkbox2 {
+      height: 100%;
+      position: relative;
+      width: 100%;
+
+
+      form {
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        button {
+          font-size: 30px;
+          height: 100%;
+          position: relative;
+          width: 100%;
+
+          i {
+            display: block;
+          }
+
+          .fa-square-o {
+            color: $base-grey;
+          }
+
+          .fa-check-square-o {
+            color: $weak-red;
+          }
+        }
+      }
+    }
+  }
+
   .field-radio {
     margin-bottom: 20px;
     
@@ -906,6 +943,12 @@ nav {
       float: left;
       height: 100%;
       width: 20%;
+
+      .form {
+        height: 36px;
+        width: 36px;
+        z-index: 150;
+      }
     }
   }
 }

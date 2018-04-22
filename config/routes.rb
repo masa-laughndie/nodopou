@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     member do
       patch '/active',  to: 'lists#update_active'
       put   '/active',  to: 'lists#update_active'
+      patch '/check',   to: 'lists#update_check'
+      put   '/check',   to: 'lists#update_check'
     end
   end
 

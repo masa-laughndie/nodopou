@@ -5,6 +5,8 @@
     <div class="list-text over-text">
       <span class="middle-y"><%= list.content %></span>
     </div>
-    <%= render 'lists/check_form', list: list %>
+    <% if logged_in? %>
+      <%= render 'lists/check_form', list: list %>
+    <% end %>
   </div>
 </li>
