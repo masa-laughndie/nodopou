@@ -3,6 +3,7 @@ require 'test_helper'
 class UserSettingTest < ActionDispatch::IntegrationTest
   
   def setup
+    ActionMailer::Base.deliveries.clear
     @user = users(:ac1)
     log_in_as(@user)
   end
@@ -44,6 +45,7 @@ class UserSettingTest < ActionDispatch::IntegrationTest
     #成功
     patch email_setting_path, params: { user: { email: "account1@gmail.com",
                                                 is_send_email: true } }
+    assert_equal 1, ActionMailer::Base.deliveries.size
     assert_not flash.empty?
     assert_redirected_to setting_path
     @user.reload

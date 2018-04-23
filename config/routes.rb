@@ -25,6 +25,24 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :password_reset, only: [:new, :create],
+                            path_names: { new: '' } do
+    collection do
+      get :confirm,
+          :login
+    end
+  end
+
+  resource :contact, only: :new,
+                     path_names: { new: '' } do
+    collection do
+      post '/confirm', to: 'contacts#sub_create'
+      post '/',        to: 'contacts#create'
+      get :confirm,
+          :thanks
+    end
+  end
+
   resource :setting, only: :none do
     get '/',        to: 'users#edit'
     patch '/',      to: 'users#update'

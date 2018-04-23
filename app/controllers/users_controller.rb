@@ -72,6 +72,7 @@ class UsersController < ApplicationController
       flash.now[:danger] = "そのメールアドレスは無効です<br>変更してください"
       render 'edit'
     elsif @user.update_attributes(user_email_params)
+      @user.send_email(:email_update)
       flash[:success] = "メール設定の変更が完了しました！"
       redirect_to setting_path
     else
