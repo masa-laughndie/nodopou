@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
 
-  before_action :valid_user,       only: :edit
-  before_action :check_expiration, only: :edit
+  before_action :valid_user,       only: :login
+  before_action :check_expiration, only: :login
 
   def new
   end
@@ -22,7 +22,7 @@ class PasswordResetsController < ApplicationController
     end
   end
 
-  def edit
+  def login
     log_in @user
     remember @user
     @user.update_attributes(reset_digest: nil, e_token: nil)

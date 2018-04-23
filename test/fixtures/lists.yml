@@ -1,7 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  content: MyString
+list1:
+  content: <%= Faker::Lorem.sentence(5) %>
+  active: true
+  check: false
 
-two:
-  content: MyString
+list2:
+  content: <%= Faker::Lorem.sentence(5) %>
+  active: true
+  check: true
+
+list3:
+  content: <%= Faker::Lorem.sentence(5) %>
+  active: false
+  check: false
