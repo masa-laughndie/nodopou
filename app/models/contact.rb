@@ -11,8 +11,15 @@ class Contact < ApplicationRecord
                       format:   { with:    VALID_EMAIL_REGEX,
                                   message: "そのメールアドレスは不正な値を含んでいます",
                                   allow_blank: true }
-                                  
+
   validates :content, presence: { message: "お問い合わせ内容を入力してください" },
                       length:   { maximum: 2000,
                                   message: "お問い合わせ内容は2000文字まで有効です" }
+
+  def send_email(subject)
+    mail = ContactMailer.send("#{subject}", self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
+  end
+
 end
