@@ -1,0 +1,12 @@
+<li class="list" id="list-<%= list.id %>">
+  <a class="list-link" href="<%= list_path(user, list) %>"></a>
+  <div class="list-content">
+    <%= render 'lists/active_form', list: list %>
+    <div class="list-text over-text">
+      <span class="middle-y"><%= list.content %></span>
+    </div>
+    <% if logged_in? %>
+      <%= render 'lists/check_form', list: list %>
+    <% end %>
+  </div>
+</li>

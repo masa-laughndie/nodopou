@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, except: [:new, :create]
-  before_action :get_user,       only:   [:edit, :update, :email_update]
+  before_action :logged_in_user,       except: [:new, :create]
+  before_action :get_user,             only:   [:edit, :update,
+                                                :email_edit, :email_update]
+  before_action :check_user_authority, only:   :destroy
 
   def show
     @user = User.find_by(account_id: params[:account_id])
@@ -70,6 +72,7 @@ class UsersController < ApplicationController
       flash.now[:danger] = "そのメールアドレスは無効です<br>変更してください"
       render 'edit'
     elsif @user.update_attributes(user_email_params)
+      @user.send_email(:email_update)
       flash[:success] = "メール設定の変更が完了しました！"
       redirect_to setting_path
     else
@@ -98,6 +101,14 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to root_path unless current_user.admin?
+    end
+
+    def check_user_authority
+      @user = User.find_by(account_id: params[:account_id])
+      unless current_user?(@user) || current_user.admin?
+        flash[:danger] = "権限がありません！！"
+        redirect_to root_path
+      end
     end
 
     def get_user

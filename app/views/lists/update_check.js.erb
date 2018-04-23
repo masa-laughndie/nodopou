@@ -1,0 +1,8 @@
+var
+  $target = $('#list-check-<%= @list.id %>'),
+  uncheckButton = $target.find('.button-uncheck');
+if ( uncheckButton.length != 0 ) {
+  $target.html("<%= escape_javascript(render partial: 'lists/check', locals: { list: @list }) %>");
+} else {
+  $target.html("<%= escape_javascript(render partial: 'lists/uncheck', locals: { list: @list }) %>");
+}

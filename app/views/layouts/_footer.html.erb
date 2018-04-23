@@ -1,10 +1,12 @@
 <footer  class="container content-mspace c">
-  <div class="footer-link">
-    <%= link_to fa_icon("caret-right") + "登録/ログインはTOPへ", root_path %>
-  </div>
+  <% unless logged_in? %>
+    <div class="footer-link">
+      <%= link_to fa_icon("caret-right") + "登録/ログインはTOPへ", root_path %>
+    </div>
+  <% end %>
   <div class="footer-link">
     <%= link_to "このサイトについて",   about_path %>
-    <%= link_to "お問い合わせ", '#' %>
+    <%= link_to "お問い合わせ", new_contact_path %>
     <%= link_to "利用規約", terms_path %>
     <%= link_to "プライバシーポリシー", privacy_path %>
   </div>

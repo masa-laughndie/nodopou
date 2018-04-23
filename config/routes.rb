@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'lists/index'
-
   root 'statics#home'
 
   get '/help',    to: 'statics#help'
@@ -17,6 +15,33 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
+
+  resources :lists, only: :none do
+    member do
+      patch '/active',  to: 'lists#update_active'
+      put   '/active',  to: 'lists#update_active'
+      patch '/check',   to: 'lists#update_check'
+      put   '/check',   to: 'lists#update_check'
+    end
+  end
+
+  resource :password_reset, only: [:new, :create],
+                            path_names: { new: '' } do
+    collection do
+      get :confirm,
+          :login
+    end
+  end
+
+  resource :contact, only: :new,
+                     path_names: { new: '' } do
+    collection do
+      post '/confirm', to: 'contacts#sub_create'
+      post '/',        to: 'contacts#create'
+      get :confirm,
+          :thanks
+    end
+  end
 
   resource :setting, only: :none do
     get '/',        to: 'users#edit'

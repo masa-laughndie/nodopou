@@ -8,4 +8,8 @@ class List < ApplicationRecord
                        length:   { maximum: 100,
                                    message: "内容は100文字まで入力できます" }
 
+  def toggle!(attribute)
+    update(attribute.to_sym => !self.send("#{attribute}"))
+  end
+
 end

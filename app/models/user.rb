@@ -65,6 +65,10 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
 
+    def new_reset_token
+      SecureRandom.uuid
+    end
+
     def find_or_create_from_auth(auth)
       provider   = auth[:provider]
       uid        = auth[:uid]
@@ -116,9 +120,37 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  def send_email(subject)
+    mail = UserMailer.send("#{subject}", self)
+    mail.transport_encoding = "8bit"
+    mail.deliver_now
+  end
+
+  def create_reset_digest_and_etoken
+    self.reset_token = User.new_reset_token
+    update_columns(reset_digest:   User.digest(reset_token),
+                   e_token:       User.digest(email),
+                   reset_sent_at: Time.zone.now)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
   def to_param
     account_id
   end
+
+=begin
+  def validate_on?(attribute)
+    validate_target = self.send("validate_#{attribute}")
+    unless validate_target.nil?
+      validate_target.in?(['true', true])
+    else
+      return false
+    end
+  end
+=end
 
   def validate_name?
     validate_name.in?(['true', true])
@@ -141,10 +173,6 @@ class User < ApplicationRecord
 
     def downcase_nodoboid
       account_id.downcase!
-    end
-
-    def password_update
-
     end
 
     def image_size
