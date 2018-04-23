@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'password_resets/new'
-
   root 'statics#home'
 
   get '/help',    to: 'statics#help'
@@ -30,8 +28,18 @@ Rails.application.routes.draw do
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do
     collection do
-      get :confirm
-      get '/login', to: 'password_resets#edit'
+      get :confirm,
+          :login
+    end
+  end
+
+  resource :contact, only: :new,
+                     path_names: { new: '' } do
+    collection do
+      post '/confirm', to: 'contacts#sub_create'
+      post '/',        to: 'contacts#create'
+      get :confirm,
+          :thanks
     end
   end
 
