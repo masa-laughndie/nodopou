@@ -313,6 +313,31 @@ $size:(
   }
 }
 
+.buttons {
+  height: 40px;
+  margin: 25px auto;
+  position: relative;
+
+  .button-left,
+  .button-right {
+    margin: 0;
+    position: relative;
+    width: 35%;
+  }
+
+  .button-left {
+    float: left;
+    left: 25%;
+    transform: translateX(-50%);
+  }
+
+  .button-right {
+    float: right;
+    right: 25%;
+    transform: translateX(50%);
+  }
+}
+
 $color:(
   twitter: $twi-blue,
   accent: $accent,
