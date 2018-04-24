@@ -4,7 +4,7 @@
       <%= link_to fa_icon("home") + "<p>マイページ</p>".html_safe, current_user %>
     </div>
     <div class="nav-link alist">
-      <%= link_to fa_icon("list-ul") + "<p>リスト一覧</p>".html_safe, lists_path(current_user) %>
+      <%= link_to fa_icon("list-ul") + "<p>マイリスト一覧</p>".html_safe, lists_path(current_user) %>
     </div>
     <div class="nav-link alist">
       <%= link_to fa_icon("cog") + "<p>設定</p>".html_safe, setting_path %>
