@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(account_id: params[:account_id])
+    @lists = @user.lists.where(active: true)
     @list = current_user.lists.build
   end
 
