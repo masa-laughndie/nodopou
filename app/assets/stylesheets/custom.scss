@@ -688,6 +688,54 @@ $color:(
   }
 }
 
+.form-inner {
+  
+  form {
+    position: relative;
+    width: 100%;
+
+    .field-inner input,
+    .button-inner {
+      border-radius: 5px;
+      height: 40px;
+    }
+
+    .field-inner input {
+      background: rgba(255,244,98,0.3);
+      display: block;
+      line-height: 30px;
+      padding: 5px 40px 5px 20px;
+      width: 100%;
+    }
+
+    .field-inner input:focus {
+      background: $weak-grey;
+    }
+
+    .button-inner {
+      position: absolute;
+      top:0;
+      right: 0;
+      width: 40px;
+
+      button {
+        display: block;
+        height: 100%;
+        width: 100%;
+
+        i {
+          color: $base-grey;
+        }
+
+        .focus-on {
+          color: $main;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
 /* layouts */
   
   /* header */
