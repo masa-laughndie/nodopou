@@ -30,10 +30,16 @@
     </div>
   </div>
   <div class="border"></div>
-  <ul>
-    <%= render partial: @lists,
-               locals: { user: @user } %>
-  </ul>
+  <% if @lists.any? %>
+    <ul>
+      <%= render partial: @lists,
+                 locals: { user: @user } %>
+    </ul>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'list',
+                         text: 'list' } %>
+  <% end %>
 </div>
 <div class="blank"></div>
 <% if logged_in? && current_user?(@user) %>
@@ -45,7 +51,7 @@
     <div class="content-mspace form">
       <%= form_for(@list, url: lists_url(@user)) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
-        <div class="field field-area">
+        <div class="field field-area list-area">
           <%= f.text_area :content %>
         </div>
         <div class="button-small button-accent">

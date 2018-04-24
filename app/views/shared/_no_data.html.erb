@@ -1,0 +1,24 @@
+<div class="nothing c">
+  <% case icon
+     when 'list' %>
+    <%= fa_icon('image') %>
+  <% when 'user' %>
+    <%= fa_icon('user-o') %>
+  <% when 'search' %>
+    <%= fa_icon('search') %>
+  <% else %>
+    <%= fa_icon('question') %>
+  <% end %>
+  <div class="nothing-text">
+    <% case text
+       when 'list' %>
+      <p>実行中のリストがありません</p>
+    <% when 'user' %>
+      <p>表示できるデータがありません</p>
+    <% when 'search' %>
+      <p>検索結果は０件です</p><p>キーワードを確認してみてください</p>
+    <% else %>
+      <p>表示できるデータがありません</p>
+    <% end %>
+  </div>
+</div>
