@@ -858,6 +858,25 @@ nav {
   }
 }
 
+  /* no_data */
+
+.nothing {
+  background: $base;
+  padding: 10px 0;
+
+  i {
+    color: $base-grey;
+    display: block;
+    font-size: 3em;
+  }
+
+  .nothing-text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+}
+
 /* static */
 
 .poricy {
@@ -923,6 +942,13 @@ nav {
 .user-aid {
   color: $base-grey;
   margin-bottom: 5px;
+}
+
+.list-area {
+  textarea {
+    min-height: 80px !important;
+    max-height: 160px !important;
+  }
 }
 
 /* list */
