@@ -39,7 +39,7 @@ body {
   /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
   font-size: 1.0em;
   position: relative;
-  padding-bottom: 51px 0;
+  padding-bottom: 51px;
 }
 
 a {
@@ -877,18 +877,32 @@ nav {
 
   /* show */
 
-.user-set {
-  height: 30px;
+.side-option {
+  background: $weak-grey;
+  border-radius: 5px;
+  min-width: 60px;
+  padding: 0 5px;
   position: absolute;
-  top: 20px;
-  right:20px;
-  width: 30px;
+  top: 13px;
+  right: 13px;
 
   a {
     color: $main;
     display: block;
     font-size: 20px;
-    line-height: 30px;
+    position: relative;
+
+    i {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+      position: relative;
+      width: 30px;
+    }
+
+    p {
+      font-size: 10px;
+    }
   }
 }
 
@@ -957,13 +971,13 @@ nav {
           width: 60px;
 
           label span:after {
-            content: "OFF";
+            content: "休息";
             color: $base-grey;
             padding: 0 0 0 25px;
           }
 
           input:checked + label span:after {
-            content: "ON";
+            content: "修行";
             color: $base;
             padding: 0 25px 0 0;
           }
@@ -973,6 +987,36 @@ nav {
             background: $base;
             box-shadow: none;
           }
+        }
+      }
+
+      .active-on,
+      .active-off {
+        border-radius: 50%;
+        position: relative;
+        font-size: 10px;
+        height: 40px;
+        width: 40px;
+
+        span {
+          line-height: 40px;
+        }
+      }
+
+      .active-on {
+        background: $on-green;
+
+        span {
+          color: $base;
+        }
+      }
+
+      .active-off {
+        background: #fbfbfb;
+        border: 1px solid #e8eae9;
+
+        span {
+          color: $base-grey;
         }
       }
     }
