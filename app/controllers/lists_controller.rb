@@ -21,6 +21,7 @@ class ListsController < ApplicationController
       redirect_to current_user
     else
       @user = current_user
+      @lists = @user.lists.where(active: true)
       render 'users/show'
     end
   end
