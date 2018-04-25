@@ -11,6 +11,14 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def check_user
+      @user = User.find_by(account_id: params[:account_id])
+      unless @user
+        flash[:danger] = "そのページは存在しません"
+        redirect_to current_user
+      end
+    end
+
     def not_found
       raise ActionContorller::RoutingError.new('Not Found')
     end
