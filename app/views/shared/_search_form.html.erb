@@ -1,0 +1,9 @@
+<%= form_tag('/search', method: "get", enforce_utf8: false) do %>
+  <div class="field-inner">
+    <%= text_field_tag :keyword, params[:keyword],
+                       placeholder: "キーワード検索" %>
+  </div>
+  <div class="button-inner">
+    <%= button_tag fa_icon('search'), name: nil %>
+  </div>
+<% end %>

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
 
+  get '/search', to: 'searches#search'
+
   resources :lists, only: :none do
     member do
       patch '/active',  to: 'lists#update_active'

@@ -111,3 +111,14 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('#keyword').focus(　function() {
+      icon = $('.button-inner').find('.fa-search')
+      icon.addClass('focus-on')
+    }).blur( function() {
+      icon.removeClass('focus-on')
+    });
+  });
+});

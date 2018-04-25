@@ -48,6 +48,10 @@
       <h2>リスト検索・追加</h2>
     </div>
     <div class="border"></div>
+    <div class="content-mspace form form-inner">
+      <%= render 'shared/search_form' %>
+    </div>
+    <div class="border"></div>
     <div class="content-mspace form">
       <%= form_for(@list, url: lists_url(@user)) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
