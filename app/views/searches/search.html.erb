@@ -15,7 +15,8 @@
     <% if @lists.any? %>
       <ul>
         <%= render partial: @lists,
-                   locals: { user: current_user } %>
+                   locals: { user: current_user,
+                             mode: 'search' } %>
       </ul>
     <% else %>
       <%= render partial: 'shared/no_data',
