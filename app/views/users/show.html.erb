@@ -5,7 +5,9 @@
 <div class="container content-mspace c">
   <% if logged_in? && current_user?(@user) %>
     <div class="side-option side-link1">
-      <%= link_to fa_icon('cog', class: "middle-x") + "<p>設定</p>".html_safe, setting_path %>
+      <%= link_to fa_icon('cog', class: "middle-x") +
+                  "<p>設定</p>".html_safe,
+                  setting_path %>
     </div>
   <% end %>
   <div class="user-image">
@@ -26,7 +28,9 @@
   <div class="title-nspace c">
     <h2>実行リスト一覧</h2>
     <div class="side-option side-link2">
-      <%= link_to fa_icon("list-ul" ,class: "middle-x") + "<p>全リスト</p>".html_safe, lists_path(@user) %>
+      <%= link_to fa_icon("list-ul" ,class: "middle-x") +
+                  "<p>全リスト</p>".html_safe,
+                  lists_path(@user) %>
     </div>
   </div>
   <div class="border"></div>
@@ -46,6 +50,11 @@
   <div class="container content-nspace">
     <div class="title-nspace c">
       <h2>リスト検索・追加</h2>
+      <div class="side-option side-link3">
+        <%= link_to fa_icon("search", class: "middle-x") +
+                    "<p>リスト検索</p>".html_safe,
+                    search_path %>
+      </div>
     </div>
     <div class="border"></div>
     <div class="content-mspace form form-inner">
