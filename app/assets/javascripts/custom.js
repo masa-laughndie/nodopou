@@ -75,7 +75,18 @@ document.addEventListener('turbolinks:load', function() {
 //現在位置active化
 document.addEventListener('turbolinks:load', function() {
   $(function() {
+    //ナビゲーションactive
     $('.alist').each(function() {
+      var
+        nowPath = location.pathname,
+        link = $(this).find('a'),
+        linkPath = link.attr('href');
+      if ( nowPath == linkPath ) {
+        link.addClass('active');  
+      }
+    });
+
+    $('.alist-sub').each(function() {
       var
         nowPath = location.pathname + location.search,
         link = $(this).find('a'),
