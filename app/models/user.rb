@@ -8,7 +8,13 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  has_many :lists, dependent: :destroy
+  #自分が開いた宗派
+  has_many :create_lists, class_name: "List",
+                          dependent: :destroy
+
+  #所属宗派
+  has_many :mylists, dependent: :destroy
+  has_many :lists,   through: :mylists
 
   validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
@@ -115,6 +121,10 @@ class User < ApplicationRecord
 
   end
 
+  def to_param
+    account_id
+  end
+
   def set_name_and_email(param)
     self.name = param
     self.email = "#{param}@example.com"
@@ -143,7 +153,7 @@ class User < ApplicationRecord
 
   def create_reset_digest_and_etoken
     self.reset_token = User.new_reset_token
-    update_columns(reset_digest:   User.digest(reset_token),
+    update_columns(reset_digest:  User.digest(reset_token),
                    e_token:       User.digest(email),
                    reset_sent_at: Time.zone.now)
   end
@@ -152,8 +162,12 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  def to_param
-    account_id
+  def avail(list)
+    mylists.create(list_id: list.id)
+  end
+
+  def unavail(list)
+    mylists.find_by(list_id: list.id).destroy
   end
 
 =begin

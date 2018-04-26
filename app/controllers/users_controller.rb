@@ -7,8 +7,8 @@ class UsersController < ApplicationController
   before_action :check_user_authority, only:   :destroy
 
   def show
-    @lists = @user.lists.where(active: true)
-    @list = current_user.lists.build
+    @mylists = @user.mylists.where(active: true).includes(:list)
+    @list = current_user.create_lists.build
   end
 
   def new

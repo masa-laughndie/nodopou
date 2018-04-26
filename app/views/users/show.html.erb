@@ -30,15 +30,14 @@
     <div class="side-option side-link2">
       <%= link_to fa_icon("list-ul" ,class: "middle-x") +
                   "<p>全リスト</p>".html_safe,
-                  lists_path(@user) %>
+                  mylists_path(@user) %>
     </div>
   </div>
   <div class="border"></div>
-  <% if @lists.any? %>
+  <% if @mylists.any? %>
     <ul>
-      <%= render partial: @lists,
-                 locals: { user: @user,
-                           mode: 'normal' } %>
+      <%= render partial: @mylists,
+                 locals: { user: @user } %>
     </ul>
   <% else %>
     <%= render partial: 'shared/no_data',

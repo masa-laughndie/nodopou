@@ -1,0 +1,11 @@
+<div class="list-check">
+  <div class="form middle-xy">
+    <div id="list-check-<%= mylist.id %>" class="field-checkbox2 clear">
+      <% if mylist.check? %>
+        <%= render partial: 'mylists/uncheck', locals: { mylist: mylist } %>
+      <% else %>
+        <%= render partial: 'mylists/check', locals: { mylist: mylist } %>
+      <% end %>
+    </div>
+  </div>
+</div>

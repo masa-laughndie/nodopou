@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+my1:
+  user: ac1
+  list: list1
+  active: true
+  check: false
+
+my2:
+  user: ac1
+  list: list2
+  active: true
+  check: true
+
+my3:
+  user: ac2
+  list: list3
+  active: false
+  check: false
