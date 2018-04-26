@@ -3,19 +3,22 @@
     <div class="form middle-xy">
       <div class="field-checkbox clear">
         <div class="button-checkbox">
-          <% if list.active? %>
-            <%= check_box 'list', 'active_' + list.id.to_s, {checked: true}, true, false %>
+          <% if mylist.active? %>
+            <%= check_box 'mylist', 'active_' + mylist.id.to_s,
+                          {checked: true}, true, false %>
           <% else %>
-            <%= check_box 'list', 'active_' + list.id.to_s, {}, true, false %>
+            <%= check_box 'mylist', 'active_' + mylist.id.to_s,
+                          {}, true, false %>
           <% end %>
-          <%= label_tag 'list_active_' + list.id.to_s, id: "list-checkbox-" + list.id.to_s do %>
+          <%= label_tag 'mylist_active_' + mylist.id.to_s,
+                        id: "list-checkbox-" + mylist.id.to_s do %>
             <span></span>
           <% end %>
           <div class="slide"></div>
         </div>
       </div>
     </div>
-  <% elsif list.active? %>
+  <% elsif mylist.active? %>
     <div class="active-on middle-xy c">
       <span>ON</span>
     </div>

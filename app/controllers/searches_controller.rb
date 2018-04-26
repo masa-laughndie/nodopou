@@ -5,7 +5,7 @@ class SearchesController < ApplicationController
   def search
     @user = current_user
     @users = User.search(params[:keyword])
-    @lists = List.search(params[:keyword]).includes(:user)
+    @lists = List.search(params[:keyword])
   end
 
 end

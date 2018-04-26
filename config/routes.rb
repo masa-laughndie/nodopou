@@ -18,14 +18,16 @@ Rails.application.routes.draw do
 
   get '/search', to: 'searches#search'
 
-  resources :lists, only: :none do
+  resources :mylists, only: :none do
     member do
-      patch '/active',  to: 'lists#update_active'
-      put   '/active',  to: 'lists#update_active'
-      patch '/check',   to: 'lists#update_check'
-      put   '/check',   to: 'lists#update_check'
+      patch '/active',  to: 'mylists#update_active'
+      put   '/active',  to: 'mylists#update_active'
+      patch '/check',   to: 'mylists#update_check'
+      put   '/check',   to: 'mylists#update_check'
     end
   end
+
+  resources :lists, only: [:create, :destroy]
 
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do
@@ -59,7 +61,8 @@ Rails.application.routes.draw do
                     path: '/' do
 
     member do
-      resources :lists, except: :new
+      resources :mylists, except: :new,
+                          path: '/mylist'
     end
   end
 

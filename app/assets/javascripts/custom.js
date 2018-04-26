@@ -97,7 +97,7 @@ document.addEventListener('turbolinks:load', function() {
         num = str.match(/\d/g).join("");
       $.ajax({
         type: 'PATCH',
-        url: '/lists/' + num + '/active',
+        url: '/mylists/' + num + '/active',
         dataType: 'html',
         timeout: 20000
       })

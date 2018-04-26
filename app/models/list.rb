@@ -1,7 +1,11 @@
 class List < ApplicationRecord
 
+  #開祖
   belongs_to :user
 
+  #実行者たち
+  has_many   :mylists, dependent: :destroy
+  has_many   :users,   through:   :mylists
 
   validates :user_id,  presence: { message: "ユーザーが特定できません" }
   validates :content,  presence: { message: "内容を入力してください" },
@@ -25,8 +29,8 @@ class List < ApplicationRecord
 
   end
 
-  def toggle!(attribute)
-    update(attribute.to_sym => !self.send("#{attribute}"))
+  def availed?
+    users.any?
   end
 
 end
