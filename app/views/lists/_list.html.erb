@@ -1,18 +1,10 @@
 <li class="list" id="list-<%= list.id %>">
-  <a class="list-link" href="<%= list_path(list.user, list) %>"></a>
+  <a class="list-link" href="#"></a>
   <div class="list-content">
-    <% if mode == 'normal' %>
-      <%= render partial: 'lists/active_form',
-                 locals: { user: user,
-                           list: list } %>
-    <% else %>
-      <div class="list-active"></div>
-    <% end %>
+    <div class="list-active"></div>
     <div class="list-text over-text">
       <span class="middle-y"><%= list.content %></span>
     </div>
-    <% if current_user?(user) && list.active? && mode == 'normal' %>
-      <%= render 'lists/check_form', list: list %>
-    <% end %>
+    <div class="list-check"></div>
   </div>
 </li>

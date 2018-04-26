@@ -3,8 +3,7 @@ require 'test_helper'
 class ListTest < ActiveSupport::TestCase
   
   def setup
-    @user = users(:ac1)
-    @list = @user.lists.build(content: "テストテストテストテストテスト")
+    @list = lists(:list1)
   end
 
   test 'should be valid' do

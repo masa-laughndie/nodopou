@@ -27,7 +27,7 @@ class UserMailer < ApplicationMailer
   #
   def list_check_notice(user)
     @user = user
-    @list = @user.lists.where(active: true)
+    @mylist = @user.mylists.where(active: true)
     mail to: user.email, subject: "リストふりかえり通知"
   end
 end

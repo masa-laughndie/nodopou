@@ -1,0 +1,14 @@
+<% provide(:title, @user.name + "(@" + @user.account_id + ")さんのリスト一覧") %>
+<% provide(:og_title, @user.name + "(@" + @user.account_id + ")さんのリスト一覧") %>
+<% provide(:og_url, mylists_url(@user)) %>
+
+<div class="container content-nspace">
+  <div class="title-nspace c">
+    <h1><%= @user.name %>さんのリスト一覧</h1>
+  </div>
+  <div class="border"></div>
+  <ul>
+    <%= render partial: @mylists,
+               locals: { user: @user } %>
+  </ul>
+</div>
