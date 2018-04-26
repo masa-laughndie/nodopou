@@ -5,7 +5,7 @@
 $base: #fff;  /* white */
 $main: #000;  /* black */
 $accent: #ffd700;  /* gold rgba(255,215,0)*/
-$waccent: #fff462; /* canry yellow rgab(255,244,98)*/
+$waccent: #fff462; /* canry yellow rgba(255,244,98)*/
 $test: #e6e6fa;
 $back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
@@ -725,6 +725,7 @@ $color:(
 
         i {
           color: $base-grey;
+          font-size: 13.4px
         }
 
         .focus-on {
@@ -910,7 +911,7 @@ nav {
 
 .nothing {
   background: $base;
-  padding: 10px 0;
+  padding: 40px 0;
 
   i {
     color: $base-grey;
@@ -1118,5 +1119,25 @@ nav {
         z-index: 150;
       }
     }
+  }
+}
+
+.list-item {
+  background: rgba(255,244,98,0.2);
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+
+  .item-right,
+  .item-left,
+  .item-center {
+    float: left;
+    height: 100%;
+    width: 20%;
+  }
+
+  .item-center {
+    width: 60%;
   }
 }

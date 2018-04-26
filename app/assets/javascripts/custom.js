@@ -86,6 +86,7 @@ document.addEventListener('turbolinks:load', function() {
       }
     });
 
+    //sub-menuのactive化
     $('.alist-sub').each(function() {
       var
         nowPath = location.pathname + location.search,

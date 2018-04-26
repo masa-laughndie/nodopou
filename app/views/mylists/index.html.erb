@@ -4,11 +4,32 @@
 
 <div class="container content-nspace">
   <div class="title-nspace c">
-    <h1><%= @user.name %>さんのリスト一覧</h1>
+    <% if current_user?(@user) %>
+      <h1>マイリスト一覧</h1>
+    <% else %>
+      <h1><%= @user.name %>さんのリスト一覧</h1>
+    <% end %>
   </div>
   <div class="border"></div>
-  <ul>
-    <%= render partial: @mylists,
-               locals: { user: @user } %>
-  </ul>
+  <% if @mylists.any? %>
+    <% if current_user?(@user) %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: 'Dayチェック' } %>
+    <% else %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: '便乗？' } %>
+    <% end %>
+    <ul>
+      <%= render partial: @mylists,
+                 locals: { user: @user } %>
+    </ul>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'list',
+                         text: 'list-search' } %>
+  <% end %>
 </div>

@@ -13,8 +13,11 @@
     <% case text
        when 'list' %>
       <p>実行中のリストがありません</p><p>下の「リスト検索・追加」から追加できます</p>
-    <% when 'user' %>
-      <p>表示できるデータがありません</p>
+    <% when 'list-search' %>
+      <p>実行中のリストがありません</p><p>以下からリストをキーワード検索して追加できます</p>
+      <div class="content-mspace form form-inner">
+        <%= render 'shared/search_form' %>
+      </div>
     <% when 'search' %>
       <p>上のフォームより</p><p>キーワードを入力してください</p>
     <% when 'no-hit' %>

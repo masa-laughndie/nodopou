@@ -35,6 +35,18 @@
   </div>
   <div class="border"></div>
   <% if @mylists.any? %>
+    <% if current_user?(@user) %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: 'Dayチェック' } %>
+    <% else %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: '便乗？' } %>
+    <% end %>
+    <div class="border"></div>
     <ul>
       <%= render partial: @mylists,
                  locals: { user: @user } %>
