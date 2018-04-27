@@ -30,7 +30,19 @@ class List < ApplicationRecord
   end
 
   def availed?
-    users.any?
+    user_count == 0
+  end
+
+  def joined_user
+    increment!(:user_count, by = 1)
+  end
+
+  def leaved_user
+    decrement!(:user_count, by = 1)
+  end
+
+  def set_create_user_none
+    update_attribute(user_id: 0)
   end
 
 end

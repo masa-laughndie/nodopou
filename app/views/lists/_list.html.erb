@@ -1,10 +1,15 @@
 <li class="list" id="list-<%= list.id %>">
   <a class="list-link" href="#"></a>
   <div class="list-content">
-    <div class="list-active"></div>
+    <div class="list-active">
+      <div class="active-count middle-xy c">
+        <span id="active-count-<%= list.id %>" ><%= list.user_count %></span>
+      </div>
+    </div>
     <div class="list-text over-text">
       <span class="middle-y"><%= list.content %></span>
     </div>
-    <div class="list-check"></div>
+    <%= render partial: 'lists/avail_form',
+               locals: { list: list } %>
   </div>
 </li>

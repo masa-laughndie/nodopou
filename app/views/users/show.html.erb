@@ -54,7 +54,8 @@
   <% else %>
     <%= render partial: 'shared/no_data',
                locals: { icon: 'list',
-                         text: 'list' } %>
+                         text: 'list',
+                         user: @user } %>
   <% end %>
 </div>
 <div class="blank"></div>

@@ -13,19 +13,21 @@ class MylistsController < ApplicationController
   def show
     unless @mylist = @user.mylists.find_by(id: params[:id])
       flash[:danger] = "そのページは存在しません"
-      redirect_to mylists_path(@user)
+      redirect_to mylists_user_path(@user)
     end
   end
 
   def create
-    if @list = List.find_by(id: params[:id])
+    if @list = List.find_by(id: params[:list_id])
       current_user.avail(@list)
-      flash[:success] = "リストの作成が完了しました！"
-      redirect_to current_user
+      @list.joined_user
+      respond_to do |format|
+        format.html { redirect_to mylists_user_path(current_user) }
+        format.js
+      end
     else
-      @user = current_user
-      @lists = @user.lists.where(active: true)
-      render 'users/show'
+      flash[:denger] = "リストに便乗できませんでした"
+      redirect_to current_user
     end
   end
 
@@ -36,24 +38,31 @@ class MylistsController < ApplicationController
   end
 
   def destroy
+    @list = List.find_by(id: params[:list_id])
     current_user.unavail(@list)
-    unless @mylist.availed?
-      @mylist.destroy
+    @list.leaved_user
+=begin
+    unless @list.availed?
+      @list.destroy
     end
-    flash[:success] = "リストの削除に成功しました！"
-    redirect_to lists_path(current_user)
+=end
+    flash[:success] = "リストを削除しました！"
+    respond_to do |format|
+      format.html { redirect_to mylists_user_path(current_user) }
+      format.js
+    end
   end
 
   def update_active
     @mylist.toggle!(:active)
-    redirect_to mylists_path(current_user)
+    redirect_to mylists_user_path(current_user)
   end
 
   def update_check
     @mylist.toggle!(:check)
     
     respond_to do |format|
-      format.html { redirect_to mylists_path(current_user) }
+      format.html { redirect_to mylists_user_path(current_user) }
       format.js
     end
   end

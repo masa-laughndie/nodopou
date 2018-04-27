@@ -1,5 +1,5 @@
 <li class="list" id="list-<%= mylist.id %>">
-  <a class="list-link" href="<%= mylist_path(mylist.user, mylist) %>"></a>
+  <a class="list-link" href="<%= mylist_user_path(mylist.user, mylist) %>"></a>
   <div class="list-content">
     <%= render partial: 'mylists/active_form',
                locals: { user: user,

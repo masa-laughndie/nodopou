@@ -30,6 +30,7 @@
   <% else %>
     <%= render partial: 'shared/no_data',
                locals: { icon: 'list',
-                         text: 'list-search' } %>
+                         text: 'list-search',
+                         user: @user } %>
   <% end %>
 </div>

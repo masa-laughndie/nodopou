@@ -170,6 +170,10 @@ class User < ApplicationRecord
     mylists.find_by(list_id: list.id).destroy
   end
 
+  def availing?(list)
+    mylists.pluck(:list_id).include?(list.id)
+  end
+
 =begin
   def validate_on?(attribute)
     validate_target = self.send("validate_#{attribute}")

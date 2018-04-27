@@ -1034,39 +1034,40 @@ nav {
       .form {
         width: 60px;
         z-index: 150;
-      }
 
-      .form .field-checkbox {
-        margin: 0;
-        position: relative;
-
-        .button-checkbox {
-          font-size: 10px;
+        .field-checkbox {
           margin: 0;
-          width: 60px;
+          position: relative;
 
-          label span:after {
-            content: "休息";
-            color: $base-grey;
-            padding: 0 0 0 25px;
-          }
+          .button-checkbox {
+            font-size: 10px;
+            margin: 0;
+            width: 60px;
 
-          input:checked + label span:after {
-            content: "修行";
-            color: $base;
-            padding: 0 25px 0 0;
-          }
+            label span:after {
+              content: "休息";
+              color: $base-grey;
+              padding: 0 0 0 25px;
+            }
 
-          input:checked ~ .slide {
-            transform: translateX(30px);
-            background: $base;
-            box-shadow: none;
+            input:checked + label span:after {
+              content: "修行";
+              color: $base;
+              padding: 0 25px 0 0;
+            }
+
+            input:checked ~ .slide {
+              transform: translateX(30px);
+              background: $base;
+              box-shadow: none;
+            }
           }
         }
       }
 
       .active-on,
-      .active-off {
+      .active-off,
+      .active-count {
         border-radius: 50%;
         position: relative;
         font-size: 10px;
@@ -1094,6 +1095,17 @@ nav {
           color: $base-grey;
         }
       }
+
+      .active-count {
+        background: $weak-grey;
+        font-size: 12px;
+        height: 50px;
+        width: 50px;
+
+        span {
+          line-height: 50px;
+        }
+      }
     }
 
     .list-text {
@@ -1108,7 +1120,8 @@ nav {
       }
     }
 
-    .list-check {
+    .list-check,
+    .list-avail {
       float: left;
       height: 100%;
       width: 20%;
