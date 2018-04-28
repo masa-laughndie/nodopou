@@ -5,7 +5,9 @@
 <div class="container content-mspace c">
   <% if logged_in? && current_user?(@user) %>
     <div class="side-option side-link1">
-      <%= link_to fa_icon('cog', class: "middle-x") + "<p>設定</p>".html_safe, setting_path %>
+      <%= link_to fa_icon('cog', class: "middle-x") +
+                  "<p>設定</p>".html_safe,
+                  setting_path %>
     </div>
   <% end %>
   <div class="user-image">
@@ -26,26 +28,56 @@
   <div class="title-nspace c">
     <h2>実行リスト一覧</h2>
     <div class="side-option side-link2">
-      <%= link_to fa_icon("list-ul" ,class: "middle-x") + "<p>全リスト</p>".html_safe, lists_path(@user) %>
+      <%= link_to fa_icon("list-ul" ,class: "middle-x") +
+                  "<p>全リスト</p>".html_safe,
+                  mylists_user_path(@user) %>
     </div>
   </div>
   <div class="border"></div>
-  <ul>
-    <%= render partial: @lists,
-               locals: { user: @user } %>
-  </ul>
+  <% if @mylists.any? %>
+    <% if current_user?(@user) %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: 'Dayチェック' } %>
+    <% else %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: '便乗？' } %>
+    <% end %>
+    <div class="border"></div>
+    <ul>
+      <%= render partial: @mylists,
+                 locals: { user: @user } %>
+    </ul>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+               locals: { icon: 'list',
+                         text: 'list',
+                         user: @user } %>
+  <% end %>
 </div>
 <div class="blank"></div>
 <% if logged_in? && current_user?(@user) %>
   <div class="container content-nspace">
     <div class="title-nspace c">
       <h2>リスト検索・追加</h2>
+      <div class="side-option side-link3">
+        <%= link_to fa_icon("search", class: "middle-x") +
+                    "<p>リスト検索</p>".html_safe,
+                    search_path %>
+      </div>
+    </div>
+    <div class="border"></div>
+    <div class="content-mspace form form-inner">
+      <%= render 'shared/search_form' %>
     </div>
     <div class="border"></div>
     <div class="content-mspace form">
       <%= form_for(@list, url: lists_url(@user)) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
-        <div class="field field-area">
+        <div class="field field-area list-area">
           <%= f.text_area :content %>
         </div>
         <div class="button-small button-accent">

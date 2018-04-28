@@ -1,0 +1,32 @@
+<div class="nothing c">
+  <% case icon
+     when 'list' %>
+    <%= fa_icon('list-ul') %>
+  <% when 'user' %>
+    <%= fa_icon('user-o') %>
+  <% when 'search' %>
+    <%= fa_icon('search') %>
+  <% else %>
+    <%= fa_icon('question') %>
+  <% end %>
+  <div class="nothing-text">
+    <% case text
+       when 'list' %>
+      <p>実行中のリストがありません</p><p>下の「リスト検索・追加」から追加できます</p>
+    <% when 'list-search' %>
+      <p>実行中のリストがありません</p>
+      <% if current_user?(user) %>
+        <p>以下からリストをキーワード検索して追加できます</p>
+        <div class="content-mspace form form-inner">
+          <%= render 'shared/search_form' %>
+        </div>
+      <% end %>
+    <% when 'search' %>
+      <p>上のフォームより</p><p>キーワードを入力してください</p>
+    <% when 'no-hit' %>
+      <p>検索結果は０件です</p><p>キーワードを確認してみてください</p>
+    <% else %>
+      <p>表示できるデータがありません</p>
+    <% end %>
+  </div>
+</div>

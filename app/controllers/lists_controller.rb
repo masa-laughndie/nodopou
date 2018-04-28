@@ -1,26 +1,17 @@
 class ListsController < ApplicationController
-  protect_from_forgery except: :update_active 
 
   before_action :logged_in_user
-  before_action :set_and_check_list_exist, only: :show
-  before_action :check_user_authority,     only: [:edit, :update,
-                                                  :update_active, :update_check]
-
-  def index
-    @user = User.find_by(account_id: params[:account_id])
-    @lists = @user.lists.order(active: :desc)
-  end
-
-  def show
-  end
+  before_action :check_user_authority, only: :destroy
 
   def create
-    @list = current_user.lists.build(list_params)
+    @list = current_user.create_lists.build(list_params)
     if @list.save
+      current_user.avail(@list)
       flash[:success] = "リストの作成が完了しました！"
       redirect_to current_user
     else
       @user = current_user
+      @mylists = @user.mylists.where(active: true)
       render 'users/show'
     end
   end
@@ -32,23 +23,14 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @list.destroy
-    flash[:success] = "リストの削除に成功しました！"
-    redirect_to lists_path(current_user)
-  end
-
-  def update_active
-    @list.toggle!(:active)
-    redirect_to lists_path(current_user)
-  end
-
-  def update_check
-    @list.toggle!(:check)
-    
-    respond_to do |format|
-      format.html { redirect_to lists_path(current_user) }
-      format.js
+    current_user.unavail(@list)
+    unless @list.availed?
+      @list.destroy
+    else
+      @list.set_create_user_none
     end
+    flash[:success] = "リストの削除に成功しました！"
+    redirect_to current_user
   end
 
   private
@@ -57,22 +39,12 @@ class ListsController < ApplicationController
       params.require(:list).permit(:content)
     end
 
-    def set_and_check_list_exist
-      @user = User.find_by(account_id: params[:account_id])
-      if !@user
-        flash[:danger] = "そのページは存在しません"
-        redirect_to root_path
-      elsif !(@list = @user.lists.find_by(id: params[:id]))
-        flash[:danger] = "そのページは存在しません"
-        redirect_to lists_path(@user)
-      end
-    end
-
     def check_user_authority
-      @list = current_user.lists.find_by(id: params[:id])
+      @list = current_user.create_lists.find_by(id: params[:id])
       unless @list
         flash[:danger] = "権限がありません。"
         redirect_to root_path
       end
     end
+
 end

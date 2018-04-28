@@ -1,0 +1,16 @@
+var
+  $target = $('#list-active-<%= @mylist.id %>'),
+  buttonToggle = $target.find('.button-slide'),
+  buttonActive = $target.find('.button-active'),
+  slideParts = $target.find('.slide'),
+  $buttonCheck = $('#active-check-<%= @mylist.id %>');
+if ( buttonActive.length != 0 ) {
+  buttonToggle.removeClass('button-active').addClass('button-passive');
+  slideParts.removeClass('slide-off').addClass('slide-on');
+  /*$target.html("<%= escape_javascript(render partial: 'mylists/active', locals: { mylist: @mylist }) %>");*/
+} else {
+  /*$target.html("<%= escape_javascript(render partial: 'mylists/passive', locals: { mylist: @mylist }) %>");*/
+  buttonToggle.removeClass('button-passive').addClass('button-active');
+  slideParts.removeClass('slide-on').addClass('slide-off');
+}
+$buttonCheck.html("<%= escape_javascript(render partial: 'mylists/check_form', locals: { mylist: @mylist }) %>");

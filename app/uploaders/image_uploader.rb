@@ -2,6 +2,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
+  # include Piet::CarrierWaveExtension
 
   process :fix_exif_rotation  #１番目固定
   process resize_to_fill: [100,100]

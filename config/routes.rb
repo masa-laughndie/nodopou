@@ -16,14 +16,18 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#omniauth_create'
 
-  resources :lists, only: :none do
+  get '/search', to: 'searches#search'
+
+  resources :mylists, only: [:create, :destroy] do
     member do
-      patch '/active',  to: 'lists#update_active'
-      put   '/active',  to: 'lists#update_active'
-      patch '/check',   to: 'lists#update_check'
-      put   '/check',   to: 'lists#update_check'
+      patch '/active',  to: 'mylists#update_active'
+      put   '/active',  to: 'mylists#update_active'
+      patch '/check',   to: 'mylists#update_check'
+      put   '/check',   to: 'mylists#update_check'
     end
   end
+
+  resources :lists, only: [:create, :destroy]
 
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do
@@ -43,10 +47,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :setting, only: :none do
+  resource :setting, only: :update,
+                     controller: 'users' do
     get '/',        to: 'users#edit'
-    patch '/',      to: 'users#update'
-    put '/',        to: 'users#update'
     get '/email',   to: 'users#email_edit'
     patch '/email', to: 'users#email_update'
     put '/email',   to: 'users#email_update'
@@ -55,9 +58,11 @@ Rails.application.routes.draw do
   resources :users, param: :account_id,
                     only: [:show, :destroy],
                     path: '/' do
-
     member do
-      resources :lists, except: :new
+      get 'mylist',    to: 'mylists#index',
+                       as: 'mylists'
+      get 'mylist/:id', to: 'mylists#show',
+                        as: 'mylist'
     end
   end
 

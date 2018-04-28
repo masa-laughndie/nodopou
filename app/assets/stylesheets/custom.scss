@@ -5,7 +5,7 @@
 $base: #fff;  /* white */
 $main: #000;  /* black */
 $accent: #ffd700;  /* gold rgba(255,215,0)*/
-$waccent: #fff462; /* canry yellow rgab(255,244,98)*/
+$waccent: #fff462; /* canry yellow rgba(255,244,98)*/
 $test: #e6e6fa;
 $back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
@@ -606,6 +606,117 @@ $color:(
     }
   }
 
+  .field-checkbox3 {
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    .button-checkbox{
+      background: $base;
+      line-height: 30px;
+      letter-spacing: 0;
+      text-align: center;
+      float: left;
+      font-size: 10px;
+      margin: 0;
+      position: relative;
+      width: 60px;
+
+      form {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        .button-slide {
+          background: #fbfbfb;
+          border: 1px solid #e8eae9;
+          border-radius: 30px;
+          cursor: pointer;
+          display: block;
+          height: 30px;
+          font-size: 10px;
+          position: relative;
+          width: 100%;
+        }
+
+        .button-passive {
+          border-color: $on-green;
+          background: $on-green;
+
+          span:after {
+            content: "ON";
+            color: $base;
+            padding: 0 30px 0 0;
+          }
+        }
+
+        .button-active {
+
+          span:after {
+            content: "OFF";
+            color: $base-grey;
+            padding: 0 0 0 25px;
+          }
+        }
+      }
+
+      .slide {
+        background: #fbfbfb;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 0 rgba(0,0,0,0.08);
+        height: 26px;
+        pointer-events: none;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: .35s;
+        width: 26px;
+      }
+
+       .slide-on {
+        transform: translateX(30px);
+        background: $base;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .field-avail {
+    height: 100%;
+    width: 100%;
+
+    .button-availing {
+      height: 100%;
+      position: relative;
+      width: 100%;
+
+      form {
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        button {
+          border-radius: 5px;
+          font-size: 10px;
+          height: 100%;
+          position: relative;
+          width: 100%;
+        }
+
+        .button-avail {
+          border: 1px solid $weak-red;
+          color: $weak-red;
+          font-weight: 550;
+        }
+
+        .button-unavail {
+          background: $weak-red;
+          color: $base;
+        }
+      }
+    }
+  }
+
   .field-radio {
     margin-bottom: 20px;
     
@@ -685,6 +796,55 @@ $color:(
 
   .field-hidden {
     display: none;
+  }
+}
+
+.form-inner {
+  
+  form {
+    position: relative;
+    width: 100%;
+
+    .field-inner input,
+    .button-inner {
+      border-radius: 5px;
+      height: 40px;
+    }
+
+    .field-inner input {
+      background: rgba(255,244,98,0.3);
+      display: block;
+      line-height: 30px;
+      padding: 5px 40px 5px 20px;
+      width: 100%;
+    }
+
+    .field-inner input:focus {
+      background: $weak-grey;
+    }
+
+    .button-inner {
+      position: absolute;
+      top:0;
+      right: 0;
+      width: 40px;
+
+      button {
+        display: block;
+        height: 100%;
+        width: 100%;
+
+        i {
+          color: $base-grey;
+          font-size: 13.4px
+        }
+
+        .focus-on {
+          color: $main;
+          font-size: 16px;
+        }
+      }
+    }
   }
 }
 
@@ -774,7 +934,7 @@ nav {
       float: left;
       height: 100%;
       position: relative;
-      width: 33.3%;
+      width: 25.0%;
 
       a {
         display: block;
@@ -858,6 +1018,25 @@ nav {
   }
 }
 
+  /* no_data */
+
+.nothing {
+  background: $base;
+  padding: 40px 0;
+
+  i {
+    color: $base-grey;
+    display: block;
+    font-size: 3em;
+  }
+
+  .nothing-text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+}
+
 /* static */
 
 .poricy {
@@ -925,6 +1104,13 @@ nav {
   margin-bottom: 5px;
 }
 
+.list-area {
+  textarea {
+    min-height: 80px !important;
+    max-height: 160px !important;
+  }
+}
+
 /* list */
 
   /* index */
@@ -959,39 +1145,40 @@ nav {
       .form {
         width: 60px;
         z-index: 150;
-      }
 
-      .form .field-checkbox {
-        margin: 0;
-        position: relative;
-
-        .button-checkbox {
-          font-size: 10px;
+        .field-checkbox {
           margin: 0;
-          width: 60px;
+          position: relative;
 
-          label span:after {
-            content: "休息";
-            color: $base-grey;
-            padding: 0 0 0 25px;
-          }
+          .button-checkbox {
+            font-size: 10px;
+            margin: 0;
+            width: 60px;
 
-          input:checked + label span:after {
-            content: "修行";
-            color: $base;
-            padding: 0 25px 0 0;
-          }
+            label span:after {
+              content: "休息";
+              color: $base-grey;
+              padding: 0 0 0 25px;
+            }
 
-          input:checked ~ .slide {
-            transform: translateX(30px);
-            background: $base;
-            box-shadow: none;
+            input:checked + label span:after {
+              content: "修行";
+              color: $base;
+              padding: 0 25px 0 0;
+            }
+
+            input:checked ~ .slide {
+              transform: translateX(30px);
+              background: $base;
+              box-shadow: none;
+            }
           }
         }
       }
 
       .active-on,
-      .active-off {
+      .active-off,
+      .active-count {
         border-radius: 50%;
         position: relative;
         font-size: 10px;
@@ -1019,6 +1206,17 @@ nav {
           color: $base-grey;
         }
       }
+
+      .active-count {
+        background: $weak-grey;
+        font-size: 12px;
+        height: 50px;
+        width: 50px;
+
+        span {
+          line-height: 50px;
+        }
+      }
     }
 
     .list-text {
@@ -1033,7 +1231,8 @@ nav {
       }
     }
 
-    .list-check {
+    .list-check,
+    .list-avail {
       float: left;
       height: 100%;
       width: 20%;
@@ -1043,6 +1242,44 @@ nav {
         width: 36px;
         z-index: 150;
       }
+
+      .non-active {
+        height: 36px;
+        position: relative;
+        width: 36px;
+
+        .fa-square {
+          color: $weak-grey;
+          display: block;
+          line-height: 36px;
+          font-size: 30px;
+        }
+      }
     }
+
+    .list-avail .form {
+      height: 40px;
+      width: 50px;
+    }
+  }
+}
+
+.list-item {
+  background: rgba(255,244,98,0.2);
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+
+  .item-right,
+  .item-left,
+  .item-center {
+    float: left;
+    height: 100%;
+    width: 20%;
+  }
+
+  .item-center {
+    width: 60%;
   }
 }

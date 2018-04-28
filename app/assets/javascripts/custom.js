@@ -75,7 +75,19 @@ document.addEventListener('turbolinks:load', function() {
 //現在位置active化
 document.addEventListener('turbolinks:load', function() {
   $(function() {
+    //ナビゲーションactive
     $('.alist').each(function() {
+      var
+        nowPath = location.pathname,
+        link = $(this).find('a'),
+        linkPath = link.attr('href');
+      if ( nowPath == linkPath ) {
+        link.addClass('active');  
+      }
+    });
+
+    //sub-menuのactive化
+    $('.alist-sub').each(function() {
       var
         nowPath = location.pathname + location.search,
         link = $(this).find('a'),
@@ -87,6 +99,20 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+/*
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    //documentにしないとスマホ無効になる
+    $(document).on('click', "[id^=list-checkbox]", function() {
+      var
+        str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $('#edit_mylist_' + num).submit();
+    });
+  });
+});
+*/
+/*
 //listのactiveをスライドバーでupdateする
 document.addEventListener('turbolinks:load', function() {
   $(function() {
@@ -97,7 +123,7 @@ document.addEventListener('turbolinks:load', function() {
         num = str.match(/\d/g).join("");
       $.ajax({
         type: 'PATCH',
-        url: '/lists/' + num + '/active',
+        url: '/mylists/' + num + '/active',
         dataType: 'html',
         timeout: 20000
       })
@@ -108,6 +134,19 @@ document.addEventListener('turbolinks:load', function() {
         return false;
       });
       // $('#edit_list_' + num).submit();
+    });
+  });
+});
+*/
+
+//search-field　back-color可変
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('#keyword').focus(　function() {
+      icon = $('.button-inner').find('.fa-search')
+      icon.addClass('focus-on')
+    }).blur( function() {
+      icon.removeClass('focus-on')
     });
   });
 });

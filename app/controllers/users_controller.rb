@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
 
   before_action :logged_in_user,       except: [:new, :create]
+  before_action :check_user,           only:   [:show, :destroy]
   before_action :get_user,             only:   [:edit, :update,
                                                 :email_edit, :email_update]
   before_action :check_user_authority, only:   :destroy
 
   def show
-    @user = User.find_by(account_id: params[:account_id])
-    @lists = @user.lists.where(active: true)
-    @list = current_user.lists.build
+    @mylists = @user.mylists.where(active: true).includes(:list)
+    @list = current_user.create_lists.build
   end
 
   def new
@@ -33,7 +33,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(account_id: params[:account_id])
     @user.destroy
     flash[:success] = "削除が完了しました。"
     redirect_to root_path
@@ -48,6 +47,7 @@ class UsersController < ApplicationController
       @user.validate_password = true
       @user.password_confirmation = params[:user][:password]
     end
+
     if @user.update_attributes(user_edit_params)
       flash[:success] = "設定の変更が完了しました！"
       redirect_to setting_path
@@ -66,6 +66,7 @@ class UsersController < ApplicationController
   def email_update
     @user.validate_email = true
     address = params[:user][:email]
+
     if address.present? && address.match(/@example.com/).present?
       if @user.is_send_email
         @user.update_attribute(:is_send_email, false)
@@ -105,7 +106,6 @@ class UsersController < ApplicationController
     end
 
     def check_user_authority
-      @user = User.find_by(account_id: params[:account_id])
       unless current_user?(@user) || current_user.admin?
         flash[:danger] = "権限がありません！！"
         redirect_to root_path

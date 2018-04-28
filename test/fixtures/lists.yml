@@ -1,16 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 list1:
-  content: <%= Faker::Lorem.sentence(5) %>
-  active: true
-  check: false
+  user: ac1
+  content: テスト１
 
 list2:
-  content: <%= Faker::Lorem.sentence(5) %>
-  active: true
-  check: true
+  user: ac1
+  content: テスト3
 
 list3:
-  content: <%= Faker::Lorem.sentence(5) %>
-  active: false
-  check: false
+  user: ac1
+  content: テスト3

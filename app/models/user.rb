@@ -8,7 +8,13 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  has_many :lists, dependent: :destroy
+  #自分が開いた宗派
+  has_many :create_lists, class_name: "List",
+                          dependent: :destroy
+
+  #所属宗派
+  has_many :mylists, dependent: :destroy
+  has_many :lists,   through: :mylists
 
   validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
@@ -98,21 +104,25 @@ class User < ApplicationRecord
       end
     end
 
+    def search(keyword)
+      if keyword
+        keyword_arys = keyword.split(/[\s　]+/)
+        condition = where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
+                    "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase])
+        for i in 1..(keyword_arys.length - 1) do
+          condition = condition.where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
+                                "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase])
+        end
+        condition
+      else
+        all
+      end
+    end
+
   end
 
-  def search(keyword)
-    if keyword
-      kerword_arys = keyword.split(/[\s　]+/)
-      condition = where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                  "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase])
-      for i in 1..(keyword_arys.length - 1) do
-        condition = condition.where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                              "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase])
-      end
-      condition
-    else
-      all
-    end
+  def to_param
+    account_id
   end
 
   def set_name_and_email(param)
@@ -143,7 +153,7 @@ class User < ApplicationRecord
 
   def create_reset_digest_and_etoken
     self.reset_token = User.new_reset_token
-    update_columns(reset_digest:   User.digest(reset_token),
+    update_columns(reset_digest:  User.digest(reset_token),
                    e_token:       User.digest(email),
                    reset_sent_at: Time.zone.now)
   end
@@ -152,8 +162,18 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  def to_param
-    account_id
+  def avail(list)
+    mylists.create(list_id: list.id)
+    list.joined_user
+  end
+
+  def unavail(list)
+    mylists.find_by(list_id: list.id).destroy
+    list.leaved_user
+  end
+
+  def availing?(list)
+    mylists.pluck(:list_id).include?(list.id)
   end
 
 =begin
