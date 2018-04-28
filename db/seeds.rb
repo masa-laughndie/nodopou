@@ -8,15 +8,15 @@ User.create!(name: "NoDoBotoke公式",
              profile: "NoDoBotoke公式アカウントです。",
              admin: true)
 
-User.create!(name: "Masa",
-             account_id: "masa",
-             email: "masa@example.com",
-             password: "foobar",
-             password_confirmation: "foobar",
-             remote_image_url: Faker::Avatar.image,
-             profile: "テストアカウント")
-
 if Rails.env.development?
+  User.create!(name: "Masa",
+               account_id: "masa",
+               email: "masa@example.com",
+               password: "foobar",
+               password_confirmation: "foobar",
+               remote_image_url: Faker::Avatar.image,
+               profile: "テストアカウント")
+
   10.times do |n|
     name = Faker::Name.name
     account_id = "nodobo_#{n+1}"
