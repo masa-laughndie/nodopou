@@ -26,9 +26,11 @@ class ListsController < ApplicationController
     current_user.unavail(@list)
     unless @list.availed?
       @list.destroy
+    else
+      @list.set_create_user_none
     end
     flash[:success] = "リストの削除に成功しました！"
-    redirect_to lists_path(current_user)
+    redirect_to current_user
   end
 
   private

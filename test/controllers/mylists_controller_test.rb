@@ -8,12 +8,12 @@ class MylistsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get mylists_path(@user)
+    get mylists_user_path(@user)
     assert_response :success
   end
 
   test "should get show" do
-    get mylists_path(@user, @user.mylists.first)
+    get mylist_user_path(@user, @user.mylists.first)
     assert_response :success
   end
 

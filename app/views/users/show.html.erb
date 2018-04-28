@@ -30,11 +30,23 @@
     <div class="side-option side-link2">
       <%= link_to fa_icon("list-ul" ,class: "middle-x") +
                   "<p>全リスト</p>".html_safe,
-                  mylists_path(@user) %>
+                  mylists_user_path(@user) %>
     </div>
   </div>
   <div class="border"></div>
   <% if @mylists.any? %>
+    <% if current_user?(@user) %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: 'Dayチェック' } %>
+    <% else %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '実行状況',
+                           center: '内容',
+                           right: '便乗？' } %>
+    <% end %>
+    <div class="border"></div>
     <ul>
       <%= render partial: @mylists,
                  locals: { user: @user } %>
@@ -42,7 +54,8 @@
   <% else %>
     <%= render partial: 'shared/no_data',
                locals: { icon: 'list',
-                         text: 'list' } %>
+                         text: 'list',
+                         user: @user } %>
   <% end %>
 </div>
 <div class="blank"></div>
