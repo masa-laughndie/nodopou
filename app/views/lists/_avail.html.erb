@@ -1,6 +1,8 @@
 <% if logged_in? %>
   <div class="button-avail">
-    <%= form_for(current_user.mylists.build,
+    <%= form_for(list,
+                 url: mylists_path,
+                 html: { method: :post },
                  remote: true) do |f| %>
       <div><%= hidden_field_tag :list_id, list.id %></div>
       <%= f.button "便乗！" %>

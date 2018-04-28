@@ -46,7 +46,6 @@ class MylistsController < ApplicationController
       @list.destroy
     end
 =end
-    flash[:success] = "リストを削除しました！"
     respond_to do |format|
       format.html { redirect_to mylists_user_path(current_user) }
       format.js
