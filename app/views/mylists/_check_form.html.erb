@@ -1,4 +1,4 @@
-<div class="list-check">
+<% if mylist.active? %>
   <div class="form middle-xy">
     <div id="list-check-<%= mylist.id %>" class="field-checkbox2">
       <% if mylist.check? %>
@@ -8,4 +8,8 @@
       <% end %>
     </div>
   </div>
-</div>
+<% else %>
+  <div class="non-active middle-xy c">
+    <%= fa_icon('square') %>
+  </div>
+<% end %>

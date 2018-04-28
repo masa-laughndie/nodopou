@@ -52,7 +52,11 @@ class MylistsController < ApplicationController
 
   def update_active
     @mylist.toggle!(:active)
-    redirect_to mylists_user_path(current_user)
+    
+    respond_to do |format|
+      format.html { redirect_to mylists_user_path(current_user) }
+      format.js
+    end
   end
 
   def update_check
