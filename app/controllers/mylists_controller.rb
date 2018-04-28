@@ -20,7 +20,6 @@ class MylistsController < ApplicationController
   def create
     if @list = List.find_by(id: params[:list_id])
       current_user.avail(@list)
-      @list.joined_user
       respond_to do |format|
         format.html { redirect_to mylists_user_path(current_user) }
         format.js
@@ -40,7 +39,6 @@ class MylistsController < ApplicationController
   def destroy
     @list = List.find_by(id: params[:list_id])
     current_user.unavail(@list)
-    @list.leaved_user
 =begin
     unless @list.availed?
       @list.destroy

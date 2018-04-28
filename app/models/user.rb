@@ -164,10 +164,12 @@ class User < ApplicationRecord
 
   def avail(list)
     mylists.create(list_id: list.id)
+    list.joined_user
   end
 
   def unavail(list)
     mylists.find_by(list_id: list.id).destroy
+    list.leaved_user
   end
 
   def availing?(list)
