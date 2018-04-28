@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   get '/search', to: 'searches#search'
 
-  resources :mylists, only: :none do
+  resources :mylists, only: [:create, :destroy] do
     member do
       patch '/active',  to: 'mylists#update_active'
       put   '/active',  to: 'mylists#update_active'
@@ -47,10 +47,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :setting, only: :none do
+  resource :setting, only: :update,
+                     controller: 'users' do
     get '/',        to: 'users#edit'
-    patch '/',      to: 'users#update'
-    put '/',        to: 'users#update'
     get '/email',   to: 'users#email_edit'
     patch '/email', to: 'users#email_update'
     put '/email',   to: 'users#email_update'
@@ -59,10 +58,11 @@ Rails.application.routes.draw do
   resources :users, param: :account_id,
                     only: [:show, :destroy],
                     path: '/' do
-
     member do
-      resources :mylists, except: :new,
-                          path: '/mylist'
+      get 'mylist',    to: 'mylists#index',
+                       as: 'mylists'
+      get 'mylist/:id', to: 'mylists#show',
+                        as: 'mylist'
     end
   end
 

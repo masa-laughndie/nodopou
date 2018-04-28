@@ -1,14 +1,18 @@
+<% list = mylist.list %>
 <li class="list" id="list-<%= mylist.id %>">
-  <a class="list-link" href="<%= mylist_path(mylist.user, mylist) %>"></a>
+  <a class="list-link" href="<%= mylist_user_path(mylist.user, mylist) %>"></a>
   <div class="list-content">
     <%= render partial: 'mylists/active_form',
                locals: { user: user,
                          mylist: mylist } %>
     <div class="list-text over-text">
-      <span class="middle-y"><%= mylist.list.content %></span>
+      <span class="middle-y"><%= list.content %></span>
     </div>
     <% if current_user?(user) && mylist.active? %>
       <%= render 'mylists/check_form', mylist: mylist %>
+    <% elsif !current_user?(user) %>
+      <%= render partial: 'lists/avail_form',
+                 locals: { list: list } %>
     <% end %>
   </div>
 </li>

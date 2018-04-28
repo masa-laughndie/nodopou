@@ -13,6 +13,10 @@
   <div class="border"></div>
   <% unless params[:keyword].nil? %>
     <% if @lists.any? %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '便乗人数',
+                           center: '内容',
+                           right: '便乗？' } %>
       <ul>
         <%= render partial: @lists,
                    locals: { user: current_user } %>
