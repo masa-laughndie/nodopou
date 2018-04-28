@@ -606,6 +606,42 @@ $color:(
     }
   }
 
+  .field-avail {
+    height: 100%;
+    width: 100%;
+
+    .button-availing {
+      height: 100%;
+      position: relative;
+      width: 100%;
+
+      form {
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        button {
+          border-radius: 5px;
+          font-size: 10px;
+          height: 100%;
+          position: relative;
+          width: 100%;
+        }
+
+        .button-avail {
+          border: 1px solid $weak-red;
+          color: $weak-red;
+          font-weight: 550;
+        }
+
+        .button-unavail {
+          background: $weak-red;
+          color: $base;
+        }
+      }
+    }
+  }
+
   .field-radio {
     margin-bottom: 20px;
     
@@ -1131,6 +1167,11 @@ nav {
         width: 36px;
         z-index: 150;
       }
+    }
+
+    .list-avail .form {
+      height: 40px;
+      width: 50px;
     }
   }
 }
