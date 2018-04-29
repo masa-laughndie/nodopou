@@ -226,6 +226,21 @@ select {
   word-wrap: break-word;
 }
 
+.rank-1 {
+  background: rgba(255,0,0,0.5) !important;
+  background: rgba(255,215,0,0.5) !important;
+}
+
+.rank-2 {
+  background: rgba(255,165,0,0.5) !important;
+  background: rgba(192,192,192,0.5) !important;
+}
+
+.rank-3 {
+  background: #ffff7f !important;
+  background: rgba(172,107,37,0.5) !important;
+}
+
 /* parts */
   
   /* botton */

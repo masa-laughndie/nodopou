@@ -1,7 +1,11 @@
 class ListsController < ApplicationController
 
   before_action :logged_in_user
+  before_action :check_list,           only: :show
   before_action :check_user_authority, only: :destroy
+
+  def show
+  end
 
   def create
     @list = current_user.create_lists.build(list_params)

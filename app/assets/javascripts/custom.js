@@ -150,3 +150,16 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+// search順位best3 back-color変更
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if( $('.rank').length != 0 ) {
+      var
+        best3 = $('.list').slice(0,3);
+      for( var i = 0; i < 3; i++ ) {
+        best3.eq(i).find('.active-count').addClass('rank-' + (i + 1));
+      }
+    }
+  });
+});
