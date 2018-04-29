@@ -1,5 +1,4 @@
 class MylistsController < ApplicationController
-  protect_from_forgery except: :update_active 
 
   before_action :logged_in_user
   before_action :check_user,                only: [:index, :show]
