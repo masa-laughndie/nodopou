@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :lists, only: [:create, :destroy]
+  resources :lists, only: [:show, :create, :destroy]
 
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do

@@ -226,6 +226,21 @@ select {
   word-wrap: break-word;
 }
 
+.rank-1 {
+  background: rgba(255,0,0,0.5) !important;
+  background: rgba(255,215,0,0.5) !important;
+}
+
+.rank-2 {
+  background: rgba(255,165,0,0.5) !important;
+  background: rgba(192,192,192,0.5) !important;
+}
+
+.rank-3 {
+  background: #ffff7f !important;
+  background: rgba(172,107,37,0.5) !important;
+}
+
 /* parts */
   
   /* botton */
@@ -602,6 +617,81 @@ $color:(
             margin-left: 3.5px;
           }
         }
+      }
+    }
+  }
+
+  .field-checkbox3 {
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    .button-checkbox{
+      background: $base;
+      line-height: 30px;
+      letter-spacing: 0;
+      text-align: center;
+      float: left;
+      font-size: 10px;
+      margin: 0;
+      position: relative;
+      width: 60px;
+
+      form {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        .button-slide {
+          background: #fbfbfb;
+          border: 1px solid #e8eae9;
+          border-radius: 30px;
+          cursor: pointer;
+          display: block;
+          height: 30px;
+          font-size: 10px;
+          position: relative;
+          width: 100%;
+        }
+
+        .button-passive {
+          border-color: $on-green;
+          background: $on-green;
+
+          span:after {
+            content: "ON";
+            color: $base;
+            padding: 0 30px 0 0;
+          }
+        }
+
+        .button-active {
+
+          span:after {
+            content: "OFF";
+            color: $base-grey;
+            padding: 0 0 0 25px;
+          }
+        }
+      }
+
+      .slide {
+        background: #fbfbfb;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 0 rgba(0,0,0,0.08);
+        height: 26px;
+        pointer-events: none;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: .35s;
+        width: 26px;
+      }
+
+       .slide-on {
+        transform: translateX(30px);
+        background: $base;
+        box-shadow: none;
       }
     }
   }
@@ -1166,6 +1256,19 @@ nav {
         height: 36px;
         width: 36px;
         z-index: 150;
+      }
+
+      .non-active {
+        height: 36px;
+        position: relative;
+        width: 36px;
+
+        .fa-square {
+          color: $weak-grey;
+          display: block;
+          line-height: 36px;
+          font-size: 30px;
+        }
       }
     }
 

@@ -99,6 +99,20 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+/*
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    //documentにしないとスマホ無効になる
+    $(document).on('click', "[id^=list-checkbox]", function() {
+      var
+        str = $(this).attr("id"),
+        num = str.match(/\d/g).join("");
+      $('#edit_mylist_' + num).submit();
+    });
+  });
+});
+*/
+/*
 //listのactiveをスライドバーでupdateする
 document.addEventListener('turbolinks:load', function() {
   $(function() {
@@ -123,7 +137,9 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+*/
 
+//search-field　back-color可変
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     $('#keyword').focus(　function() {
@@ -132,5 +148,18 @@ document.addEventListener('turbolinks:load', function() {
     }).blur( function() {
       icon.removeClass('focus-on')
     });
+  });
+});
+
+// search順位best3 back-color変更
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if( $('.rank').length != 0 ) {
+      var
+        best3 = $('.list').slice(0,3);
+      for( var i = 0; i < 3; i++ ) {
+        best3.eq(i).find('.active-count').addClass('rank-' + (i + 1));
+      }
+    }
   });
 });

@@ -1,5 +1,4 @@
 class MylistsController < ApplicationController
-  protect_from_forgery except: :update_active 
 
   before_action :logged_in_user
   before_action :check_user,                only: [:index, :show]
@@ -8,6 +7,9 @@ class MylistsController < ApplicationController
 
   def index
     @mylists = @user.mylists.includes(:list).order(active: :desc)
+    if current_user?(@user)
+      current_user.confirm_and_reset_check_of(@mylists)
+    end
   end
 
   def show
@@ -52,11 +54,15 @@ class MylistsController < ApplicationController
 
   def update_active
     @mylist.toggle!(:active)
-    redirect_to mylists_user_path(current_user)
+    
+    respond_to do |format|
+      format.html { redirect_to mylists_user_path(current_user) }
+      format.js
+    end
   end
 
   def update_check
-    @mylist.toggle!(:check)
+    @mylist.toggle_check_and_count!
     
     respond_to do |format|
       format.html { redirect_to mylists_user_path(current_user) }
