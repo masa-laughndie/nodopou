@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20180425164427) do
     t.integer "list_id"
     t.boolean "active", default: true
     t.boolean "check", default: false
+    t.integer "check_count", default: 0
+    t.integer "running_days", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_mylists_on_list_id"
@@ -56,6 +58,8 @@ ActiveRecord::Schema.define(version: 20180425164427) do
     t.string "reset_digest"
     t.string "e_token"
     t.datetime "reset_sent_at"
+    t.integer "check_reset_time", default: 6
+    t.datetime "check_reset_at", default: "2018-04-30 21:00:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_users_on_account_id", unique: true

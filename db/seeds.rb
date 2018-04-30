@@ -18,9 +18,9 @@ if Rails.env.development?
                profile: "テストアカウント")
 
   10.times do |n|
-    name = Faker::Name.name
-    account_id = "nodobo_#{n+1}"
-    email = "nodobo-#{n+1}@example.com"
+    name = "nodobo-#{n+3}"
+    account_id = "nodobo_#{n+3}"
+    email = "nodobo-#{n+3}@example.com"
     password = "password"
     image = Faker::Avatar.image
     profile = Faker::Lorem.sentence(5)
@@ -49,11 +49,16 @@ end
 if Rails.env.development?
   users = User.all
   lists = List.all
-  availings = users[5..7]
-  3.times do
+  availings = users[5..10]
+  4.times do
     availings.each do |user|
-      list = lists[rand(lists.length)]
-      user.avail(list)
+      while true
+        list = lists[rand(lists.length)]
+        unless user.availing?(list)
+          user.avail(list)
+          break
+        end
+      end
     end
   end
 end

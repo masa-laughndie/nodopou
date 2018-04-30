@@ -7,6 +7,9 @@ class MylistsController < ApplicationController
 
   def index
     @mylists = @user.mylists.includes(:list).order(active: :desc)
+    if current_user?(@user)
+      current_user.confirm_and_reset_check_of(@mylists)
+    end
   end
 
   def show
@@ -59,7 +62,7 @@ class MylistsController < ApplicationController
   end
 
   def update_check
-    @mylist.toggle!(:check)
+    @mylist.toggle_check_and_count!
     
     respond_to do |format|
       format.html { redirect_to mylists_user_path(current_user) }

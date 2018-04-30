@@ -125,6 +125,29 @@ class User < ApplicationRecord
     account_id
   end
 
+=begin
+  def validate_on?(attribute)
+    validate_target = self.send("validate_#{attribute}")
+    unless validate_target.nil?
+      validate_target.in?(['true', true])
+    else
+      return false
+    end
+  end
+=end
+
+  def validate_name?
+    validate_name.in?(['true', true])
+  end
+
+  def validate_email?
+    validate_email.in?(['true', true])
+  end
+
+  def validate_password?
+    validate_password.in?(['true', true])
+  end
+
   def set_name_and_email(param)
     self.name = param
     self.email = "#{param}@example.com"
@@ -176,29 +199,58 @@ class User < ApplicationRecord
     mylists.pluck(:list_id).include?(list.id)
   end
 
-=begin
-  def validate_on?(attribute)
-    validate_target = self.send("validate_#{attribute}")
-    unless validate_target.nil?
-      validate_target.in?(['true', true])
-    else
-      return false
+  def update_check_reset_at
+    update_attribute(:check_reset_at,
+                     Time.zone.now.beginning_of_day +
+                     1.day + self.check_reset_time.hours)
+  end
+
+  def confirm_and_reset_check_of(mylists)
+    if self.check_reset_at < Time.zone.now && mylists.any?
+
+      check_lists = mylists.where(check: true)
+      if check_lists.any?
+        check_lists.each do |mylist|
+          mylist.add_running_days_and_reset_check
+        end
+      end
+
+      noncheck_lists = mylists.where(check: false)
+      if noncheck_lists.any?
+        noncheck_lists.each do |mylist|
+          mylist.reset_running_days
+        end
+      end
+
+      update_check_reset_at
     end
   end
-=end
 
-  def validate_name?
-    validate_name.in?(['true', true])
+  def confirm_and_reset_check_mylists
+    if self.check_reset_at < Time.zone.now
+
+      mylists = self.mylists.includes(:list)
+      if mylists.any?
+
+        check_lists = mylists.where(check: true)
+        if check_lists.any?
+          check_lists.each do |mylist|
+            mylist.add_running_days_and_reset_check
+          end
+        end
+
+        noncheck_lists = mylists.where(check: false)
+        if noncheck_lists.any?
+          noncheck_lists.each do |mylist|
+            mylist.reset_running_days
+          end
+        end
+
+      end
+
+      update_check_reset_at
+    end
   end
-
-  def validate_email?
-    validate_email.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
-  end
-
 
   private
 
