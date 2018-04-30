@@ -153,6 +153,18 @@ class User < ApplicationRecord
     self.email = "#{param}@example.com"
   end
 
+  def set_pass_and_time(password, time)
+    unless password.nil?
+      validate_password = true
+      password_confirmation = password
+    end
+
+    time = time.to_i
+    if time != self.check_reset_time
+      self.check_reset_at = self.check_reset_at.beginning_of_day + time.hours
+    end
+  end
+
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))

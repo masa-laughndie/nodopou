@@ -7,4 +7,13 @@ module UsersHelper
       "/images/grey.gif"
     end
   end
+
+  def time_array
+    ary = []
+    24.times do |n|
+      ary << ["#{n}時", n]
+    end
+    ary
+  end
+
 end

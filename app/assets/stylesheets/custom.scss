@@ -421,6 +421,19 @@ $color:(
       padding: 8px 20px;
       width: 100%;
     }
+
+    .select-icon {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 40px;
+      width: 40px;
+
+      i {
+        line-height: 40px;
+      }
+    }
   }
 
   .field-file {
