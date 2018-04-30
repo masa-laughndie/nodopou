@@ -217,6 +217,13 @@ select {
   clear: both;
 }
 
+.over-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .over-text {
   overflow : hidden;
   text-overflow: ellipsis;
@@ -239,6 +246,28 @@ select {
 .rank-3 {
   background: #ffff7f !important;
   background: rgba(172,107,37,0.5) !important;
+}
+
+.square {
+  position: relative;
+}
+
+.square:before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.abs-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.abs-right {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /* parts */
@@ -420,6 +449,19 @@ $color:(
       line-height: 24px;
       padding: 8px 20px;
       width: 100%;
+    }
+
+    .select-icon {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 40px;
+      width: 40px;
+
+      i {
+        line-height: 40px;
+      }
     }
   }
 
@@ -1276,6 +1318,40 @@ nav {
       height: 40px;
       width: 50px;
     }
+
+    .list-urank,
+    .list-uicon,
+    .list-uinfo,
+    .list-ucheck {
+      float: left;
+      height: 100%;
+      line-height: 75px;
+    }
+
+    .list-urank {
+      width: 10%;
+    }
+
+    .list-uicon {
+      position: relative;
+      width: 20%;
+
+      img {
+        border-radius: 50%;
+        display: block;
+        position: relative;
+      }
+    }
+
+    .list-uinfo {
+      width: 50%;
+    }
+
+    .list-ucheck {
+      margin-right: 5%;
+      text-align: right;
+      width: 15%;
+    }
   }
 }
 
@@ -1296,5 +1372,49 @@ nav {
 
   .item-center {
     width: 60%;
+  }
+}
+
+.list-text {
+  margin-bottom: 30px;
+}
+
+.list-info {
+  height: auto;
+  width: 100%;
+
+  .list-user-count,
+  .list-availing {
+    float: left;
+    height: 100%;
+    margin: 0 7.5%;
+    width: 35%;
+  }
+
+  .list-user-count {
+    background: $weak-grey;
+    border-radius: 50%;
+    font-size: 1.3em;
+    line-height: 100px;
+
+    span {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .list-availing {
+    .list-avail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+      .form {
+        height: 100%;
+      }
+    }
   }
 }

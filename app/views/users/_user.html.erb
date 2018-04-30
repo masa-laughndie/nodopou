@@ -1,0 +1,16 @@
+<li class="list">
+  <a class="list-link" href="<%= user_path(user) %>"></a>
+  <div class="list-content">
+    <div class="list-urank active-count c"><%= rank %></div>
+    <div class="list-uicon">
+      <%= image_tag(image_url(user), size: 55,
+                    alt: user.name, class: "middle-xy") %>    
+    </div>
+    <div class="list-uinfo over-name">
+      <%= user.name %>
+    </div>
+    <div class="list-ucheck">
+      <%= mylist.check_count %>日
+    </div>
+  </div>
+</li>
