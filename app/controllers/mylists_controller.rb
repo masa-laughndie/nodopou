@@ -39,7 +39,7 @@ class MylistsController < ApplicationController
   end
 
   def destroy
-    @list = List.find_by(id: params[:list_id])
+    @list = List.find_by(id: params[:id])
     current_user.unavail(@list)
 =begin
     unless @list.availed?
