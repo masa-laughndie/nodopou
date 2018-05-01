@@ -221,13 +221,14 @@ class User < ApplicationRecord
     if self.check_reset_at < Time.zone.now && mylists.any?
 
       check_lists = mylists.where(check: true)
+      noncheck_lists = mylists.where(check: false)
+      
       if check_lists.any?
         check_lists.each do |mylist|
           mylist.add_running_days_and_reset_check
         end
       end
 
-      noncheck_lists = mylists.where(check: false)
       if noncheck_lists.any?
         noncheck_lists.each do |mylist|
           mylist.reset_running_days
