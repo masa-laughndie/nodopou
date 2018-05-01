@@ -5,6 +5,8 @@ class ListsController < ApplicationController
   before_action :check_user_authority, only: :destroy
 
   def show
+    @users = @list.users.includes(:mylists).order("mylists.check_count DESC").take(3)
+    @mylists = @list.mylists.order(check_count: :desc).take(3)
   end
 
   def create

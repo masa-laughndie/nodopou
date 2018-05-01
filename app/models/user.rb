@@ -153,6 +153,18 @@ class User < ApplicationRecord
     self.email = "#{param}@example.com"
   end
 
+  def set_pass_and_time(password, time)
+    unless password.nil?
+      validate_password = true
+      password_confirmation = password
+    end
+
+    time = time.to_i
+    if time != self.check_reset_time
+      self.check_reset_at = self.check_reset_at.beginning_of_day + time.hours
+    end
+  end
+
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
@@ -209,13 +221,14 @@ class User < ApplicationRecord
     if self.check_reset_at < Time.zone.now && mylists.any?
 
       check_lists = mylists.where(check: true)
+      noncheck_lists = mylists.where(check: false)
+      
       if check_lists.any?
         check_lists.each do |mylist|
           mylist.add_running_days_and_reset_check
         end
       end
 
-      noncheck_lists = mylists.where(check: false)
       if noncheck_lists.any?
         noncheck_lists.each do |mylist|
           mylist.reset_running_days
