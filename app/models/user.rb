@@ -207,10 +207,6 @@ class User < ApplicationRecord
     list.leaved_user
   end
 
-  def availing?(list)
-    mylists.pluck(:list_id).include?(list.id)
-  end
-
   def update_check_reset_at
     update_attribute(:check_reset_at,
                      Time.zone.now.beginning_of_day +

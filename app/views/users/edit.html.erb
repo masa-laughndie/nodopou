@@ -2,6 +2,12 @@
 <% provide(:og_title, "設定") %>
 <% provide(:og_url, setting_url) %>
 
+<div class="container content-sspace">
+  <div class="button-back button-mini button-logout c">
+    <%= link_to "ログアウト", logout_path, rel: "nofollow", data: { method: :delete } %>
+  </div>
+</div>
+<div class="blank"></div>
 <div class="container content-mspace">
   <div class="title-mspace">
     <h1>プロフィール設定</h1>

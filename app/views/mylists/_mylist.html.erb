@@ -14,7 +14,8 @@
       </div>
     <% else %>
       <%= render partial: 'lists/avail_form',
-                 locals: { list: list } %>
+                 locals: { list: list,
+                           cuser_list_ids: cuser_list_ids } %>
     <% end %>
   </div>
 </li>

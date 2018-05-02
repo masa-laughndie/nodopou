@@ -49,7 +49,8 @@
     <div class="border"></div>
     <ul>
       <%= render partial: @mylists,
-                 locals: { user: @user } %>
+                 locals: { user: @user,
+                           cuser_list_ids: @cuser_list_ids } %>
     </ul>
   <% else %>
     <%= render partial: 'shared/no_data',
@@ -87,8 +88,3 @@
     </div>
   </div>
 <% end %>
-<div class="logout">
-  <a rel="nofollow" data-method="delete" href="<%= logout_path %>">
-    <p>ログアウト</p>
-  </a>
-</div>

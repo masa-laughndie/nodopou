@@ -31,4 +31,5 @@ class Mylist < ApplicationRecord
       update_attribute(:running_days, 0)
     end
   end
+
 end

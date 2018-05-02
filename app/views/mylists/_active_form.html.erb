@@ -1,3 +1,4 @@
+<% rdays = mylist.running_days %>
 <div class="list-active">
   <% if current_user?(user) %>
     <div class="form middle-xy">
@@ -15,6 +16,9 @@
     <div class="active-on middle-xy c">
       <span>ON</span>
     </div>
+    <% if rdays != 0 %>
+      <span class="list-rdays c"><%= rdays %>日継続中</span>
+    <% end %>
   <% else %>
     <div class="active-off middle-xy c">
       <span>OFF</span>

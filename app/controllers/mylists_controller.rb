@@ -9,6 +9,8 @@ class MylistsController < ApplicationController
     @mylists = @user.mylists.includes(:list).order(active: :desc)
     if current_user?(@user)
       current_user.confirm_and_reset_check_of(@mylists)
+    else
+      @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
     end
   end
 
