@@ -13,29 +13,29 @@
 ActiveRecord::Schema.define(version: 20180425164427) do
 
   create_table "contacts", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.text "content"
+    t.string "name", limit: 100, null: false
+    t.string "email", limit: 255, null: false
+    t.text "content", limit: 2000, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "lists", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "content"
-    t.integer "user_count", default: 0
+    t.integer "user_id", null: false
+    t.string "content", limit: 100, null: false
+    t.integer "user_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
   create_table "mylists", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "list_id"
-    t.boolean "active", default: true
-    t.boolean "check", default: false
-    t.integer "check_count", default: 0
-    t.integer "running_days", default: 0
+    t.integer "user_id", null: false
+    t.integer "list_id", null: false
+    t.boolean "active", default: true, null: false
+    t.boolean "check", default: false, null: false
+    t.integer "check_count", default: 0, null: false
+    t.integer "running_days", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_mylists_on_list_id"
@@ -44,22 +44,22 @@ ActiveRecord::Schema.define(version: 20180425164427) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.boolean "is_send_email", default: false
-    t.string "account_id"
+    t.string "name", limit: 50, null: false
+    t.string "email", limit: 255, null: false
+    t.boolean "is_send_email", default: false, null: false
+    t.string "account_id", limit: 15, null: false
     t.string "image"
-    t.string "profile"
-    t.string "password_digest"
+    t.string "profile", limit: 160
+    t.string "password_digest", null: false
     t.string "remember_digest"
-    t.boolean "admin", default: false
+    t.boolean "admin", default: false, null: false
     t.string "uid"
     t.string "provider"
     t.string "reset_digest"
     t.string "e_token"
     t.datetime "reset_sent_at"
-    t.integer "check_reset_time", default: 6
-    t.datetime "check_reset_at", default: "2018-04-30 21:00:00"
+    t.integer "check_reset_time", default: 6, null: false
+    t.datetime "check_reset_at", default: "2018-05-01 21:00:00", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_users_on_account_id", unique: true
