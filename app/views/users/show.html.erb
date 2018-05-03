@@ -4,7 +4,7 @@
 
 <div class="container content-mspace c">
   <% if logged_in? && current_user?(@user) %>
-    <div class="side-option side-link1">
+    <div class="side-option">
       <%= link_to fa_icon('cog', class: "middle-x") +
                   "<p>設定</p>".html_safe,
                   setting_path %>
@@ -23,48 +23,20 @@
     <small><%= @user.profile %></small>
   </div>
 </div>
-<div class="blank"></div>
-<div class="container content-nspace">
-  <div class="title-nspace c">
-    <h2>実行リスト一覧</h2>
-    <div class="side-option side-link2">
-      <%= link_to fa_icon("list-ul" ,class: "middle-x") +
-                  "<p>全リスト</p>".html_safe,
-                  mylists_user_path(@user) %>
-    </div>
-  </div>
-  <div class="border"></div>
-  <% if @mylists.any? %>
-    <% if current_user?(@user) %>
-      <%= render partial: 'shared/list_item',
-                 locals: { left: '実行状況',
-                           center: '内容',
-                           right: 'Dayチェック' } %>
-    <% else %>
-      <%= render partial: 'shared/list_item',
-                 locals: { left: '実行状況',
-                           center: '内容',
-                           right: '便乗？' } %>
-    <% end %>
-    <div class="border"></div>
-    <ul>
-      <%= render partial: @mylists,
-                 locals: { user: @user,
-                           cuser_list_ids: @cuser_list_ids } %>
-    </ul>
-  <% else %>
-    <%= render partial: 'shared/no_data',
-               locals: { icon: 'list',
-                         text: 'list',
-                         user: @user } %>
-  <% end %>
-</div>
-<div class="blank"></div>
+<% if current_user?(@user) && @mylists_count == 0 %>
+  <%= render 'users/how_to_use' %>
+<% end %>
+<% if @mylists_count != 0 %>
+  <%= render partial: 'users/active_mylists',
+             locals: { user: @user,
+                       cuser_list_ids: @cuser_list_ids } %>
+<% end %>
 <% if logged_in? && current_user?(@user) %>
+  <div class="blank"></div>
   <div class="container content-nspace">
     <div class="title-nspace c">
       <h2>リスト検索・追加</h2>
-      <div class="side-option side-link3">
+      <div class="side-option">
         <%= link_to fa_icon("search", class: "middle-x") +
                     "<p>リスト検索</p>".html_safe,
                     search_path %>
@@ -103,4 +75,12 @@
       <% end %>
     </div>
   </div>
+<% end %>
+<% if @mylists_count == 0 %>
+  <%= render partial: 'users/active_mylists',
+             locals: { user: @user,
+                       cuser_list_ids: @cuser_list_ids } %>
+<% end %>
+<% if current_user?(@user) && @mylists_count != 0 %>
+  <%= render 'users/how_to_use' %>
 <% end %>

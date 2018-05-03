@@ -205,6 +205,58 @@ select {
   }
 }
 
+.how-to-use {
+  
+  .step {
+    width: 100%;
+
+    .step-figure {
+      float: left;
+      width: 15%;
+
+      i {
+        font-size: 1.8em;
+        margin: 10px 0;
+      }
+
+      .avail-dummy {
+        border: 1px solid $weak-red;
+        border-radius: 5px;
+        height: 36px;
+        margin: 10px auto 0;
+        width: 45px;
+
+        span {
+          color: $weak-red;
+          font-size: 10px;
+          line-height: 34px;
+        }
+      }
+    }
+
+    .step-text {
+      float:  right;
+      width: 85%;
+
+      p {
+        font-size: 14px;
+        margin: 5px;
+      }
+
+      .example {
+        font-size: 12px;
+      }
+    }
+
+    .check-dummy {
+      i {
+        color: $weak-red;
+      }
+    }
+  }
+}
+
+
 .counter {
   text-align: right;
 
@@ -228,6 +280,14 @@ select {
 
 .active {
   color: $accent !important;
+}
+
+.red {
+  color: red !important;
+}
+
+.wred {
+  color: $weak-red !important;
 }
 
 .cover {
@@ -309,7 +369,7 @@ select {
 
 /* parts */
   
-  /* botton */
+  /* button */
 
 $size:(
   big: 100%,
@@ -1183,6 +1243,10 @@ nav {
       line-height: 30px;
       position: relative;
       width: 30px;
+    }
+
+    .fa-pencil-square-o:before {
+      margin-left: 18%;
     }
 
     p {

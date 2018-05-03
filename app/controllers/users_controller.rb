@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @mylists = @user.mylists.where(active: true).includes(:list)
+    @mylists_count = @mylists.size
     @list = current_user.create_lists.build
     if current_user?(@user)
       current_user.confirm_and_reset_check_mylists

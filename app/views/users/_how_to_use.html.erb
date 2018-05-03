@@ -1,0 +1,13 @@
+<div class="blank"></div>
+<div class="container content-nspace">
+  <div class="title-nspace c">
+    <h2>使い方３ステップ</h2>
+    <div class="side-option">
+      <%= link_to fa_icon("question", class: "middle-x") +
+                  "<p>もっと詳しく</p>".html_safe,
+                   about_path %>
+    </div>
+  </div>
+  <div class="border"></div>
+  <%= render 'shared/how_to_use_steps' %>
+</div>
