@@ -6,6 +6,11 @@
   <div class="title-nspace c">
     <h1>リスト検索</h1>
   </div>
+  <div class="side-option">
+    <%= link_to fa_icon('pencil-square-o', class: "middle-x") +
+                "<p>自分で追加</p>".html_safe,
+                user_path(@user) + "#form-list" %>
+  </div>
   <div class="border"></div>
   <div class="content-mspace form form-inner">
     <%= render 'shared/search_form' %>

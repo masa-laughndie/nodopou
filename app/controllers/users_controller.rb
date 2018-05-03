@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user.validate_password = true
 
     @user.set_name_and_email(params[:user][:account_id])
-    @user.password_confirmation = params[:user][:password]
+    @user.set_pass_and_time(params[:user][:password], nil)
 
     if @user.save
       log_in @user
@@ -93,7 +93,8 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:account_id, :name, :email,
-                                   :password, :password_confirmation)
+                                   :password, :password_confirmation,
+                                   :check_reset_at)
     end
 
     def user_edit_params

@@ -154,14 +154,19 @@ class User < ApplicationRecord
   end
 
   def set_pass_and_time(password, time)
-    unless password.nil?
-      validate_password = true
+    if time.nil?
       password_confirmation = password
-    end
+      check_reset_at = Time.zone.now.beginning_of_day + 1.day + 6.hours
+    else
+      unless password.nil?
+        validate_password = true
+        password_confirmation = password
+      end
 
-    time = time.to_i
-    if time != self.check_reset_time
-      self.check_reset_at = self.check_reset_at.beginning_of_day + time.hours
+      time = time.to_i
+      if time != self.check_reset_time
+        check_reset_at = self.check_reset_at.beginning_of_day + time.hours
+      end
     end
   end
 

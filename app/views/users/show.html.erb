@@ -72,17 +72,33 @@
     </div>
     <div class="border"></div>
     <div class="content-mspace form form-inner">
+      <div class="explanation">
+        <p>
+          <%= fa_icon('info-circle') %> 下のフォームからリストを検索できます！
+        </p>
+      </div>
       <%= render 'shared/search_form' %>
     </div>
     <div class="border"></div>
-    <div class="content-mspace form">
+    <div class="content-mspace form" id="form-list">
+      <div class="explanation">
+        <p>
+          <%= fa_icon('info-circle') %> 検索しても便乗したいリストがないときは下のフォームから自分でリストを追加できます！
+        </p>
+      </div>
       <%= form_for(@list, url: lists_url(@user)) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <div class="field field-area list-area">
-          <%= f.text_area :content %>
+          <%= f.text_area :content, class: "char-count" %>
+        </div>
+        <div class="counter">
+          <span id="count-text">1文字~100文字まで入力できます</span>
+          <span id="count">0</span> / 100
         </div>
         <div class="button-small button-accent">
-          <%= f.submit "追加する", data: { disable_with: "処理中..." } %>
+          <%= f.submit "追加する", data: { disable_with: "処理中..." },
+                                 disabled: true,
+                                 class: "disabled" %>
         </div>
       <% end %>
     </div>

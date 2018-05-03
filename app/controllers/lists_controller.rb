@@ -17,9 +17,8 @@ class ListsController < ApplicationController
       flash[:success] = "リストの作成が完了しました！"
       redirect_to current_user
     else
-      @user = current_user
-      @mylists = @user.mylists.where(active: true)
-      render 'users/show'
+      flash[:danger] = "リストを追加できませんでした<br>リストの内容を入力してください"
+      redirect_to current_user
     end
   end
 

@@ -13,6 +13,7 @@ $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
 $on-green: #78c4ad;
+$on-green-op: rgba(120, 196, 173, 0.15);
 $weak-red: #ff6666;
 
 @mixin box_sizing {
@@ -69,6 +70,13 @@ textarea {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  
 }
 
 input,
@@ -180,6 +188,33 @@ select {
       font-size: 17px;
       margin-right: 5px;
     }
+  }
+}
+
+.explanation {
+  color: $main;
+  margin-bottom: 10px;
+  padding: 5px 5px 5px 10px;
+
+  p {
+    font-size: 14px;
+  }
+
+  i {
+    color: $on-green;
+  }
+}
+
+.counter {
+  text-align: right;
+
+  #count-text {
+    float: left;
+    font-size: 14px;
+  }
+
+  span {
+    color: #ff0000;
   }
 }
 
@@ -309,8 +344,7 @@ $size:(
     }
   }
 
-  .button-#{key}:hover {
-    filter: alpha(opacity = 80);
+  .button-#{$key}:hover {
     opacity: 0.8;
   }
 }
@@ -410,6 +444,11 @@ $color:(
     button,
     a {
       color: $main;
+    }
+
+    input:disabled {
+      background: $waccent;
+      opacity: 0.6;
     }
   }
 }
@@ -1172,6 +1211,8 @@ nav {
 }
 
 .list-area {
+  margin-bottom: 10px !important;
+
   textarea {
     min-height: 80px !important;
     max-height: 160px !important;
