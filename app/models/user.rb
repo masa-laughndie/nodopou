@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :mylists, dependent: :destroy
   has_many :lists,   through: :mylists
 
+  has_many :posts,   dependent: :destroy
+
   validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
                                message: "名前は50文字以内まで有効です",

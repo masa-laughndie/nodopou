@@ -1557,3 +1557,64 @@ nav {
     }
   }
 }
+
+
+/* other */
+
+  /* demo */
+
+.demo {
+  height: auto;
+  width: 100%;
+  margin:  0 auto;
+  position: relative;
+
+  .out-line {
+    background: $accent;
+    height: 100%;
+    width: 100%;
+    padding: 14px 10px 30px;
+
+    .in-line {
+      background: $base;
+      border-radius: 15px;
+      padding: 10px 20px;
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      .in-text {
+        display: block;
+        font-size: 12px;
+        position: relative;
+
+        p {
+          text-align: left;
+        }
+
+        ul {
+          padding-left: 20px;
+          li {
+            list-style: disc;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    .in-title {
+      height: 30px;
+      width: 100%;
+
+      span {
+        line-height: 30px;
+      }
+    }
+  }
+}
+
+.demo:before {
+  content: "";
+  display: block;
+  padding-top: 57.3% 
+}

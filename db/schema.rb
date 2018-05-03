@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180425164427) do
+ActiveRecord::Schema.define(version: 20180503085632) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "name", limit: 100, null: false
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20180425164427) do
     t.index ["list_id"], name: "index_mylists_on_list_id"
     t.index ["user_id", "list_id"], name: "index_mylists_on_user_id_and_list_id", unique: true
     t.index ["user_id"], name: "index_mylists_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "picture", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
