@@ -5,8 +5,9 @@ class ListsController < ApplicationController
   before_action :check_user_authority, only: :destroy
 
   def show
-    @users = @list.users.includes(:mylists).order("mylists.check_count DESC").take(3)
+    @users = @list.users.order("mylists.check_count DESC").take(3)
     @mylists = @list.mylists.order(check_count: :desc).take(3)
+    @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
   end
 
   def create
@@ -16,9 +17,8 @@ class ListsController < ApplicationController
       flash[:success] = "リストの作成が完了しました！"
       redirect_to current_user
     else
-      @user = current_user
-      @mylists = @user.mylists.where(active: true)
-      render 'users/show'
+      flash[:danger] = "リストを追加できませんでした<br>リストの内容を入力してください"
+      redirect_to current_user
     end
   end
 

@@ -17,7 +17,7 @@ class ListsInterfaceTest < ActionDispatch::IntegrationTest
       post lists_path, params: { list: { content: "" } }
     end
 
-    assert_select 'div.error'
+    assert_not flash.empty?
     assert_difference 'List.count', 1 do
       post lists_path, params: { list: { content: content } }
     end

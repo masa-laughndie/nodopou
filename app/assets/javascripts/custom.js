@@ -163,3 +163,28 @@ document.addEventListener('turbolinks:load', function() {
     }
   });
 });
+
+//textarea文字数カウンター
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.char-count').on("change keydown keyup", function() {
+      var
+        textLength = $(this).val().length,
+        $disable = $('.disabled'),
+        $text = $('#count-text');
+      $('#count').text(textLength);
+
+      if ( textLength == 0 ) {
+        $disable.prop('disabled', true);
+        $text.text("1文字~100文字まで入力できます");
+      } else if ( textLength > 100 ) {
+        $disable.prop('disabled', true);
+        $text.text("※入力できる文字数を超えています！");
+      } else {
+        $disable.prop('disabled', false);
+        $text.text("1文字~100文字まで入力できます");
+      }
+
+    });
+  });
+});

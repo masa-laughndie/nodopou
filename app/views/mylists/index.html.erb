@@ -25,7 +25,8 @@
     <% end %>
     <ul>
       <%= render partial: @mylists,
-                 locals: { user: @user } %>
+                 locals: { user: @user,
+                           cuser_list_ids: @cuser_list_ids } %>
     </ul>
   <% else %>
     <%= render partial: 'shared/no_data',
