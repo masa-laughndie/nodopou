@@ -12,7 +12,10 @@
   <div class="nothing-text">
     <% case text
        when 'list' %>
-      <p>実行中のリストがありません</p><p>下の「リスト検索・追加」から追加できます</p>
+      <p>実行中のリストがありません</p>
+      <% if current_user?(user) %>
+        <p>上の「リスト検索・追加」から追加できます</p>
+      <% end %>
     <% when 'list-search' %>
       <p>実行中のリストがありません</p>
       <% if current_user?(user) %>

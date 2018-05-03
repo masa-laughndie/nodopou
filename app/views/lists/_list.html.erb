@@ -10,6 +10,7 @@
       <span class="middle-y"><%= list.content %></span>
     </div>
     <%= render partial: 'lists/avail_form',
-               locals: { list: list } %>
+               locals: { list: list,
+                         cuser_list_ids: cuser_list_ids } %>
   </div>
 </li>

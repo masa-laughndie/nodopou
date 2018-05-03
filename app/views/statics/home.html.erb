@@ -1,14 +1,16 @@
-<% provide(:og_title, "NoDoBotoke -逆ToDoリスト-") %>
+<% provide(:og_title, "NoDoBotoke -NotToDoリスト-") %>
 <% provide(:og_url, root_url) %>
 
 <div class="content-lspace container c">
-  <div class="title-lspace">
-    <h1 class="logo-font">NoDoBotoke</h1>
+  <div class="top-text">
+    <p>「やらない(Not To Do)」リストを</p>
+    <p>簡単作成！</p>
+    <p>↓</p>
+    <p>Twitterで宣言(シェア)して実行度UP！</p>
+    <p>↓</p>
+    <p>１日の終わりに簡単フィードバック！</p>
   </div>
   <div class="top-main">
-    <div class="top-text">
-      <p>~開発中~</p>
-    </div>
     <div class="top-enter">
       <div class="c button-large button-twitter">
         <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>

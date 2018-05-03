@@ -12,14 +12,17 @@
     </div>
     <div class="list-availing square">
       <%= render partial: 'lists/avail_form',
-                 locals: { list: @list } %>
+                 locals: { list: @list,
+                           cuser_list_ids: @cuser_list_ids } %>
     </div>
   </div>
 </div>
+<div class="border"></div>
 <div class="container content-nspace">
   <div class="title-nspace c">
     <h2>達成日数 BEST3</h2>
   </div>
+  <div class="border"></div>
   <ul class="rank">
     <% @users.length.times do |n| %>
       <%= render partial: 'users/user',
