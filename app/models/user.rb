@@ -213,6 +213,10 @@ class User < ApplicationRecord
   end
 
   def update_check_reset_at
+=begin
+    #テスト用
+    update_attribute(:check_reset_at, 1.minute.ago)
+=end
     update_attribute(:check_reset_at,
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
@@ -220,55 +224,24 @@ class User < ApplicationRecord
 
   def confirm_and_reset_check_of(mylists)
     if self.check_reset_at < Time.zone.now
+
+      mylists ||= self.mylists.includes(:list)
+
       if mylists.any?
-
-        check_lists = mylists.where(check: true)
-        noncheck_lists = mylists.where(check: false)
-        
-        if check_lists.any?
-          check_lists.each do |mylist|
+        mylists.each do |mylist|
+          if mylist.check?
             mylist.add_running_days_and_reset_check
-          end
-        end
-
-        if noncheck_lists.any?
-          noncheck_lists.each do |mylist|
+          else
             mylist.reset_running_days
           end
         end
-        
       end
 
       update_check_reset_at
     end
   end
 
-  def confirm_and_reset_check_mylists
-    if self.check_reset_at < Time.zone.now
-
-      mylists = self.mylists.includes(:list)
-      if mylists.any?
-
-        check_lists = mylists.where(check: true)
-        if check_lists.any?
-          check_lists.each do |mylist|
-            mylist.add_running_days_and_reset_check
-          end
-        end
-
-        noncheck_lists = mylists.where(check: false)
-        if noncheck_lists.any?
-          noncheck_lists.each do |mylist|
-            mylist.reset_running_days
-          end
-        end
-
-      end
-
-      update_check_reset_at
-    end
-  end
-
+  
   private
 
     def downcase_email

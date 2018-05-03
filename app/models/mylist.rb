@@ -19,7 +19,7 @@ class Mylist < ApplicationRecord
   end
 
   def add_running_days_and_reset_check
-    update_attributes(running_days: self.running_days + 1, check: false)
+    update_attributes(running_days: (self.running_days + 1), check: false)
   end
 
   def remove_running_days

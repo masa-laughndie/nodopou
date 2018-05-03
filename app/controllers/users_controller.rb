@@ -11,7 +11,8 @@ class UsersController < ApplicationController
     @mylists_count = @mylists.size
     @list = current_user.create_lists.build
     if current_user?(@user)
-      current_user.confirm_and_reset_check_mylists
+      #nilのときは全mylist
+      current_user.confirm_and_reset_check_of(nil)
     else
       @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
     end
