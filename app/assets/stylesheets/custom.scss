@@ -1525,12 +1525,21 @@ nav {
     background: $weak-grey;
     border-radius: 50%;
     font-size: 1.3em;
-    line-height: 100px;
+    position: relative;
 
-    span {
+    .count-num {
       display: block;
       height: 100%;
+      line-height: 100px;
       width: 100%;
+    }
+
+    .count-label {
+      font-size: 13px;
+      position: absolute;
+      bottom: 8px;
+      line-height: 20px;
+      width: 100px;
     }
   }
 
