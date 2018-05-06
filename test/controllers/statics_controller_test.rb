@@ -3,7 +3,7 @@ require 'test_helper'
 class StaticsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    @base_title = "NoDoBotoke -NotToDoリスト-"
+    @base_title = "nodobotoke -NotToDoリスト-"
   end
 
   test "should get home" do
