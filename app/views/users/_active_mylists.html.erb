@@ -34,3 +34,14 @@
     </ul>
   <% end %>
 </div>
+<% if false %>
+<div class="container content-sspace">
+  <div class="form">
+    <%= form_for(@post, url: posts_path, multipart: true) do |f| %>
+      <div class="button-small button-accent c">
+        <%= f.submit "画像生成", data: { disable_with: "処理中..." } %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

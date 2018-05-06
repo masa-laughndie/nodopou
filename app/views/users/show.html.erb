@@ -14,10 +14,10 @@
     <%= image_tag(image_url(@user), size: 100, alt: @user.name) %>
   </div>
   <div class="user-name">
-    <h1><%= @user.name %></h1>
+    <h1><span class="logo-font"><%= @user.name %></span></h1>
   </div>
   <div class="user-aid">
-    @<%= @user.account_id %>
+    <span class="logo-font">@<%= @user.account_id %></span>
   </div>
   <div class="user-profile">
     <small><%= @user.profile %></small>

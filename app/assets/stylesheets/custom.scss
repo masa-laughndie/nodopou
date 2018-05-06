@@ -38,6 +38,7 @@ body {
   /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
   font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
   /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
+  font-family: 'Comfortaa', cursive;
   font-size: 1.0em;
   position: relative;
   padding-bottom: 51px;
@@ -145,12 +146,15 @@ select {
 }
 
 .title-nspace {
-  font-size: 20px;
+  font-size: 18px;
   padding: 20px 0;
 }
 
 .logo-font {
-  font-family: 'Yeon Sung', cursive;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  /*font-family: 'Yeon Sung', cursive;*/
 }
 
 .attention {
@@ -208,6 +212,7 @@ select {
 .how-to-use {
   
   .step {
+    margin: 10px 0;
     width: 100%;
 
     .step-figure {
@@ -1525,12 +1530,21 @@ nav {
     background: $weak-grey;
     border-radius: 50%;
     font-size: 1.3em;
-    line-height: 100px;
+    position: relative;
 
-    span {
+    .count-num {
       display: block;
       height: 100%;
+      line-height: 100px;
       width: 100%;
+    }
+
+    .count-label {
+      font-size: 13px;
+      position: absolute;
+      bottom: 8px;
+      line-height: 20px;
+      width: 100px;
     }
   }
 
@@ -1546,5 +1560,74 @@ nav {
         height: 100%;
       }
     }
+  }
+}
+
+
+/* other */
+
+  /* demo */
+
+.demo {
+  height: auto;
+  width: 100%;
+  margin:  0 auto;
+  position: relative;
+
+  .out-line {
+    background: $accent;
+    height: 100%;
+    width: 100%;
+    padding: 20px 15px 35px;
+
+    .in-line {
+      background: $base;
+      border-radius: 15px;
+      padding: 10px 20px;
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      .in-text {
+        display: block;
+        font-size: 12px;
+        position: relative;
+
+        p {
+          text-align: left;
+        }
+
+        ul {
+          padding-left: 20px;
+          li {
+            list-style: disc;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    .in-title {
+      height: 30px;
+      width: 100%;
+
+      span {
+        line-height: 30px;
+      }
+    }
+  }
+}
+
+.demo:before {
+  content: "";
+  display: block;
+  padding-top: 57.3% 
+}
+
+.demo-image {
+  width: 100%;
+
+  img {
+    width: 100%;
   }
 }

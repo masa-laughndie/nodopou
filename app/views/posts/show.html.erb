@@ -1,0 +1,28 @@
+<% provide(:title, "ポストデモ") %>
+<% provide(:og_title, "ポストデモ") %>
+<% provide(:og_url, post_view_url) %>
+
+<div class="container content-sspace">
+  <div class="demo">
+    <div class="out-line abs-left">
+      <div class="in-line c">
+        <div class="in-text middle-y">
+          <ul>
+
+          </ul>
+        </div>
+      </div>
+      <div class="in-title">
+        <span class="logo-font">nodobotoke</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="blank"></div>
+<% if !@post.nil? && @post.picture? %>
+  <div class="container content-mspace">
+    <div class="demo-image">
+      <%= image_tag(picture_url(@post)) %>
+    </div>
+  </div>
+<% end %>
