@@ -41,6 +41,7 @@ document.addEventListener('turbolinks:load', function() {
         reader = new FileReader(),
         $preview = $('.preview'),
         $icon = $('.icon-upload');
+      console.log(file);
 
       //実効終了条件
       if ( file == undefined || file.type.indexOf('image') < 0 ) {

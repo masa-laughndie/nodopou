@@ -68,6 +68,21 @@ class PictureUploader < CarrierWave::Uploader::Base
       img
     end
   end
+=begin
+  def create_image_for_twitter(text)
+    img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
+    img.combine_options do |i|
+      i.gravity "Center"
+      i.pointsize 25
+      i.fill "#000000"
+      i.draw "text 0,0 '#{text}'"
+      # i.font "helvetica"
+    end
+
+    img.write "#{Rails.root}/public/images/test1.png"
+    return "#{Rails.root}/public/images/test1.png"
+  end
+=end
 
   protected
 

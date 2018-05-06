@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @mylists = @user.mylists.where(active: true).includes(:list)
     @mylists_count = @mylists.size
     @list = current_user.create_lists.build
+    @post = current_user.posts.build
     if current_user?(@user)
       #nilのときは全mylist
       current_user.confirm_and_reset_check_of(nil)

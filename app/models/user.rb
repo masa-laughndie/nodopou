@@ -223,6 +223,7 @@ class User < ApplicationRecord
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
   end
+  
 
   def confirm_and_reset_check_of(mylists)
     if self.check_reset_at < Time.zone.now

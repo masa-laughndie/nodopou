@@ -8,15 +8,21 @@
       <div class="in-line c">
         <div class="in-text middle-y">
           <ul>
-            <li>テストテストテストテストテストテストテストテストテストテスト</li>
-            <li>テストテストテストテストテスト</li>
-            <li>テストテストテストテストテストテスト</li>
+
           </ul>
         </div>
       </div>
       <div class="in-title">
-        <span class="logo-font">NoDoBotoke</span>
+        <span class="logo-font">nodobotoke</span>
       </div>
     </div>
   </div>
 </div>
+<div class="blank"></div>
+<% if !@post.nil? && @post.picture? %>
+  <div class="container content-mspace">
+    <div class="demo-image">
+      <%= image_tag(picture_url(@post)) %>
+    </div>
+  </div>
+<% end %>
