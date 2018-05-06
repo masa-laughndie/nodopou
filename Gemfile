@@ -5,6 +5,7 @@ gem 'bcrypt',               '~> 3.1.11'    #暗号化(ハッシュ化)
 gem 'faker',                    '1.7.3'    #疑似ユーザー追加
 gem 'carrierwave',              '1.2.2'    #画像アップローダー
 gem 'mini_magick',              '4.7.0'    #
+# gem 'rmagick',                  '2.16.0'
 gem 'piet',                     '0.2.6'
 gem 'puma',                     '3.11.0'   #serverに使用
 gem 'sass-rails',               '5.0.6'    #sass使用のため

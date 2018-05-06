@@ -29,6 +29,9 @@ Rails.application.routes.draw do
 
   resources :lists, only: [:show, :create, :destroy]
 
+  resources :posts, only: [:create, :destroy]
+  get '/post_view', to: 'posts#show'
+
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do
     collection do

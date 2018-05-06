@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :mylists, dependent: :destroy
   has_many :lists,   through: :mylists
 
+  has_many :posts,   dependent: :destroy
+
   validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
                                message: "名前は50文字以内まで有効です",
@@ -221,6 +223,7 @@ class User < ApplicationRecord
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
   end
+  
 
   def confirm_and_reset_check_of(mylists)
     if self.check_reset_at < Time.zone.now
