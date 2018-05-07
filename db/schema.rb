@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20180503085632) do
 
   create_table "lists", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "content", limit: 100, null: false
+    t.string "content", null: false
     t.integer "user_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20180503085632) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "picture"
+    t.string "picture", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20180503085632) do
     t.boolean "is_send_email", default: false, null: false
     t.string "account_id", limit: 15, null: false
     t.string "image"
-    t.string "profile", limit: 160
+    t.string "profile"
     t.string "password_digest", null: false
     t.string "remember_digest"
     t.boolean "admin", default: false, null: false
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20180503085632) do
     t.string "e_token"
     t.datetime "reset_sent_at"
     t.integer "check_reset_time", default: 6, null: false
-    t.datetime "check_reset_at", default: "2018-05-01 21:00:00", null: false
+    t.datetime "check_reset_at", default: "2018-05-07 21:00:00", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_users_on_account_id", unique: true
