@@ -41,6 +41,7 @@ document.addEventListener('turbolinks:load', function() {
         reader = new FileReader(),
         $preview = $('.preview'),
         $icon = $('.icon-upload');
+      console.log(file);
 
       //実効終了条件
       if ( file == undefined || file.type.indexOf('image') < 0 ) {
@@ -161,5 +162,30 @@ document.addEventListener('turbolinks:load', function() {
         best3.eq(i).find('.active-count').addClass('rank-' + (i + 1));
       }
     }
+  });
+});
+
+//textarea文字数カウンター
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.char-count').on("change keydown keyup", function() {
+      var
+        textLength = $(this).val().length,
+        $disable = $('.disabled'),
+        $text = $('#count-text');
+      $('#count').text(textLength);
+
+      if ( textLength == 0 ) {
+        $disable.prop('disabled', true);
+        $text.text("1文字~100文字まで入力できます");
+      } else if ( textLength > 100 ) {
+        $disable.prop('disabled', true);
+        $text.text("※入力できる文字数を超えています！");
+      } else {
+        $disable.prop('disabled', false);
+        $text.text("1文字~100文字まで入力できます");
+      }
+
+    });
   });
 });

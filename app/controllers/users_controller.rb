@@ -8,7 +8,15 @@ class UsersController < ApplicationController
 
   def show
     @mylists = @user.mylists.where(active: true).includes(:list)
+    @mylists_count = @mylists.size
     @list = current_user.create_lists.build
+    @post = current_user.posts.build
+    if current_user?(@user)
+      #nilのときは全mylist
+      current_user.confirm_and_reset_check_of(nil)
+    else
+      @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
+    end
   end
 
   def new
@@ -20,7 +28,7 @@ class UsersController < ApplicationController
     @user.validate_password = true
 
     @user.set_name_and_email(params[:user][:account_id])
-    @user.password_confirmation = params[:user][:password]
+    @user.set_pass_and_time(params[:user][:password], nil)
 
     if @user.save
       log_in @user
@@ -43,10 +51,9 @@ class UsersController < ApplicationController
 
   def update
     @user.validate_name = true
-    unless params[:user][:password].nil?
-      @user.validate_password = true
-      @user.password_confirmation = params[:user][:password]
-    end
+
+    @user.set_pass_and_time(params[:user][:password],
+                            params[:user][:check_reset_time])
 
     if @user.update_attributes(user_edit_params)
       flash[:success] = "設定の変更が完了しました！"
@@ -89,12 +96,14 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:account_id, :name, :email,
-                                   :password, :password_confirmation)
+                                   :password, :password_confirmation,
+                                   :check_reset_at)
     end
 
     def user_edit_params
       params.require(:user).permit(:account_id, :name, :image, :image_cache,
-                                   :profile, :password, :password_confirmation)
+                                   :profile, :password, :password_confirmation,
+                                   :check_reset_time, :check_reset_at)
     end
 
     def user_email_params

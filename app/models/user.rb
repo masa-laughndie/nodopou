@@ -8,13 +8,15 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  #自分が開いた宗派
+  #自分が開いたリスト
   has_many :create_lists, class_name: "List",
                           dependent: :destroy
 
-  #所属宗派
+  #便乗リスト
   has_many :mylists, dependent: :destroy
   has_many :lists,   through: :mylists
+
+  has_many :posts,   dependent: :destroy
 
   validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
@@ -125,9 +127,49 @@ class User < ApplicationRecord
     account_id
   end
 
+=begin
+  def validate_on?(attribute)
+    validate_target = self.send("validate_#{attribute}")
+    unless validate_target.nil?
+      validate_target.in?(['true', true])
+    else
+      return false
+    end
+  end
+=end
+
+  def validate_name?
+    validate_name.in?(['true', true])
+  end
+
+  def validate_email?
+    validate_email.in?(['true', true])
+  end
+
+  def validate_password?
+    validate_password.in?(['true', true])
+  end
+
   def set_name_and_email(param)
     self.name = param
     self.email = "#{param}@example.com"
+  end
+
+  def set_pass_and_time(password, time)
+    if time.nil?
+      password_confirmation = password
+      check_reset_at = Time.zone.now.beginning_of_day + 1.day + 6.hours
+    else
+      unless password.nil?
+        validate_password = true
+        password_confirmation = password
+      end
+
+      time = time.to_i
+      if time != self.check_reset_time
+        check_reset_at = self.check_reset_at.beginning_of_day + time.hours
+      end
+    end
   end
 
   def remember
@@ -172,34 +214,38 @@ class User < ApplicationRecord
     list.leaved_user
   end
 
+  #SQL文が発行され過ぎるため、seedにのみ使用
   def availing?(list)
     mylists.pluck(:list_id).include?(list.id)
   end
 
-=begin
-  def validate_on?(attribute)
-    validate_target = self.send("validate_#{attribute}")
-    unless validate_target.nil?
-      validate_target.in?(['true', true])
-    else
-      return false
+  def update_check_reset
+    update_attribute(:check_reset_at,
+                     Time.zone.now.beginning_of_day +
+                     1.day + self.check_reset_time.hours)
+  end
+  
+
+  def confirm_and_reset_check_of(mylists)
+    if self.check_reset_at < Time.zone.now
+
+      mylists ||= self.mylists.includes(:list)
+
+      if mylists.any?
+        mylists.each do |mylist|
+          if mylist.check?
+            mylist.add_running_days_and_reset_check
+          else
+            mylist.reset_running_days
+          end
+        end
+      end
+
+      self.update_check_reset
     end
   end
-=end
 
-  def validate_name?
-    validate_name.in?(['true', true])
-  end
-
-  def validate_email?
-    validate_email.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
-  end
-
-
+  
   private
 
     def downcase_email

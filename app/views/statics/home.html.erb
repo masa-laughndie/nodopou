@@ -1,23 +1,29 @@
-<% provide(:og_title, "NoDoBotoke -逆ToDoリスト-") %>
+<% provide(:og_title, "nodobotoke -NotToDoリスト-") %>
 <% provide(:og_url, root_url) %>
 
-<div class="content-lspace container c">
-  <div class="title-lspace">
-    <h1 class="logo-font">NoDoBotoke</h1>
+<div class="content-mspace container c">
+  <div class="top-title">
+    <h1>シンプルな「やらない」ことリストが簡単に作れるサービスです！</h1>
   </div>
+  <div class="top-text">
+    <p><%= fa_icon('search') %> 「やらない」を探す！</p>
+    <p>↓</p>
+    <p><%= fa_icon('handshake-o') %>「やらない」に便乗する！</p>
+    <p>↓</p>
+    <p><%= fa_icon('check-square-o') %>「やらない」をふりかえる！</p>
+  </div>
+</div>
+<div class="content-lspace container c">
   <div class="top-main">
-    <div class="top-text">
-      <p>~開発中~</p>
-    </div>
     <div class="top-enter">
       <div class="c button-large button-twitter">
         <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
       </div>
       <div class="c button-large button-accent">
-        <%= link_to "NoDoBoIDで登録する", signup_path %>
+        <%= link_to "nodoboIDで登録する", signup_path %>
       </div>
       <div class="c button-big button-mini button-waccent">
-        <%= link_to fa_icon("sign-in") + " NoDoBoIDでログイン", login_path %>
+        <%= link_to fa_icon("sign-in") + " nodoboIDでログイン", login_path %>
       </div>
     </div>
   </div>

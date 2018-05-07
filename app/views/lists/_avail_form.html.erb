@@ -2,7 +2,7 @@
   <div class="list-avail">
     <div class="form middle-xy">
       <div id="list-avail-<%= list.id %>" class="field-avail">
-        <% if current_user.availing?(list) %>
+        <% if cuser_list_ids.include?(list.id) %>
           <%= render partial: 'lists/unavail', locals: { list: list } %>
         <% else %>
           <%= render partial: 'lists/avail', locals: { list: list } %>

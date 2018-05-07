@@ -1,5 +1,18 @@
 ja:
   activerecord:
+    models:
+      user: "ユーザー"
+      mylist: "マイリスト"
+      list: "オリジナルリスト"
+      post: "投稿"
+      contact: "お問い合わせ"
+    attributes:
+      user:
+        name: "表示名"
+        account_id: "アカウントID"
+        email: "メールアドレス"
+      post:
+        picture: "画像"
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"

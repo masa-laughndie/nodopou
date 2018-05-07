@@ -2,6 +2,12 @@
 <% provide(:og_title, "設定") %>
 <% provide(:og_url, setting_url) %>
 
+<div class="container content-sspace">
+  <div class="button-back button-mini button-logout c">
+    <%= link_to "ログアウト", logout_path, rel: "nofollow", data: { method: :delete } %>
+  </div>
+</div>
+<div class="blank"></div>
 <div class="container content-mspace">
   <div class="title-mspace">
     <h1>プロフィール設定</h1>
@@ -49,6 +55,16 @@
       </div>
       <div class="field">
         <%= f.text_field :name %>
+      </div>
+      <div class="label">
+        <%= f.label :check_reset_time, "リスト更新時間" %>
+        <p class="label-comment">※リストのチェック数や継続日数を記録する時間です。</p>
+        <p class="label-comment">(推奨)寝てる間、早朝などの一日の始まり</p>
+      </div>
+      <div class="field field-select">
+        <%= f.select(:check_reset_time,
+                     options_for_select(time_array, @user.check_reset_time)) %>
+        <div class="c select-icon"><%= fa_icon("chevron-down") %></div>
       </div>
       <div class="label">
         <label for="user_password">パスワード<span>（更新したいときのみ入力）</span></label>

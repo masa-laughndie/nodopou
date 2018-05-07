@@ -1,3 +1,4 @@
+<% rdays = mylist.running_days %>
 <% if mylist.active? %>
   <div class="form middle-xy">
     <div id="list-check-<%= mylist.id %>" class="field-checkbox2">
@@ -12,4 +13,7 @@
   <div class="non-active middle-xy c">
     <%= fa_icon('square') %>
   </div>
+<% end %>
+<% if rdays != 0 %>
+  <span class="list-rdays c"><%= rdays %>日継続中</span>
 <% end %>
