@@ -9,18 +9,11 @@ class Post < ApplicationRecord
   def create_image_for_twitter(texts)
     img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
     img.combine_options do |i|
-      # i.gravity "center"
-      i.encoding "UTF-8"
-      i.font "Arial"
-      i.font "c:/windows/fonts/fujipop.ttc"
+      i.gravity "center"
+      i.font "fonts/Jiyucho.ttf"
       i.pointsize 25
-      i.fill "#000000"
-      j = 150
-      texts.each do |ttext|
-        ttext = ttext
-        i.draw "text 130,#{j} '#{ttext}'"
-        j += 25
-      end
+      i.fill "black"
+      i.draw "text 0,0 '#{texts}'"
     end
 
     img.write "#{Rails.root}/public/images/temp.png"
