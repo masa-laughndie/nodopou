@@ -212,7 +212,7 @@ select {
 .how-to-use {
   
   .step {
-    margin: 10px 0;
+    padding: 10px 0;
     width: 100%;
 
     .step-figure {
@@ -1209,6 +1209,24 @@ nav {
 }
 
 /* static */
+
+  /* home */
+
+.top-title {
+  margin: 50px 0 40px;
+
+  h1 {
+    font-size: 20px;
+  }
+}
+
+.top-text {
+  p {
+    font-size: 20px;
+  }
+}
+
+  /* other */
 
 .poricy {
   p {

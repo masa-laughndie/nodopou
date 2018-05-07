@@ -59,7 +59,6 @@
         </p>
       </div>
       <%= form_for(@list, url: lists_url(@user)) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
         <div class="field field-area list-area">
           <%= f.text_area :content, class: "char-count" %>
         </div>
