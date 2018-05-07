@@ -13,6 +13,13 @@ module Nodobotoke
     config.load_defaults 5.1
     config.time_zone = 'Tokyo'
 
+    config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
+    end
+
+    config.web_console.whitelisted_ips = '192.168.0.0/16'
+
     config.action_view.embed_authenticity_token_in_remote_forms = true
 
     # Settings in config/environments/* take precedence over those specified here.

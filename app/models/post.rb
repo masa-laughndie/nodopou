@@ -6,30 +6,46 @@ class Post < ApplicationRecord
 
   validates :user_id, presence: true
 
-  def create_image_for_twitter(texts)
-    img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
-    img.combine_options do |i|
-      # i.gravity "center"
-      i.encoding "UTF-8"
-      i.font "Arial"
-      i.font "c:/windows/fonts/fujipop.ttc"
-      i.pointsize 25
-      i.fill "#000000"
-      j = 150
-      texts.each do |ttext|
-        ttext = ttext
-        i.draw "text 130,#{j} '#{ttext}'"
-        j += 25
+  def insert_new_line(text_ary)
+
+    sentense = ""
+    char_num = 20
+
+    text_ary.each do |text|
+      text = text.gsub(/\r\n|\r|\n/," ")
+      line = (text.length / char_num) + 1
+
+      sentense += "・"
+
+      line.times do |i|
+        start_num = i * char_num
+        sentense += text.slice(start_num, char_num)
+        if i != line - 1
+          sentense += "\n　"
+        else
+          sentense += "\n"
+        end
       end
     end
+    sentense
+  end
 
-    img.write "#{Rails.root}/public/images/temp.png"
-    file = File.open("#{Rails.root}/public/images/temp.png")
+  def create_image_for_twitter(sentense)
+    img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
+    img.combine_options do |i|
+      i.gravity "West"
+      i.font "fonts/GenJyuuGothic-Heavy.ttf"
+      i.pointsize 25
+      i.fill "black"
+      i.draw "text 80,0 '#{sentense}'"
+    end
+
+    # img.write "#{Rails.root}/public/images/temp.png"
+    # file = File.open("#{Rails.root}/public/images/temp.png")
+    file = img.tempfile
     self.picture = ActionDispatch::Http::UploadedFile.new(tempfile: file,
                                                           filename: File.basename(file),
                                                           content_type: "image/png")
   end
-
-
 
 end

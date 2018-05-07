@@ -58,7 +58,7 @@
           <%= fa_icon('info-circle') %> 検索しても便乗したいリストがないときは下のフォームから自分でリストを追加できます！
         </p>
       </div>
-      <%= form_for(@list, url: lists_url(@user)) do |f| %>
+      <%= form_for(@list, url: lists_url) do |f| %>
         <div class="field field-area list-area">
           <%= f.text_area :content, class: "char-count" %>
         </div>
