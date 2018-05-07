@@ -34,7 +34,7 @@ class Post < ApplicationRecord
     img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
     img.combine_options do |i|
       i.gravity "West"
-      i.font "fonts/Jiyucho.ttf"
+      i.font "fonts/GenJyuuGothic-Heavy.ttf"
       i.pointsize 25
       i.fill "black"
       i.draw "text 80,0 '#{sentense}'"
