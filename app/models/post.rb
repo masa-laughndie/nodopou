@@ -5,6 +5,8 @@ class Post < ApplicationRecord
   mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: true
+  validates :picture, presence: true
+
 
   def insert_new_line(text_ary)
 

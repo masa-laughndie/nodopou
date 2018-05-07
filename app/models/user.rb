@@ -8,11 +8,11 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  #自分が開いた宗派
+  #自分が開いたリスト
   has_many :create_lists, class_name: "List",
                           dependent: :destroy
 
-  #所属宗派
+  #便乗リスト
   has_many :mylists, dependent: :destroy
   has_many :lists,   through: :mylists
 
@@ -214,11 +214,7 @@ class User < ApplicationRecord
     list.leaved_user
   end
 
-  def update_check_reset_at
-=begin
-    #テスト用
-    update_attribute(:check_reset_at, 1.minute.ago)
-=end
+  def update_check_reset
     update_attribute(:check_reset_at,
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
@@ -240,7 +236,7 @@ class User < ApplicationRecord
         end
       end
 
-      update_check_reset_at
+      self.update_check_reset
     end
   end
 
