@@ -9,8 +9,8 @@ class List < ApplicationRecord
 
   validates :user_id,  presence: { message: "ユーザーが特定できません" }
   validates :content,  presence: { message: "内容を入力してください" },
-                       length:   { maximum: 100,
-                                   message: "内容は100文字まで入力できます" }
+                       length:   { maximum: 60,
+                                   message: "内容は60文字まで入力できます" }
 
   class << self
 

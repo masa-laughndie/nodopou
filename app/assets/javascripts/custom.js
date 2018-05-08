@@ -177,13 +177,13 @@ document.addEventListener('turbolinks:load', function() {
 
       if ( textLength == 0 ) {
         $disable.prop('disabled', true);
-        $text.text("1文字~100文字まで入力できます");
-      } else if ( textLength > 100 ) {
+        $text.text("1文字~60文字まで入力できます");
+      } else if ( textLength > 60 ) {
         $disable.prop('disabled', true);
         $text.text("※入力できる文字数を超えています！");
       } else {
         $disable.prop('disabled', false);
-        $text.text("1文字~100文字まで入力できます");
+        $text.text("1文字~60文字まで入力できます");
       }
 
     });

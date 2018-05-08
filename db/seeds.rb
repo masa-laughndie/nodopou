@@ -39,7 +39,7 @@ if Rails.env.development?
   users = User.order(:created_at).take(5)
   5.times do
     users.each do |user|
-      list = user.create_lists.create!(content: Faker::Lorem.sentence(5))
+      list = user.create_lists.create!(content: Faker::Lorem.sentence)
       user.avail(list)
     end
   end

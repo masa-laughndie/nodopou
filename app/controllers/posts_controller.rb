@@ -4,10 +4,9 @@ class PostsController < ApplicationController
 
   def create
     list_contents = current_user.lists.where("mylists.active IN (?)", true).pluck(:content)
-
     @post = current_user.posts.build
-    @sentense = @post.insert_new_line(list_contents)
-    @post.create_image_for_twitter(@sentense)
+    @post.create_picture_for_twitter(list_contents)
+
     if @post.save
       flash[:success] = "ポストの作成に成功しました！"
       redirect_to current_user
@@ -25,7 +24,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = current_user.posts.first
+    @posts = current_user.posts
   end
 
   private

@@ -19,10 +19,10 @@
   </div>
 </div>
 <div class="blank"></div>
-<% if !@post.nil? && @post.picture? %>
+<% if @posts.any? %>
   <div class="container content-mspace">
-    <div class="demo-image">
-      <%= image_tag(picture_url(@post)) %>
-    </div>
+    <ul>
+      <%= render @posts %>
+    </ul>
   </div>
 <% end %>
