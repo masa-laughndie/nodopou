@@ -4,7 +4,9 @@ class Post < ApplicationRecord
 
   mount_uploader :picture, PictureUploader
 
-  validates :user_id, presence: true
+  validates :user_id, presence: { message: "ユーザーを特定できません" }
+  validates :picture, presence: { message: "画像がありません" }
+
 
   def insert_new_line(text_ary)
 

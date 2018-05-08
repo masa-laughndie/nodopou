@@ -148,6 +148,10 @@ select {
 .title-nspace {
   font-size: 18px;
   padding: 20px 0;
+
+  h2 {
+    line-height: 30px;
+  }
 }
 
 .logo-font {
@@ -331,7 +335,7 @@ select {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   word-wrap: break-word;
 }
 
@@ -1427,7 +1431,7 @@ nav {
 
       span {
         display: block;
-        font-size: 14px;
+        font-size: 12px;
         position: relative;
       }
     }
