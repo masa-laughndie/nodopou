@@ -5,7 +5,14 @@ class ListsController < ApplicationController
   before_action :check_user_authority, only: :destroy
 
   def show
-    @users = @list.users.order("mylists.check_count DESC").take(3)
+    users = @list.users
+    # lists.user_count調整
+    if @list.check_correct_user_count_and_destroy?(users.size)
+      flash[:danger] = "ページが存在しませんでした"
+      redirect_to current_user
+    end
+
+    @users  = users.order("mylists.check_count DESC").take(3)
     @mylists = @list.mylists.order(check_count: :desc).take(3)
     @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
   end
@@ -29,12 +36,7 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    current_user.unavail(@list)
-    unless @list.availed?
-      @list.destroy
-    else
-      @list.set_create_user_none
-    end
+    @list.destroy_or_leaved(current_user)
     flash[:success] = "リストの削除に成功しました！"
     redirect_to current_user
   end

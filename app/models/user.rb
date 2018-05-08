@@ -9,8 +9,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   #自分が開いたリスト
-  has_many :create_lists, class_name: "List",
-                          dependent: :destroy
+  has_many :create_lists, class_name: "List"
 
   #便乗リスト
   has_many :mylists, dependent: :destroy

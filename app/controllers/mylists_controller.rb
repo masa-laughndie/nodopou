@@ -29,7 +29,7 @@ class MylistsController < ApplicationController
         format.js
       end
     else
-      flash[:denger] = "リストに便乗できませんでした"
+      flash[:danger] = "そのリストは既に存在しません"
       redirect_to current_user
     end
   end
@@ -42,12 +42,8 @@ class MylistsController < ApplicationController
 
   def destroy
     @list = List.find_by(id: params[:id])
-    current_user.unavail(@list)
-=begin
-    unless @list.availed?
-      @list.destroy
-    end
-=end
+    @list.destroy_or_leaved(current_user)
+
     respond_to do |format|
       format.html { redirect_to mylists_user_path(current_user) }
       format.js

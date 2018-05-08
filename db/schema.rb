@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20180503085632) do
     t.string "e_token"
     t.datetime "reset_sent_at"
     t.integer "check_reset_time", default: 6, null: false
-    t.datetime "check_reset_at", default: "2018-05-07 21:00:00", null: false
+    t.datetime "check_reset_at", default: "2018-05-08 21:00:00", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_users_on_account_id", unique: true
