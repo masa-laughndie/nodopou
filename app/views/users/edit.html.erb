@@ -48,7 +48,8 @@
         <%= f.label :account_id, "ユーザー名" %>
       </div>
       <div class="field">
-        <%= f.text_field :account_id %>
+        <%= f.text_field :account_id,
+                         placeholder: "nodopouID (a-z,-0-9,_ 15文字以内)" %>
       </div>
       <div class="label">
         <%= f.label :name, "表示名" %>

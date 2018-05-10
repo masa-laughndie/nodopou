@@ -34,10 +34,10 @@
     </ul>
   <% end %>
 </div>
-<% if true %>
-<div class="container content-sspace">
-  <div class="button-small button-twitter c">
-    <%= link_to "画像生成", posts_path, method: :post, data: { disable_with: "処理中..." } %>
+<% if current_user?(user) && !user.uid.nil? %>
+<div class="container content-mspace">
+  <div class="button-small button-twitter c" style="margin: 0 auto;">
+    <%= link_to fa_icon('twitter') + " 宣言する！", posts_path, method: :post, data: { disable_with: "処理中..." } %>
   </div>
 </div>
 <% end %>
