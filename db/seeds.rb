@@ -37,10 +37,12 @@ end
 #List
 if Rails.env.development?
   users = User.order(:created_at).take(5)
+  m = 0
   5.times do
     users.each do |user|
-      list = user.create_lists.create!(content: Faker::Lorem.sentence)
+      list = user.create_lists.create!(content: "テスト-#{m}")
       user.avail(list)
+      m += 1
     end
   end
 end
