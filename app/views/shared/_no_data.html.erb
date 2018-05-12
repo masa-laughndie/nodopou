@@ -27,7 +27,10 @@
     <% when 'search' %>
       <p>上のフォームより</p><p>キーワードを入力してください</p>
     <% when 'no-hit' %>
-      <p>検索結果は０件です</p><p>キーワードを確認してみてください</p>
+      <p>検索結果は０件です</p><p>リストは自分で簡単に作ることもできます</p>
+      <div class="attention">
+        <p><%= link_to "自分でリストを作る", user_path(current_user) + "#form-list" %></p>
+      </div>
     <% else %>
       <p>表示できるデータがありません</p>
     <% end %>

@@ -1,30 +1,44 @@
 <% provide(:og_title, "nodopou -シンプルnotToDoリスト-") %>
 <% provide(:og_url, root_url) %>
 
-<div class="content-mspace container c">
-  <div class="top-title">
-    <h1>シンプルな「やらない」ことリストが簡単に作れるサービスです！</h1>
+<div class="content-sspace container">
+  <div class="top-title c">
+    <h1>「やらない」ことから<br>始めてみよう！</h1>
   </div>
   <div class="top-text">
-    <p><%= fa_icon('search') %> 「やらない」を探す！</p>
-    <p>↓</p>
-    <p><%= fa_icon('handshake-o') %>「やらない」に便乗する！</p>
-    <p>↓</p>
-    <p><%= fa_icon('check-square-o') %>「やらない」をふりかえる！</p>
+    <p class="mb">身の回りには「やるべき」ことがたくさん。</p>
+    <p>でもついつい誘惑に負けて、</p>
+    <p class="mb">気づいたらもうこんな時間なんてことも…</p>
+    <p>そんなときは「やらない」ことから</p>
+    <p class="mb">気軽に始めてみよう！</p>
+    <p>nodpouならシンプルな「やらない」こと</p>
+    <p>リストが簡単に作れます。</p>
   </div>
 </div>
-<div class="content-lspace container c">
+<div class="content-mspace container c">
   <div class="top-main">
     <div class="top-enter">
-      <div class="c button-large button-twitter">
+      <div class="c button-large button-twitter" style="margin: 0 auto 20px;">
         <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
       </div>
-      <div class="c button-large button-accent">
-        <%= link_to "nodopouIDで登録する", signup_path %>
-      </div>
-      <div class="c button-big button-mini button-waccent">
-        <%= link_to fa_icon("sign-in") + " nodopouIDでログイン", login_path %>
+      <div class="attention">
+        <p>
+          nodopouIDで  <%= link_to "登録", signup_path %>  /  <%= link_to "ログイン", login_path %>
+        </p>
       </div>
     </div>
+  </div>
+</div>
+<div class=blank></div>
+<div class="content-sspace container c">
+  <div class="top-howtouse">
+    <h2 class="mb">nodopou の使い方</h2>
+    <p><%= fa_icon('twitter') %> Twitter経由で簡単登録！</p>
+    <p>↓</p>
+    <p><%= fa_icon('search') %> 「やらない」を探す！</p>
+    <p>↓</p>
+    <p><%= fa_icon('handshake-o') %>「やらない」に便乗する！ or <%= fa_icon("plus") %> 簡単作成！</p>
+    <p>↓</p>
+    <p><%= fa_icon('check-square-o') %>「やらない」をふりかえる！</p>
   </div>
 </div>

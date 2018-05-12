@@ -92,6 +92,10 @@ select {
   text-align: center;
 }
 
+.mb {
+  margin-bottom: 20px;
+}
+
 .middle-y {
   top: 50%;
   transform: translateY(-50%);
@@ -1217,16 +1221,29 @@ nav {
   /* home */
 
 .top-title {
-  margin: 50px 0 40px;
+  margin: 30px 0 40px;
 
   h1 {
-    font-size: 20px;
+    font-size: 23px;
   }
 }
 
 .top-text {
+  margin: 0 auto;
+  max-width: 330px;
+  padding-left: 20px;
   p {
-    font-size: 20px;
+    font-size: 15px;
+    line-height: 20px;
+  }
+}
+
+.top-howtouse {
+  margin: 0 auto;
+  padding-left: 20px;
+
+  p {
+    font-size: 14px;
   }
 }
 
