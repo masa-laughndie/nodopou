@@ -47,7 +47,7 @@ class Post < ApplicationRecord
 
     sentense = self.connect_and_insert_new_line(contents, line_char_num)
 
-    img = MiniMagick::Image.open("#{Rails.root}/public/images/twitter_frame.png")
+    img = MiniMagick::Image.open("#{Rails.root}/public/images/twitter_frame00.png")
     img.combine_options do |i|
       i.gravity "West"
       i.font "fonts/GenJyuuGothic-Heavy.ttf"

@@ -1,15 +1,15 @@
 # User
-User.create!(name: "NoDoBotoke公式",
-             account_id: "nodobo_official",
-             email: "info@nodobotoke.net",
+User.create!(name: "nodopou公式",
+             account_id: "nodopou_official",
+             email: "info@nodopou.com",
              password: "foobar",
              password_confirmation: "foobar",
              remote_image_url: Faker::Avatar.image,
-             profile: "NoDoBotoke公式アカウントです。",
+             profile: "nodopou公式アカウントです。",
              admin: true)
 
 if Rails.env.development?
-  User.create!(name: "Masa",
+  User.create!(name: "masa",
                account_id: "masa",
                email: "masa@example.com",
                password: "foobar",
@@ -17,10 +17,10 @@ if Rails.env.development?
                remote_image_url: Faker::Avatar.image,
                profile: "テストアカウント")
 
-  10.times do |n|
-    name = "nodobo-#{n+3}"
-    account_id = "nodobo_#{n+3}"
-    email = "nodobo-#{n+3}@example.com"
+  5.times do |n|
+    name = "nodopou_#{n+3}"
+    account_id = "nodopou_#{n+3}"
+    email = "nodopou_#{n+3}@example.com"
     password = "password"
     image = Faker::Avatar.image
     profile = Faker::Lorem.sentence(5)
@@ -36,7 +36,7 @@ end
 
 #List
 if Rails.env.development?
-  users = User.order(:created_at).take(5)
+  users = User.order(:created_at).take(3)
   m = 0
   5.times do
     users.each do |user|
@@ -51,7 +51,7 @@ end
 if Rails.env.development?
   users = User.all
   lists = List.all
-  availings = users[5..10]
+  availings = users[3..6]
   4.times do
     availings.each do |user|
       while true
