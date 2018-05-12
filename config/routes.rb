@@ -30,7 +30,8 @@ Rails.application.routes.draw do
   resources :lists, only: [:show, :create, :destroy]
 
   resources :posts, only: [:create, :destroy]
-  get '/post_view', to: 'posts#show'
+  get  '/preview',     to: 'posts#show'
+  post '/posts/tweet', to: 'posts#tweet'
 
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do

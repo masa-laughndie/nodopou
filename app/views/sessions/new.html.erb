@@ -4,13 +4,13 @@
 
 <div class="container content-lspace">
   <div class="title-lspace c">
-    <h1>NoDoBoIDでログイン</h1>
+    <h1>nodopouIDでログイン</h1>
   </div>
   <div class="form">
     <%= form_tag('/login', method: "post") do %>
       <div class="field">
         <%= text_field_tag :account_id, nil,
-                           placeholder: "NoDoBoID (a-z,-0-9,_ 15文字以内)" %>
+                           placeholder: "nodopouID (a-z,-0-9,_ 15文字以内)" %>
       </div>
       <div class="field">
         <%= password_field_tag :password, nil,

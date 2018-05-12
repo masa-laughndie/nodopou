@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(create_params)
     @user.validate_password = true
 
     @user.set_name_and_email(params[:user][:account_id])
@@ -41,8 +41,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.lists.each do |list|
+      list.destroy_or_leaved(@user)
+    end
+
+    log_out
     @user.destroy
-    flash[:success] = "削除が完了しました。"
+    flash[:success] = "アカウント削除が完了しました。"
     redirect_to root_path
   end
 
@@ -55,7 +60,7 @@ class UsersController < ApplicationController
     @user.set_pass_and_time(params[:user][:password],
                             params[:user][:check_reset_time])
 
-    if @user.update_attributes(user_edit_params)
+    if @user.update_attributes(edit_params)
       flash[:success] = "設定の変更が完了しました！"
       redirect_to setting_path
     else
@@ -75,15 +80,17 @@ class UsersController < ApplicationController
     address = params[:user][:email]
 
     if address.present? && address.match(/@example.com/).present?
-      if @user.is_send_email
+      if @user.is_send_email?
         @user.update_attribute(:is_send_email, false)
       end
       flash.now[:danger] = "そのメールアドレスは無効です<br>変更してください"
       render 'edit'
-    elsif @user.update_attributes(user_email_params)
+
+    elsif @user.update_attributes(edit_email_params)
       @user.send_email(:email_update)
       flash[:success] = "メール設定の変更が完了しました！"
       redirect_to setting_path
+
     else
       if address.blank?
         @user.reload
@@ -94,19 +101,19 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
+    def create_params
       params.require(:user).permit(:account_id, :name, :email,
                                    :password, :password_confirmation,
                                    :check_reset_at)
     end
 
-    def user_edit_params
+    def edit_params
       params.require(:user).permit(:account_id, :name, :image, :image_cache,
                                    :profile, :password, :password_confirmation,
                                    :check_reset_time, :check_reset_at)
     end
 
-    def user_email_params
+    def edit_email_params
       params.require(:user).permit(:email, :is_send_email)
     end
 

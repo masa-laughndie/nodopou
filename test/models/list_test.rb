@@ -20,8 +20,8 @@ class ListTest < ActiveSupport::TestCase
     assert_not @list.valid?
   end
 
-  test 'content should be present less than 101 characters' do
-    @list.content = "a" * 101
+  test 'content should be present less than 61 characters' do
+    @list.content = "a" * 61
     assert_not @list.valid?
   end
   

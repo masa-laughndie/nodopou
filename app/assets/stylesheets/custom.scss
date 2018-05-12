@@ -148,6 +148,10 @@ select {
 .title-nspace {
   font-size: 18px;
   padding: 20px 0;
+
+  h2 {
+    line-height: 30px;
+  }
 }
 
 .logo-font {
@@ -1306,9 +1310,7 @@ nav {
   }
 }
 
-/* list */
-
-  /* index */
+/* list mylist */
 
 .list {
   height: 75px;
@@ -1552,19 +1554,21 @@ nav {
     position: relative;
 
     .count-num {
-      display: block;
-      height: 100%;
-      line-height: 100px;
-      width: 100%;
+      position: absolute;
     }
 
     .count-label {
-      font-size: 13px;
+      font-size: 12px;
       position: absolute;
-      bottom: 8px;
+      bottom: 6px;
       line-height: 20px;
       width: 100px;
     }
+  }
+
+  .mylist-count {
+    margin: 0 2.66%;
+    width: 28%;
   }
 
   .list-availing {
@@ -1582,7 +1586,6 @@ nav {
   }
 }
 
-
 /* other */
 
   /* demo */
@@ -1597,7 +1600,7 @@ nav {
     background: $accent;
     height: 100%;
     width: 100%;
-    padding: 20px 15px 35px;
+    padding: 20px 15px 45px;
 
     .in-line {
       background: $base;
@@ -1627,11 +1630,12 @@ nav {
     }
 
     .in-title {
-      height: 30px;
+      height: 40px;
+      margin-left: 10px;
       width: 100%;
 
       span {
-        line-height: 30px;
+        line-height: 40px;
       }
     }
   }
@@ -1644,6 +1648,7 @@ nav {
 }
 
 .demo-image {
+  margin-bottom: 10px;
   width: 100%;
 
   img {

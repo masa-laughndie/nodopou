@@ -5,8 +5,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # include Piet::CarrierWaveExtension
 
   process :fix_exif_rotation  #１番目固定
-  # process resize_to_fill: [100,100]
-  process convert: 'jpg'
+  process convert: 'png'      #pngじゃないとtweetできない
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.development? || Rails.env.test?
@@ -18,7 +17,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.user_id}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -50,7 +49,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{secure_token}.jpg" if original_filename.present?
+    "#{secure_token}.png" if original_filename.present?
   end
 
   def quality(percentage)
@@ -68,21 +67,6 @@ class PictureUploader < CarrierWave::Uploader::Base
       img
     end
   end
-=begin
-  def create_image_for_twitter(text)
-    img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
-    img.combine_options do |i|
-      i.gravity "Center"
-      i.pointsize 25
-      i.fill "#000000"
-      i.draw "text 0,0 '#{text}'"
-      # i.font "helvetica"
-    end
-
-    img.write "#{Rails.root}/public/images/test1.png"
-    return "#{Rails.root}/public/images/test1.png"
-  end
-=end
 
   protected
 

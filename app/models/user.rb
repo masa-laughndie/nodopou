@@ -9,8 +9,7 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   #自分が開いたリスト
-  has_many :create_lists, class_name: "List",
-                          dependent: :destroy
+  has_many :create_lists, class_name: "List"
 
   #便乗リスト
   has_many :mylists, dependent: :destroy
@@ -85,15 +84,20 @@ class User < ApplicationRecord
       email      = User.dummy_email(auth)
       profile    = auth[:info][:description]
       image      = auth[:info][:image].sub("_normal", "")
+      t_token    = auth[:credentials][:token]
+      t_secret   = auth[:credentials][:secret]
 
       find_or_create_by(provider: provider, uid: uid) do |user|
-        user.name = name
-        user.password = SecureRandom.urlsafe_base64(6)
-        user.email = email
-        user.profile = profile
+        user.name             = name
+        user.password         = SecureRandom.urlsafe_base64(6)
+        user.email            = email
+        user.profile          = profile
         user.remote_image_url = image
+        user.t_token          = user.secure_for(t_token, uid)
+        user.t_secret         = user.secure_for(t_secret, uid)
+
         if User.find_by(account_id: account_id).nil?
-          user.account_id = account_id
+          user.account_id     = account_id
         else
           while true
             num = SecureRandom.urlsafe_base64(10)
@@ -103,6 +107,7 @@ class User < ApplicationRecord
             end
           end
         end
+
       end
     end
 
@@ -245,6 +250,18 @@ class User < ApplicationRecord
     end
   end
 
+  def secure_for(string, uid)
+    space = uid.length + 1
+    n = space + uid.to_i % (string.length - space)
+    char = SecureRandom.hex(1)[0]
+    string.insert(n, char)
+  end
+
+  def unlock_for(string, uid)
+    space = uid.length + 1
+    n = space + uid.to_i % (string.length - space - 1)
+    string.slice(0..(n - 1)) + string.slice((n + 1)..string.length)
+  end
   
   private
 

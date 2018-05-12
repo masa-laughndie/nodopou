@@ -8,14 +8,13 @@ class Post < ApplicationRecord
   validates :picture, presence: { message: "画像がありません" }
 
 
-  def insert_new_line(text_ary)
+  def connect_and_insert_new_line(text_ary, char_num)
 
     sentense = ""
-    char_num = 20
 
     text_ary.each do |text|
       text = text.gsub(/\r\n|\r|\n/," ")
-      line = (text.length / char_num) + 1
+      line = (text.length / char_num) + ((text.length % char_num > 0) ? 1 : 0)
 
       sentense += "・"
 
@@ -32,14 +31,29 @@ class Post < ApplicationRecord
     sentense
   end
 
-  def create_image_for_twitter(sentense)
-    img = MiniMagick::Image.open("#{Rails.root}/public/images/frame.png")
+  def create_picture_for_twitter(contents)
+    contents_num = contents.length
+    char_sum = contents.sum.length
+    char_ave = char_sum / contents_num
+
+    # 要検証
+    if contents_num > 8 || char_sum > 123
+      font_size = 17
+      line_char_num = 25
+    else
+      font_size = 21
+      line_char_num = 20
+    end
+
+    sentense = self.connect_and_insert_new_line(contents, line_char_num)
+
+    img = MiniMagick::Image.open("#{Rails.root}/public/images/twitter_frame00.png")
     img.combine_options do |i|
       i.gravity "West"
       i.font "fonts/GenJyuuGothic-Heavy.ttf"
-      i.pointsize 25
+      i.pointsize font_size
       i.fill "black"
-      i.draw "text 80,0 '#{sentense}'"
+      i.draw "text 67,0 '#{sentense}'"
     end
 
     # img.write "#{Rails.root}/public/images/temp.png"
