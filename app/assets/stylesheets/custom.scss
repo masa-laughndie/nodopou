@@ -76,8 +76,9 @@ textarea {
 button:focus,
 input:focus,
 select:focus,
-textarea:focus {
-  
+textarea:focus,
+a:focus {
+  outline: 3px solid $waccent;
 }
 
 input,
