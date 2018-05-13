@@ -211,3 +211,22 @@ document.addEventListener('turbolinks:load', function() {
     }
   });
 });
+
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('#active-dummy').on('click', function() {
+      var
+        $target = $('.active-dummy'),
+        buttonToggle = $target.find('.button-slide'),
+        buttonActive = $target.find('.button-active'),
+        slideParts = $target.find('.slide');
+      if ( buttonActive.length != 0 ) {
+        buttonToggle.removeClass('button-active').addClass('button-passive');
+        slideParts.removeClass('slide-off').addClass('slide-on');
+      } else {
+        buttonToggle.removeClass('button-passive').addClass('button-active');
+        slideParts.removeClass('slide-on').addClass('slide-off');
+      }
+    });
+  });
+});
