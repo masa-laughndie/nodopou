@@ -19,9 +19,11 @@
   <div class="user-aid">
     <span class="logo-font">@<%= @user.account_id %></span>
   </div>
-  <div class="user-profile">
-    <small><%= @user.profile %></small>
-  </div>
+  <% unless @user.profile.blank? %>
+    <div class="user-profile">
+      <span id="profile"><%= @user.profile %></span>
+    </div>
+  <% end %>
 </div>
 <% if current_user?(@user) && @mylists_count == 0 %>
   <%= render 'users/how_to_use' %>

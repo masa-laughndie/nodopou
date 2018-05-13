@@ -189,3 +189,25 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+// profile内link
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#profile').length != 0 ) {
+      var _url = $('#profile').text().match(/https:\/\/t.co\/\w{10}/g);
+
+      if ( _url != null ) {
+        for ( var i = 0; i < _url.length; i++ ) {
+          var
+            _profile = $('#profile').text(),
+            replaceText = _profile.replace(new RegExp(_url[i], 'g'),
+                                           "<a class='profile-link' href=" +
+                                           escapeHtml(_url[i]) + ">" +
+                                           escapeHtml(_url[i]) + "</a>");
+          
+          $('#profile').html(replaceText);
+        }
+      }
+    }
+  });
+});
