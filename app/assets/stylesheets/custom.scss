@@ -1112,6 +1112,7 @@ header {
     line-height: 50px;
 
     .header-center {
+      padding-left: 5%;
       width: 100%;
 
       a {
@@ -1120,6 +1121,10 @@ header {
         .logo-font {
           color: $main;
           font-size: 20px;
+
+          small {
+            font-size: 12.5px;
+          }
         }
       }
     }
