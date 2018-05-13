@@ -12,6 +12,7 @@ $weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
+$link-blue: #3599f0;
 $on-green: #78c4ad;
 $on-green-op: rgba(120, 196, 173, 0.15);
 $weak-red: #ff6666;
@@ -174,7 +175,7 @@ select {
     font-size: 14px;
 
     a {
-      color: #3599f0;
+      color: $link-blue;
       text-decoration: underline;
     }
   }
@@ -1317,6 +1318,15 @@ nav {
 .user-aid {
   color: $base-grey;
   margin-bottom: 5px;
+}
+
+.user-profile {
+  font-size: 12px;
+
+  span .profile-link {
+    color: $link-blue;
+    text-decoration: underline;
+  }
 }
 
 .list-area {
