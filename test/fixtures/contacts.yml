@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+co1:
+  name: テスト
+  email: test@example.com
+  content: <%= Faker::Lorem.sentence(5) %>

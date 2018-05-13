@@ -4,15 +4,18 @@
 
 $base: #fff;  /* white */
 $main: #000;  /* black */
-$newaccent: #ffd700;  /* gold */
-$accent: #ff0000;  /* red */
-$waccent: #ff6666; /* weak red*/
+$accent: #ffd700;  /* gold rgba(255,215,0)*/
+$waccent: #fff462; /* canry yellow rgba(255,244,98)*/
 $test: #e6e6fa;
 $back: #f2f2f2; /*(元)#fafafa;*/
 $weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
+$link-blue: #3599f0;
+$on-green: #78c4ad;
+$on-green-op: rgba(120, 196, 173, 0.15);
+$weak-red: #ff6666;
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -36,9 +39,10 @@ body {
   /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
   font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
   /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
+  font-family: 'Comfortaa', cursive;
   font-size: 1.0em;
   position: relative;
-  padding: 51px 0;
+  padding-bottom: 51px;
 }
 
 a {
@@ -70,6 +74,14 @@ textarea {
   -moz-appearance: none;
 }
 
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus {
+  outline: 3px solid $waccent;
+}
+
 input,
 textarea,
 select {
@@ -80,6 +92,26 @@ select {
 
 .c {
   text-align: center;
+}
+
+.mb {
+  margin-bottom: 20px;
+}
+
+.middle-y {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.middle-x {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.middle-xy {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .container {
@@ -100,19 +132,901 @@ select {
 }
 
 .content-mspace {
+  background: $base;
   padding: 30px;
 }
 
+.title-mspace {
+  font-size: 24px;
+  margin: 10px 0 30px;
+}
+
 .content-sspace {
-  paddging: 15px;
+  background: $base;
+  padding: 15px;
 }
 
 .content-nspace {
+  background: $base;
   padding: 0;
 }
 
+.title-nspace {
+  font-size: 18px;
+  padding: 20px 0;
+
+  h2 {
+    line-height: 30px;
+  }
+}
+
 .logo-font {
-  font-family: 'Yeon Sung', cursive;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  /*font-family: 'Yeon Sung', cursive;*/
+}
+
+.attention {
+  margin: 0 auto 30px;
+  width: 85%;
+
+  p {
+    font-size: 14px;
+
+    a {
+      color: $link-blue;
+      text-decoration: underline;
+    }
+  }
+}
+
+.text {
+  margin: 0 auto 30px;
+  word-wrap: break-word;
+
+  p {
+    font-size: 16px;
+    line-height: 30px;
+    margin: 10px;
+  }
+}
+
+.text-danger {
+  color: $weak-red;
+
+  p {
+    font-size: 15px;
+
+    i {
+      font-size: 17px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.explanation {
+  color: $main;
+  margin-bottom: 10px;
+  padding: 5px 5px 5px 10px;
+
+  p {
+    font-size: 14px;
+  }
+
+  i {
+    color: $on-green;
+  }
+}
+
+.how-to-use {
+  
+  .step {
+    padding: 10px 0;
+    width: 100%;
+
+    .step-figure {
+      float: left;
+      width: 15%;
+
+      i {
+        font-size: 1.8em;
+        margin: 10px 0;
+      }
+
+      .avail-dummy {
+        border: 1px solid $weak-red;
+        border-radius: 5px;
+        height: 36px;
+        margin: 10px auto 0;
+        width: 45px;
+
+        span {
+          color: $weak-red;
+          font-size: 10px;
+          line-height: 34px;
+        }
+      }
+    }
+
+    .step-text {
+      float:  right;
+      width: 85%;
+
+      p {
+        font-size: 14px;
+        margin: 5px;
+      }
+
+      .example {
+        font-size: 12px;
+      }
+    }
+
+    .check-dummy {
+      i {
+        color: $weak-red;
+      }
+    }
+  }
+}
+
+
+.counter {
+  text-align: right;
+
+  #count-text {
+    float: left;
+    font-size: 14px;
+  }
+
+  span {
+    color: #ff0000;
+  }
+}
+
+.back-accent {
+  background: rgba(255,244,98,0.4);
+  border-radius: 5px;
+  line-height: 24px;
+  min-height: 40px;
+  padding: 8px 20px;
+}
+
+.active {
+  color: $accent !important;
+}
+
+.red {
+  color: red !important;
+}
+
+.wred {
+  color: $weak-red !important;
+}
+
+.cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blank {
+  border-top: 1px solid $weak-grey;
+  border-bottom: 1px solid $weak-grey;
+  height: 30px;
+  width: 100%;
+}
+
+.border {
+  border-bottom: 1px solid $weak-grey;
+}
+
+.clear:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+.over-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.over-text {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  word-wrap: break-word;
+}
+
+.rank-1 {
+  background: rgba(255,0,0,0.5) !important;
+  background: rgba(255,215,0,0.5) !important;
+}
+
+.rank-2 {
+  background: rgba(255,165,0,0.5) !important;
+  background: rgba(192,192,192,0.5) !important;
+}
+
+.rank-3 {
+  background: #ffff7f !important;
+  background: rgba(172,107,37,0.5) !important;
+}
+
+.square {
+  position: relative;
+}
+
+.square:before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.abs-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.abs-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* parts */
+  
+  /* button */
+
+$size:(
+  big: 100%,
+  large: 80%,
+  middle: 60%,
+  small: 40%,
+  back: 40%
+);
+
+@each $key, $value in $size {
+  .button-#{$key} {
+    border-radius: 5px;
+    height: 40px;
+    margin: 35px auto;
+    max-width: 320px * ($value / 100%);
+    width: $value;
+
+    input,
+    button,
+    a {
+      border-radius: 5px;
+      color: $base;
+      display: block;
+      font-weight: 550;
+      letter-spacing: 0.1px;
+      line-height: 40px;
+      width: 100%;
+
+      i {
+        color: $base;
+      }
+    }
+  }
+
+  .button-#{$key}:hover {
+    opacity: 0.8;
+  }
+}
+
+.button-back {
+  button,
+  a {
+    border: 1px solid $base-grey;
+    color: $base-grey;
+    font-size: 15px;
+    line-height: 38px;
+
+    i {
+      color: $base-grey;
+      display: block;
+      float: left;
+      line-height: 38px;
+      width: 25%;
+    }
+
+    span {
+      display: block;
+      float: left;
+      margin-right: 22%;
+      width: 53%;
+    }
+  }
+}
+
+.button-mini {
+  height: 30px;
+  max-width: 190px;
+  width: 70%;
+
+  input,
+  button,
+  a {
+    color: $main;
+    font-size: 0.8em;
+    font-weight: 550;
+    line-height: 30px;
+
+    i {
+      color: $main;
+    }
+  }
+}
+
+.button-logout {
+  margin: 15px auto;
+  width: 35%;
+
+  a {
+    color: $base-grey;
+  }
+}
+
+.buttons {
+  height: 40px;
+  margin: 25px auto;
+  position: relative;
+
+  .button-left,
+  .button-right {
+    margin: 0;
+    position: relative;
+    width: 35%;
+  }
+
+  .button-left {
+    float: left;
+    left: 25%;
+    transform: translateX(-50%);
+  }
+
+  .button-right {
+    float: right;
+    right: 25%;
+    transform: translateX(50%);
+  }
+}
+
+$color:(
+  twitter: $twi-blue,
+  accent: $accent,
+  waccent: $waccent,
+  danger: $weak-red
+);
+
+@each $key, $value in $color {
+  .button-#{$key} {
+    background: $value;
+  }
+
+  .button-accent {
+    input,
+    button,
+    a {
+      color: $main;
+    }
+
+    input:disabled {
+      background: $waccent;
+      opacity: 0.6;
+    }
+  }
+}
+
+  /* form */
+
+.form {
+  position: relative;
+  width: 100%;
+
+  .label {
+    margin-bottom: 5px;
+
+    label,
+    p {
+      display: block;
+      font-weight: 550;
+
+      span {
+        font-size: 13px;
+        font-weight: 450;
+      }
+    }
+
+    .label-comment {
+      font-size: 12.5px;
+      font-weight: 400;
+    }
+  }
+
+  .field {
+    height: 40px;
+    margin: 0 auto 35px;
+    position: relative;
+    width: 100%;
+
+    input,
+    select,
+    textarea,
+    label {
+      background: $weak-grey;
+      border-radius: 5px;
+      color: $main;
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      line-height: 24px;
+      padding: 8px 20px;
+      width: 100%;
+    }
+
+    .select-icon {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 40px;
+      width: 40px;
+
+      i {
+        line-height: 40px;
+      }
+    }
+  }
+
+  .field-file {
+    background: $weak-grey;
+    border-radius: 50%;
+    height: auto;
+    margin-bottom: 25px;
+    position: relative;
+    width: 40%;
+
+    .button-upload {
+      cursor: pointer;
+      display: block;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      .icon-upload {
+        height: 100%;
+        position: relative;
+        width: 100%;
+        z-index: 20;
+
+        .fa-camera {
+          color: rgba(0,0,0,0.35);
+          font-size: 3em;
+          position: relative;
+        }
+
+        .fa-refresh {
+          background: rgba(255,255,255,0.3);
+          border-radius: 50%;
+          color: rgba(0,0,0,0.55);
+          display: block;
+          font-size: 3em;
+          height: 100%;
+          text-align: center;
+          width: 100%;
+          z-index: 30;
+        }
+
+        .fa-refresh:before {
+          display: block;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      .preview {
+        height: 88%;
+        margin: 6%;
+        width: 88%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+
+        img {
+          border-radius: 50%;
+          display: block;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .field-file:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+
+  .field-area {
+    display: table;
+
+    textarea {
+      line-height: 20px;
+      min-height: 150px;
+      max-height: 250px;
+      padding: 5px 20px;
+      resize: vertical;
+    }
+  }
+
+  .field-checkbox {
+    width: 100%;
+    margin-bottom: 35px;
+
+    .button-checkbox{
+      background: $base;
+      line-height: 30px;
+      letter-spacing: 0;
+      text-align: center;
+      float: left;
+      font-size: 14.5px;
+      margin: 0 20px 0 10px;
+      position: relative;
+      width: 80px;
+
+      input {
+        display: none;
+      }
+
+      label {
+        background: #fbfbfb;
+        border: 1px solid #e8eae9;
+        border-radius: 30px;
+        cursor: pointer;
+        display: block;
+        height: 30px;
+      }
+
+      input:checked + label {
+        border-color: $on-green;
+        background: $on-green;
+      }
+
+      label span:after {
+        content: "OFF";
+        color: $base-grey;
+        padding: 0 0 0 25px;
+      }
+
+      input:checked + label span:after {
+        content: "ON";
+        color: $base;
+        padding: 0 30px 0 0;
+      }
+
+      .slide {
+        background: #fbfbfb;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 0 rgba(0,0,0,0.08);
+        height: 26px;
+        pointer-events: none;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: .35s;
+        width: 26px;
+      }
+
+      input:checked ~ .slide {
+        transform: translateX(50px);
+        background: $base;
+      }
+    }
+
+    .label-checkbox {
+      line-height: 15px;
+      float: left;
+      font-size: 12.5px;
+      max-width: 205px;
+    }
+  }
+
+  .field-checkbox2 {
+    height: 100%;
+    width: 100%;
+
+    .button-checkbox2 {
+      height: 100%;
+      position: relative;
+      width: 100%;
+
+
+      form {
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        button {
+          font-size: 30px;
+          height: 100%;
+          position: relative;
+          width: 100%;
+
+          i {
+            display: block;
+          }
+
+          .fa-square-o {
+            color: $base-grey;
+          }
+
+          .fa-check-square-o {
+            color: $weak-red;
+          }
+
+          .fa-check-square-o:before {
+            margin-left: 3.5px;
+          }
+        }
+      }
+    }
+  }
+
+  .field-checkbox3 {
+    margin: 0;
+    position: relative;
+    width: 100%;
+
+    .button-checkbox{
+      background: $base;
+      line-height: 30px;
+      letter-spacing: 0;
+      text-align: center;
+      float: left;
+      font-size: 10px;
+      margin: 0;
+      position: relative;
+      width: 60px;
+
+      form {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        .button-slide {
+          background: #fbfbfb;
+          border: 1px solid #e8eae9;
+          border-radius: 30px;
+          cursor: pointer;
+          display: block;
+          height: 30px;
+          font-size: 10px;
+          position: relative;
+          width: 100%;
+        }
+
+        .button-passive {
+          border-color: $on-green;
+          background: $on-green;
+
+          span:after {
+            content: "ON";
+            color: $base;
+            padding: 0 30px 0 0;
+          }
+        }
+
+        .button-active {
+
+          span:after {
+            content: "OFF";
+            color: $base-grey;
+            padding: 0 0 0 25px;
+          }
+        }
+      }
+
+      .slide {
+        background: #fbfbfb;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 0 rgba(0,0,0,0.08);
+        height: 26px;
+        pointer-events: none;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: .35s;
+        width: 26px;
+      }
+
+       .slide-on {
+        transform: translateX(30px);
+        background: $base;
+      }
+    }
+  }
+
+  .field-avail {
+    height: 100%;
+    width: 100%;
+
+    .button-availing {
+      height: 100%;
+      position: relative;
+      width: 100%;
+
+      form {
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        button {
+          border-radius: 5px;
+          font-size: 10px;
+          height: 100%;
+          position: relative;
+          width: 100%;
+        }
+
+        .button-avail {
+          border: 1px solid $weak-red;
+          color: $weak-red;
+          font-weight: 550;
+        }
+
+        .button-unavail {
+          background: $weak-red;
+          color: $base;
+        }
+      }
+    }
+  }
+
+  .field-radio {
+    margin-bottom: 20px;
+    
+    .button-radio {
+      display: none;
+    }
+
+    .button-radio + label {
+      padding-left: 20px;
+      position: relative;
+      margin-right: 20px;
+    }
+
+    .button-radio + label:before,
+    .button-radio:checked + label:after {
+      content: "";
+      border: 1px solid #999;
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 15px;
+      width: 15px;
+    }
+
+    .button-radio:checked + label {
+      color: $on-green;
+    }
+
+    .button-radio:checked + label:after {
+      background: $on-green;
+      border: none;
+      top: 3px;
+      left: 3px;
+      width: 11px;
+      height: 11px;
+    }
+  }
+
+  .field-date {
+    position: relative;
+
+    select {
+      display: inline-block;
+      width: 26%;
+    }
+
+    span {
+      display: inline-block;
+      line-height: 40px;
+      width: 5.92%;
+    }
+
+    .fa-chevron-down {
+      color: $base-grey;
+      display: block;
+      line-height: 40px;
+      position: absolute;
+      top: 0;
+      pointer-events: none;
+      font-size: 12.5px;
+    }
+
+    .fa-year {
+      left: 20%;
+    }
+
+    .fa-month {
+      left: 53.5%;
+    }
+
+    .fa-day {
+      left: 87%;
+    }
+  }
+
+  .field-hidden {
+    display: none;
+  }
+}
+
+.form-inner {
+  
+  form {
+    position: relative;
+    width: 100%;
+
+    .field-inner input,
+    .button-inner {
+      border-radius: 5px;
+      height: 40px;
+    }
+
+    .field-inner input {
+      background: rgba(255,244,98,0.3);
+      display: block;
+      line-height: 30px;
+      padding: 5px 40px 5px 20px;
+      width: 100%;
+    }
+
+    .field-inner input:focus {
+      background: $weak-grey;
+    }
+
+    .button-inner {
+      position: absolute;
+      top:0;
+      right: 0;
+      width: 40px;
+
+      button {
+        display: block;
+        height: 100%;
+        width: 100%;
+
+        i {
+          color: $base-grey;
+          font-size: 13.4px
+        }
+
+        .focus-on {
+          color: $main;
+          font-size: 16px;
+        }
+      }
+    }
+  }
 }
 
 /* layouts */
@@ -120,15 +1034,16 @@ select {
   /* header */
 
 header {
-  background: $newaccent;
-  border-bottom: 1px solid $newaccent;
+  background: $accent;
+  border-bottom: 1px solid $accent;
   height: 51px;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 100;
 
-  .content-head {
+  .content-header {
     height: 50px;
     line-height: 50px;
 
@@ -150,11 +1065,12 @@ header {
   /* footer */
 
 footer {
+  background: $back !important;
 
   .footer-link {
 
     a {
-      color: $base-grey;
+      color: grey;
       display: inline-block;
       font-size: 12px;
       padding: 5px;
@@ -162,7 +1078,7 @@ footer {
   }
 
   .twitter-link {
-    background: $twi-grey;
+    background: grey;
     border-radius: 50%;
     height: 40px;
     margin: 10px auto;
@@ -180,19 +1096,58 @@ footer {
   }
 }
 
+  /* nav */
+
+nav {
+  background: $base;
+  border-top: 1px solid $weak-grey;
+  height: 51px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+
+  .content-nav {
+    height: 50px;
+
+    .nav-link {
+      float: left;
+      height: 100%;
+      position: relative;
+      width: 25.0%;
+
+      a {
+        display: block;
+        height: 100%;
+        padding-top: 8px;
+
+        i {
+          font-size: 1.1em;
+        }
+
+        p {
+          font-size: 12.5px;
+        }
+      }
+    }
+  }
+}
+
   /* flash */
 
 .flash-base {
   background: rgba(0,0,0,0);
   font-size: 16px;
   font-weight: 550;
-  height: 50px;
-  line-height: 50px;
-  pointer-event: none;
+  height: 51px;
+  line-height: 51px;
+  pointer-events: none;
   position: fixed;
   top: 0;
   left: 0;
   text-align: center;
+  width: 100%;
   z-index: 200;
 
   .flash-success {
@@ -201,7 +1156,7 @@ footer {
   }
 
   .flash-danger {
-    background: rbga(255,246,246,0,9);
+    background: rgba(255,246,246,0.9);
     color: #e5171f;
   }
 
@@ -212,8 +1167,89 @@ footer {
   }
 }
 
+/* shared */
+
+  /* error_message */
+
+.error {
+  background: #fff6f6;
+  border: 1.5px solid #ebccd1;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 15px;
+  width: 100%;
+
+  .error-title {
+    color: #e5171f;
+    font-size: 1.2em;
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    color :red;
+    font-size: 0.9em;
+    font-weight: 500;
+    line-height: 35px;
+
+    i {
+      color: rbga(255,0,0,0.7);
+      margin-right: 5px;
+    }
+  }
+}
+
+  /* no_data */
+
+.nothing {
+  background: $base;
+  padding: 40px 0;
+
+  i {
+    color: $base-grey;
+    display: block;
+    font-size: 3em;
+  }
+
+  .nothing-text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+}
 
 /* static */
+
+  /* home */
+
+.top-title {
+  margin: 30px 0 40px;
+
+  h1 {
+    font-size: 23px;
+  }
+}
+
+.top-text {
+  margin: 0 auto;
+  max-width: 330px;
+  padding-left: 20px;
+  p {
+    font-size: 15px;
+    line-height: 20px;
+  }
+}
+
+.top-howtouse {
+  margin: 0 auto;
+  padding-left: 20px;
+
+  p {
+    font-size: 14px;
+  }
+}
+
+  /* other */
 
 .poricy {
   p {
@@ -225,5 +1261,425 @@ footer {
   h2 {
     font-size: 20px;
     padding: 30px 0;
+  }
+}
+
+/* user */
+
+  /* show */
+
+.side-option {
+  background: $weak-grey;
+  border-radius: 5px;
+  min-width: 60px;
+  padding: 0 5px;
+  position: absolute;
+  top: 13px;
+  right: 13px;
+
+  a {
+    color: $main;
+    display: block;
+    font-size: 20px;
+    position: relative;
+
+    i {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+      position: relative;
+      width: 30px;
+    }
+
+    .fa-pencil-square-o:before {
+      margin-left: 18%;
+    }
+
+    p {
+      font-size: 10px;
+    }
+  }
+}
+
+.user-image {
+  margin: 10px auto;
+  width: 100px;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.user-name {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.user-aid {
+  color: $base-grey;
+  margin-bottom: 5px;
+}
+
+.user-profile {
+  font-size: 12px;
+
+  span .profile-link {
+    color: $link-blue;
+    text-decoration: underline;
+  }
+}
+
+.list-area {
+  margin-bottom: 10px !important;
+
+  textarea {
+    min-height: 80px !important;
+    max-height: 160px !important;
+  }
+}
+
+/* list mylist */
+
+.list {
+  height: 75px;
+  position: relative;
+  width: 100%;
+
+  .list-link {
+    display: block;
+    padding-bottom: 75px;
+    position: relative;
+    width: 100%;
+    z-index: 100;
+  }
+
+  .list-content {
+    border-bottom: 1px solid $weak-grey;
+    height: 76px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    .list-active {
+      float: left;
+      height: 100%;
+      position: relative;
+      width: 20%;
+
+      .form {
+        width: 60px;
+        z-index: 150;
+
+        .field-checkbox {
+          margin: 0;
+          position: relative;
+
+          .button-checkbox {
+            font-size: 10px;
+            margin: 0;
+            width: 60px;
+
+            label span:after {
+              content: "休息";
+              color: $base-grey;
+              padding: 0 0 0 25px;
+            }
+
+            input:checked + label span:after {
+              content: "修行";
+              color: $base;
+              padding: 0 25px 0 0;
+            }
+
+            input:checked ~ .slide {
+              transform: translateX(30px);
+              background: $base;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+
+      .active-on,
+      .active-off,
+      .active-count {
+        border-radius: 50%;
+        position: relative;
+        font-size: 10px;
+        height: 40px;
+        width: 40px;
+
+        span {
+          line-height: 40px;
+        }
+      }
+
+      .active-on {
+        background: $on-green;
+
+        span {
+          color: $base;
+        }
+      }
+
+      .active-off {
+        background: #fbfbfb;
+        border: 1px solid #e8eae9;
+
+        span {
+          color: $base-grey;
+        }
+      }
+
+      .active-count {
+        background: $weak-grey;
+        font-size: 12px;
+        height: 50px;
+        width: 50px;
+
+        span {
+          line-height: 50px;
+        }
+      }
+
+      .list-rdays {
+        bottom: 2%;
+      }
+    }
+
+    .list-text {
+      float: left;
+      height: 55px;
+      margin: 10px 0;
+      padding-left: 5px;
+      width: 60%;
+
+      span {
+        display: block;
+        font-size: 12px;
+        position: relative;
+      }
+    }
+
+    .list-check,
+    .list-avail {
+      float: left;
+      height: 100%;
+      position: relative;
+      width: 20%;
+
+      .form {
+        height: 36px;
+        width: 36px;
+        z-index: 150;
+      }
+
+      .non-active {
+        height: 36px;
+        position: relative;
+        width: 36px;
+
+        .fa-square {
+          color: $weak-grey;
+          display: block;
+          line-height: 36px;
+          font-size: 30px;
+        }
+      }
+    }
+
+    .list-avail .form {
+      height: 40px;
+      width: 50px;
+    }
+
+    .list-urank,
+    .list-uicon,
+    .list-uinfo,
+    .list-ucheck {
+      float: left;
+      height: 100%;
+      line-height: 75px;
+    }
+
+    .list-urank {
+      width: 10%;
+    }
+
+    .list-uicon {
+      position: relative;
+      width: 20%;
+
+      img {
+        border-radius: 50%;
+        display: block;
+        position: relative;
+      }
+    }
+
+    .list-uinfo {
+      width: 50%;
+    }
+
+    .list-ucheck {
+      margin-right: 5%;
+      text-align: right;
+      width: 15%;
+    }
+  }
+}
+
+.list-item {
+  background: rgba(255,244,98,0.2);
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+
+  .item-right,
+  .item-left,
+  .item-center {
+    float: left;
+    height: 100%;
+    width: 20%;
+  }
+
+  .item-center {
+    width: 60%;
+  }
+}
+
+.list-text {
+  margin-bottom: 30px;
+}
+
+.list-rdays {
+  color: $weak-red;
+  font-size: 10px;
+  pointer-events: none;
+  position: absolute;
+  bottom: 5%;
+  width: 100%;  
+}
+
+.list-info {
+  height: auto;
+  width: 100%;
+
+  .list-user-count,
+  .list-availing {
+    float: left;
+    height: 100%;
+    margin: 0 7.5%;
+    width: 35%;
+  }
+
+  .list-user-count {
+    background: $weak-grey;
+    border-radius: 50%;
+    font-size: 1.3em;
+    position: relative;
+
+    .count-num {
+      position: absolute;
+    }
+
+    .count-label {
+      font-size: 12px;
+      position: absolute;
+      bottom: 6px;
+      line-height: 20px;
+      width: 100px;
+    }
+  }
+
+  .mylist-count {
+    margin: 0 2.66%;
+    width: 28%;
+  }
+
+  .list-availing {
+    .list-avail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+      .form {
+        height: 100%;
+      }
+    }
+  }
+}
+
+/* other */
+
+  /* demo */
+
+.demo {
+  height: auto;
+  width: 100%;
+  margin:  0 auto;
+  position: relative;
+
+  .out-line {
+    background: $accent;
+    height: 100%;
+    width: 100%;
+    padding: 20px 15px 45px;
+
+    .in-line {
+      background: $base;
+      border-radius: 15px;
+      padding: 10px 20px;
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      .in-text {
+        display: block;
+        font-size: 12px;
+        position: relative;
+
+        p {
+          text-align: left;
+        }
+
+        ul {
+          padding-left: 20px;
+          li {
+            list-style: disc;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    .in-title {
+      height: 40px;
+      margin-left: 10px;
+      width: 100%;
+
+      span {
+        line-height: 40px;
+      }
+    }
+  }
+}
+
+.demo:before {
+  content: "";
+  display: block;
+  padding-top: 57.3% 
+}
+
+.demo-image {
+  margin-bottom: 10px;
+  width: 100%;
+
+  img {
+    width: 100%;
   }
 }

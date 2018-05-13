@@ -1,0 +1,5 @@
+<div class="button-checkbox2 button-check">
+  <%= form_for(mylist, url: check_mylist_path(mylist), remote: true) do |f| %>
+    <%= button_tag fa_icon('square-o'), class: "middle-xy" %>
+  <% end %>
+</div>

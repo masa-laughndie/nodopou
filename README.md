@@ -1,4 +1,6 @@
-# NoDoBotoke(逆Todoリスト)
+# Nodobotoke(NotToDoリスト)
+
+
 
 
 ## 使い方

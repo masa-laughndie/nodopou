@@ -1,0 +1,24 @@
+<nav>
+  <div class="container content-nav c">
+    <div class="nav-link alist">
+      <%= link_to fa_icon("home") +
+                  "<p>マイページ</p>".html_safe,
+                  current_user %>
+    </div>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("list-ul") +
+                  "<p>マイリスト一覧</p>".html_safe,
+                  mylists_user_path(current_user) %>
+    </div>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("search") +
+                  "<p>リスト検索</p>".html_safe,
+                  search_path %>
+    </div>
+    <div class="nav-link alist">
+      <%= link_to fa_icon("cog") +
+                  "<p>設定</p>".html_safe,
+                  setting_path %>
+    </div>
+  </div>
+</nav>

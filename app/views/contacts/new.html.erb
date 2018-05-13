@@ -1,0 +1,40 @@
+<% provide(:title, "お問い合わせ") %>
+<% provide(:og_title, "お問い合わせ") %>
+<% provide(:og_url, new_contact_url) %>
+
+<div class="container content-mspace">
+  <div class="title-mspace c">
+    <h1>お問い合わせ</h1>
+  </div>
+  <div class="form">
+    <%= form_for(@contact, url: confirm_contact_path) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="label">
+        <%= f.label :name, "件名" %>
+      </div>
+      <div class="field">
+        <%= f.text_field :name %>
+      </div>
+      <div class="label">
+        <%= f.label :email, "メールアドレス" %>
+      </div>
+      <div class="field">
+        <%= f.email_field :email %>
+      </div>
+      <div class="label">
+        <%= f.label :content, "お問い合わせ内容" %>
+      </div>
+      <div class="field field-area">
+        <%= f.text_area :content %>
+      </div>
+      <div class="button-small button-accent">
+        <%= f.submit "内容確認へ", data: { disabel_with: "処理中..." } %>
+      </div>
+    <% end %>
+    <div class="button-back c">
+      <a href="<%= root_path %>" class="clear">
+        <%= fa_icon("caret-left") %><span>TOPへ</span>
+      </a>
+    </div>
+  </div>
+</div>

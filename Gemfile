@@ -6,7 +6,6 @@ gem 'faker',                    '1.7.3'    #疑似ユーザー追加
 gem 'carrierwave',              '1.2.2'    #画像アップローダー
 gem 'mini_magick',              '4.7.0'    #
 gem 'piet',                     '0.2.6'
-gem 'piet-binary',              '0.2.0'
 gem 'puma',                     '3.11.0'   #serverに使用
 gem 'sass-rails',               '5.0.6'    #sass使用のため
 gem 'uglifier',                 '3.2.0'    #jsの軽量化?
@@ -18,18 +17,19 @@ gem 'jbuilder',                 '2.7.0'    #
 gem 'font-awesome-rails',     '4.7.0.3'    #
 gem 'omniauth',              '~> 1.8.1'
 gem 'omniauth-twitter',      '~> 1.4.0'
+gem 'twitter'
 gem 'dotenv-rails',          '~> 2.2.1'    #key管理
 gem 'rack-rewrite',          '~> 1.5.1'    #ドメイン統合
 
-#開発、テスト環境に使用
+
 group :development, :test do
-  gem 'sqlite3',       '1.3.13'       #DB処理言語、usersリソースなどのtable構築のため
+  gem 'sqlite3',       '1.3.13'
   gem 'pry-rails',  '~> 0.3.6'
   gem 'pry-byebug', '~> 3.6.0'
   gem 'pry-doc',    '~> 0.13.1'
 end
 
-#開発環境にのみ使用
+
 group :development do
   gem 'web-console',           '3.5.1'
   gem 'listen',                '3.1.5'
@@ -49,5 +49,5 @@ group :production do
   gem 'fog', '1.42'
 end
 
-# Windows環境ではtzinfo-dataというgemを含める必要があります
+# For Windows development
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
