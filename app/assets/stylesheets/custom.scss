@@ -247,6 +247,54 @@ select {
           line-height: 34px;
         }
       }
+
+      .active-dummy {
+        margin: 5px auto;
+        height: 25px;
+        width: 50px;
+
+        .field-checkbox4 {
+          height: 100%;
+
+          .button-checkbox {
+            line-height: 25px;
+            width: 100%;
+
+            .button-main {
+              .button-slide {
+                height: 25px;
+                width: 100%;
+              }
+
+              .button-active span:after {
+                padding: 0 0 0 21px;
+              }
+
+              .button-passive span:after {
+                padding: 0 23px 0 0;
+              }
+            }
+
+            .slide {
+              height: 21px;
+              width: 21px;
+            }
+
+            .slide-on {
+              transform: translateX(25px);
+            }
+          }
+        }
+      }
+
+      .count-dummy {
+        background: $weak-grey;
+        border-radius: 50%;
+        margin: 0 auto;
+        line-height: 40px;
+        height: 40px;
+        width: 40px;
+      }
     }
 
     .step-text {
@@ -267,6 +315,16 @@ select {
       i {
         color: $weak-red;
       }
+    }
+  }
+
+  .step-image {
+    margin: 0 20%;
+    padding-bottom: 10px;
+    width: 60%;
+
+    img {
+      width: 100%;
     }
   }
 }
@@ -303,6 +361,10 @@ select {
 
 .wred {
   color: $weak-red !important;
+}
+
+.twi-blue {
+  color: $twi-blue !important;
 }
 
 .cover {
@@ -788,7 +850,8 @@ $color:(
     }
   }
 
-  .field-checkbox3 {
+  .field-checkbox3,
+  .field-checkbox4 {
     margin: 0;
     position: relative;
     width: 100%;
@@ -804,6 +867,7 @@ $color:(
       position: relative;
       width: 60px;
 
+      .button-main, 
       form {
         position: relative;
         height: 100%;
@@ -1048,6 +1112,7 @@ header {
     line-height: 50px;
 
     .header-center {
+      padding-left: 5%;
       width: 100%;
 
       a {
@@ -1056,6 +1121,10 @@ header {
         .logo-font {
           color: $main;
           font-size: 20px;
+
+          small {
+            font-size: 12.5px;
+          }
         }
       }
     }
