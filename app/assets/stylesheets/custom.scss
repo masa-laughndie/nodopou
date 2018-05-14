@@ -1123,7 +1123,8 @@ header {
           font-size: 20px;
 
           small {
-            font-size: 12.5px;
+            font-size: 11px;
+            margin-left: 10px;
           }
         }
       }
@@ -1749,6 +1750,43 @@ nav {
   width: 100%;
 
   img {
+    width: 100%;
+  }
+}
+
+  /* ogp */
+
+.ogp {
+  background: $accent;
+  margin: 0 auto;
+  height: 157.5px;
+  width: 300px;
+  padding: 15% 0 10%;
+  position: relative;
+
+  .ogp-title {
+    display: block;
+    font-size: 35px;
+    height: 65%;
+  }
+
+  .ogp-text {
+    display: block;
+    font-size: 12.5px;
+    height: 35%;
+  }
+}
+
+  /* twi_icon */
+
+.twi-icon {
+  background: $accent;
+  width: 100%;
+
+  .twi-icon-text {
+    display: block;
+    font-size: 250px;
+    height: 100%;
     width: 100%;
   }
 }
