@@ -1,3 +1,10 @@
 <p>今日を振り返って達成項目にチェックをつけましょう！</p>
 
-<p><%= link_to "リスト一覧へ移動する", mylists_url(@user) %></p>
+<p>～実行中のリスト～</p>
+<ul>
+  <% @contents.each do |content| %>
+    <li><%= content %></li>
+  <% end %>
+</ul>
+
+<p><%= link_to "リスト一覧へ移動してチェックする！", mylists_user_url(@user) %></p>
