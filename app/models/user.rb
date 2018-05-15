@@ -262,6 +262,14 @@ class User < ApplicationRecord
     n = space + uid.to_i % (string.length - space - 1)
     string.slice(0..(n - 1)) + string.slice((n + 1)..string.length)
   end
+
+  def og_image_url
+    if self.posts.any?
+      "https://www.nodopou.com" + self.posts.last.picture.url
+    else
+      ""
+    end
+  end
   
   private
 

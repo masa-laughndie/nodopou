@@ -1,6 +1,8 @@
-<% provide(:title, @user.name + "(@" + @user.account_id + ")さんのリスト一覧") %>
-<% provide(:og_title, @user.name + "(@" + @user.account_id + ")さんのリスト一覧") %>
-<% provide(:og_url, mylists_url(@user)) %>
+<% provide(:title, @user.name + "さんのやらないことリスト") %>
+<% provide(:og_title, @user.name + "さんのやらないことリスト") %>
+<% provide(:og_url, mylists_user_url(@user)) %>
+<% provide(:og_desc, "便乗する！") %>
+<% provide(:og_image, @og_image_url ) %>
 
 <div class="container content-nspace">
   <div class="title-nspace c">
