@@ -6,6 +6,7 @@ class MylistsController < ApplicationController
                                                    :update_active, :update_check]
 
   def index
+    @og_image_url = @user.og_image_url
     @mylists = @user.mylists.includes(:list).order(active: :desc)
     if current_user?(@user)
       current_user.confirm_and_reset_check_of(@mylists)
