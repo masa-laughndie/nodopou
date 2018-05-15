@@ -2,12 +2,14 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+    <%= render 'layouts/analytics' %>
     <%= render 'layouts/rails_default' %>
     <%= render 'layouts/meta_data' %>
     <%= render 'layouts/links' %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
+    <%= render 'layouts/tag_manager' %>
     <%= render 'layouts/header' %>
     <%= render 'layouts/flash' %>
     <div id="main">
