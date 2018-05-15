@@ -33,7 +33,7 @@ class PostsController < ApplicationController
     if Rails.env.development? || Rails.env.test?
       file = open(@post.picture.path)
     elsif Rails.env.production?
-      file = open(@post.picture.url)
+      file = open(@post.picture.url).base_url
     end
     @twi_client.update_with_media(twi_content, file)
 
