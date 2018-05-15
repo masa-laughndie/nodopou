@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'NoDoBotoke <noreply@nodobotoke.net>'
+  default from: 'nodopou <noreply@nodopou.com>'
   layout 'mailer'
 end
