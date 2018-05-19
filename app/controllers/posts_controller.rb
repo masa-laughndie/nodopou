@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   end
 
   def tweet
-    twi_content = "\n\n#nodopou #nottodo\n"
+    twi_content = "\n\n#nodopou #nottodo\n" +
                   mylists_user_url(current_user)
 =begin
     if Rails.env.development? || Rails.env.test?
