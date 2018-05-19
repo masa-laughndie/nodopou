@@ -73,3 +73,6 @@
     </div>
   </div>
 </div>
+<% unless logged_in? %>
+  <%= render 'shared/popup_login', type: "auto" %>
+<% end %>

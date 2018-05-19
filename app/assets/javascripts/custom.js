@@ -230,3 +230,28 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+//未ログインアラートボタン
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.ban').on('click', function() {
+      alert('登録またはログインしてください！');
+
+      if ($('#popup1').length != 0) {
+        $('#popup1').slideDown();
+      }
+      return false;
+    });
+  });
+});
+
+// popup-login auto
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#popup2').length != 0 ) {
+      setTimeout(function() {
+        $('#popup2').slideDown();
+      }, 5000);
+    }
+  });
+});
