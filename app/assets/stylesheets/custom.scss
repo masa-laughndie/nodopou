@@ -333,7 +333,7 @@ select {
 .counter {
   text-align: right;
 
-  #count-text {
+  .count-text {
     float: left;
     font-size: 14px;
   }
@@ -586,7 +586,16 @@ $color:(
 
 @each $key, $value in $color {
   .button-#{$key} {
-    background: $value;
+    input,
+    button,
+    a {
+      background: $value;
+    }
+
+    input:disabled,
+    button:disabled {
+      opacity: 0.65;
+    }
   }
 
   .button-accent {
@@ -594,11 +603,6 @@ $color:(
     button,
     a {
       color: $main;
-    }
-
-    input:disabled {
-      background: $waccent;
-      opacity: 0.6;
     }
   }
 }
@@ -1709,6 +1713,19 @@ nav {
   }
 }
 
+/* post */
+
+  /* preview */
+
+.demo-image {
+  margin: 0 auto;
+  width: 85%;
+
+  img {
+    width: 100%;
+  }
+}
+
 /* other */
 
   /* demo */
@@ -1768,15 +1785,6 @@ nav {
   content: "";
   display: block;
   padding-top: 57.3% 
-}
-
-.demo-image {
-  margin-bottom: 10px;
-  width: 100%;
-
-  img {
-    width: 100%;
-  }
 }
 
   /* ogp */

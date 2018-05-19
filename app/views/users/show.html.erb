@@ -65,8 +65,10 @@
           <%= f.text_area :content, class: "char-count" %>
         </div>
         <div class="counter">
-          <span id="count-text">1文字~60文字まで入力できます</span>
-          <span id="count">0</span> / 60
+          <span class="count-text" id="count-text-60">
+            1文字~60文字まで入力できます
+          </span>
+          <span id="count-60">0</span> / 60
         </div>
         <div class="button-small button-accent">
           <%= f.submit "追加する", data: { disable_with: "処理中..." },

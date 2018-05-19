@@ -37,11 +37,16 @@
 <% if current_user?(user) && user.uid.present? && @mylists_count != 0 %>
   <div class="container content-sspace">
     <div class="title-nspace c" style="padding: 0 0 10px;">
-      <h3>Twitterで宣言して実行度をあげよう！</h3>
+      <h3>Twitterで宣言しよう！</h3>
     </div>
     <div class="explanation">
+      <div class="attention" style="margin: 0 0 5px;">
+        <p><small>
+          <%= link_to "Twitterで宣言するメリットって？", about_path + "#other-function" %>
+        </small></p> 
+      </div>
       <p>
-        <%= fa_icon('info-circle') %> まだツイートされません！ツイート画像のプレビューページへとびます！
+        <%= fa_icon('info-circle') %> まだツイートされません！ツイート画像のプレビューと内容の入力ページへとびます！
       </p>
     </div>
     <div class="button-small button-twitter c" style="margin: 0 auto;">
