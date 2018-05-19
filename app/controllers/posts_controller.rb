@@ -28,15 +28,17 @@ class PostsController < ApplicationController
   end
 
   def tweet
-    twi_content = current_user.name + "さんのやらないことリスト\n\n便乗する！→" +
-                  mylists_user_url(current_user) + "\n\n#nodopou #nottodo"
+    twi_content = "\n\n#nodopou #nottodo\n"
+                  mylists_user_url(current_user)
+=begin
     if Rails.env.development? || Rails.env.test?
       file = open(@post.picture.path)
     elsif Rails.env.production?
       file = open(@post.picture.url)
     end
     @twi_client.update_with_media(twi_content, file)
-
+=end
+    @twi_client.update(twi_content)
     flash[:success] = "ツイートに成功しました！"
     redirect_to current_user
   end
