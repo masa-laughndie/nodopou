@@ -1,17 +1,19 @@
 class MylistsController < ApplicationController
 
-  before_action :logged_in_user
-  before_action :check_user,                only: [:index, :show]
-  before_action :check_user_authority,      only: [:edit, :update,
-                                                   :update_active, :update_check]
+  before_action :logged_in_user,       except: :index
+  before_action :check_user,           only: [:index, :show]
+  before_action :check_user_authority, only: [:edit, :update,
+                                              :update_active, :update_check]
 
   def index
     @og_image_url = @user.og_image_url
     @mylists = @user.mylists.includes(:list).order(active: :desc)
-    if current_user?(@user)
+    if logged_in? && current_user?(@user)
       current_user.confirm_and_reset_check_of(@mylists)
-    else
+    elsif logged_in?
       @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
+    else
+      @cuser_list_ids = []
     end
   end
 
