@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :logged_in_user, except: :show
+  before_action :logged_in_user
   before_action :check_post, only: [:show, :tweet]
   before_action :twitter_client, only: :tweet
 
@@ -28,19 +28,25 @@ class PostsController < ApplicationController
   end
 
   def tweet
-    twi_content = "\n\n#nodopou #nottodo\n" +
-                  mylists_user_url(current_user)
+    if params[:content].length > 100
+      flash[:danger] = "ツイート内容の文字数制限を超えています！"
+      redirect_to preview_path
+    else
+      twi_content = params[:content] +
+                    "\n\n#nodopou #nottodo\n" +
+                    mylists_user_url(current_user)
 =begin
-    if Rails.env.development? || Rails.env.test?
-      file = open(@post.picture.path)
-    elsif Rails.env.production?
-      file = open(@post.picture.url)
-    end
-    @twi_client.update_with_media(twi_content, file)
+      if Rails.env.development? || Rails.env.test?
+        file = open(@post.picture.path)
+      elsif Rails.env.production?
+        file = open(@post.picture.url)
+      end
+      @twi_client.update_with_media(twi_content, file)
 =end
-    @twi_client.update(twi_content)
-    flash[:success] = "ツイートに成功しました！"
-    redirect_to current_user
+      @twi_client.update(twi_content)
+      flash[:success] = "ツイートに成功しました！"
+      redirect_to current_user
+    end
   end
 
   private
