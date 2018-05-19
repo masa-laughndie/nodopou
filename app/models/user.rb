@@ -132,27 +132,12 @@ class User < ApplicationRecord
     account_id
   end
 
-=begin
-  def validate_on?(attribute)
-    validate_target = self.send("validate_#{attribute}")
-    unless validate_target.nil?
-      validate_target.in?(['true', true])
-    else
-      return false
-    end
-  end
-=end
-
-  def validate_name?
-    validate_name.in?(['true', true])
-  end
-
-  def validate_email?
-    validate_email.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
+  ["name", "email", "password"].each do |param|
+    class_eval <<-EOS
+      def validate_#{param}?
+        validate_#{param}.in?(['true', true])
+      end
+    EOS
   end
 
   def set_name_and_email(param)
@@ -261,6 +246,14 @@ class User < ApplicationRecord
     space = uid.length + 1
     n = space + uid.to_i % (string.length - space - 1)
     string.slice(0..(n - 1)) + string.slice((n + 1)..string.length)
+  end
+
+  def og_image_url
+    if self.posts.any?
+      posts.last.picture.url
+    else
+      ""
+    end
   end
   
   private

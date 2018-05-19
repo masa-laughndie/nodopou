@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :logged_in_user
+  before_action :logged_in_user, except: :show
   before_action :check_post, only: [:show, :tweet]
   before_action :twitter_client, only: :tweet
 
@@ -30,7 +30,11 @@ class PostsController < ApplicationController
   def tweet
     twi_content = current_user.name + "さんのやらないことリスト\n\n便乗する！→" +
                   mylists_user_url(current_user) + "\n\n#nodopou #nottodo"
-    file = File.open(@post.picture.path)
+    if Rails.env.development? || Rails.env.test?
+      file = open(@post.picture.path)
+    elsif Rails.env.production?
+      file = open(@post.picture.url)
+    end
     @twi_client.update_with_media(twi_content, file)
 
     flash[:success] = "ツイートに成功しました！"

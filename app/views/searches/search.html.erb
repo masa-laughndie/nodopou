@@ -27,6 +27,11 @@
                    locals: { user: current_user,
                              cuser_list_ids: @cuser_list_ids } %>
       </ul>
+      <div class="content-sspace attention c">
+        <p>追加したいリストがないときは</p>
+        <p class="mb">自分で簡単に作ることもできます</p>
+        <p><%= link_to "自分でリストを作る", user_path(current_user) + "#form-list" %></p>
+      </div>
     <% else %>
       <%= render partial: 'shared/no_data',
                  locals: { icon: nil,

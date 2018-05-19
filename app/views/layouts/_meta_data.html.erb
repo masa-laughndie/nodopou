@@ -1,19 +1,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="format-detection" content="telephone=no">
-<meta name="description" content="シンプルな「やらない(notToDo)」リストが簡単に作れるサービスです！Twitterで宣言することで実行力を上げたり、他の人の「やらない」に便乗できて、みんなで作業の効率化をはかれます！">
+<meta name="description" content="シンプルな「やらない(Not-To-Do)」リストが簡単に作れるサービスです。Twitterで宣言することで実行度を上げたり、他の人の「やらない」に便乗できて、みんなで作業の効率化をはかれます。">
 <meta name="keywords" content="twitter nottodo　作業効率化">
-<meta property="og:site_name" content="nodopou -シンプルnottodoリスト">
-<meta property="og:site_type" content="article">
-<meta property="og:description" content="シンプルな「やらない(notToDo)」リストが簡単に作れるサービスです！Twitterで宣言することで実行力を上げたり、他の人の「やらない」に便乗できて、みんなで作業の効率化をはかれます！">
+<meta property="og:site_name" content="nodopou ～シンプルNot-To-Doリスト～">
+<meta property="og:site_type" content="<%= ogp_site_type(yield(:og_type)) %>">
+<meta property="og:description" content="<%= ogp_description(yield(:og_desc)) %>">
 <meta property="og:title" content="<%= yield(:og_title) %>">
 <meta property="og:url" content="<%= yield(:og_url) %>">
-<!-- <meta property="og:image" content="https://www.nodopou.com/images/ogp.png"> -->
+<meta property="og:image" content="<%= ogp_image(yield(:og_image)) %>">
 <meta name="twitter:title" content="<%= yield(:og_title) %>">
 <meta name="twitter:url" content="<%= yield(:og_url) %>">
-<!-- <meta name="twitter:domain" content="nodopou.com"> -->
-<!-- <meta name="twitter:image" content="https://www.nodopou.com/images/ogp.png"> -->
-<meta name="twitter:description" content="シンプルな「やらない(notToDo)」リストが簡単に作れるサービスです！Twitterで宣言することで実行力を上げたり、他の人の「やらない」に便乗できて、みんなで作業の効率化をはかれます！">
-<!-- <meta name="twitter:card" content="summary_large_image"> -->
-<!-- <meta name="twitter:site" content="@mysize_sneakers"> -->
-<meta name="copyright" content="Copyright &copy; nodopou All right reserved.">
+<meta name="twitter:domain" content="nodopou.com">
+<meta name="twitter:image" content="<%= ogp_image(yield(:og_image)) %>">
+<meta name="twitter:image:alt" content="nodopou">
+<meta name="twitter:description" content="<%= ogp_description(yield(:og_desc)) %>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@masa_laughndie">
+<meta name="copyright" content="Copyright &copy; nodopou  ～シンプルNot-To-Doリスト～ All right reserved.">

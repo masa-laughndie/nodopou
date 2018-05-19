@@ -189,3 +189,69 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+
+// profile内link
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#profile').length != 0 ) {
+      var _url = $('#profile').text().match(/https:\/\/t.co\/\w{10}/g);
+
+      if ( _url != null ) {
+        for ( var i = 0; i < _url.length; i++ ) {
+          var
+            _profile = $('#profile').text(),
+            replaceText = _profile.replace(new RegExp(_url[i], 'g'),
+                                           "<a class='profile-link' href=" +
+                                           escapeHtml(_url[i]) + ">" +
+                                           escapeHtml(_url[i]) + "</a>");
+          
+          $('#profile').html(replaceText);
+        }
+      }
+    }
+  });
+});
+
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('#active-dummy').on('click', function() {
+      var
+        $target = $('.active-dummy'),
+        buttonToggle = $target.find('.button-slide'),
+        buttonActive = $target.find('.button-active'),
+        slideParts = $target.find('.slide');
+      if ( buttonActive.length != 0 ) {
+        buttonToggle.removeClass('button-active').addClass('button-passive');
+        slideParts.removeClass('slide-off').addClass('slide-on');
+      } else {
+        buttonToggle.removeClass('button-passive').addClass('button-active');
+        slideParts.removeClass('slide-on').addClass('slide-off');
+      }
+    });
+  });
+});
+
+//未ログインアラートボタン
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.ban').on('click', function() {
+      alert('登録またはログインしてください！');
+
+      if ($('#popup1').length != 0) {
+        $('#popup1').slideDown();
+      }
+      return false;
+    });
+  });
+});
+
+// popup-login auto
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#popup2').length != 0 ) {
+      setTimeout(function() {
+        $('#popup2').slideDown();
+      }, 5000);
+    }
+  });
+});

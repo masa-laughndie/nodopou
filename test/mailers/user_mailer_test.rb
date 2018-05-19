@@ -10,7 +10,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.email_update(@user)
     mail.transport_encoding = "8bit"
     assert_equal "メールアドレスを更新しました。",      mail.subject
-    assert_equal ["noreply@nodobotoke.net"],  mail.from
+    assert_equal ["noreply@nodopou.com"],  mail.from
     assert_equal [@user.email],               mail.to
     # assert_match CGI.escape(user_url(@user)), mail.body.encoded
   end
@@ -19,7 +19,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.password_reset(@user)
     mail.transport_encoding = "8bit"
     assert_equal "仮ログインURL発行",        mail.subject
-    assert_equal ["noreply@nodobotoke.net"],  mail.from
+    assert_equal ["noreply@nodopou.com"],  mail.from
     assert_equal [@user.email],               mail.to
     # assert_match "Hi", mail.body.encoded
   end
@@ -28,7 +28,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.list_check_notice(@user)
     mail.transport_encoding = "8bit"
     assert_equal "リストふりかえり通知",             mail.subject
-    assert_equal ["noreply@nodobotoke.net"],  mail.from
+    assert_equal ["noreply@nodopou.com"],  mail.from
     assert_equal [@user.email],               mail.to
     # assert_match "Hi", mail.body.encoded
   end
