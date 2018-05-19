@@ -1,6 +1,11 @@
 <% provide(:title, "ツイート画像プレビュー") %>
 <% provide(:og_title, "ツイート画像プレビュー") %>
 <% provide(:og_url, preview_url) %>
+<% provide(:og_desc, "便乗する！") %>
+<% unless @post.nil? %>
+  <% picture_url = @post.picture.url %>
+<% end %>
+<% provide(:og_image, picture_url ) %>
 
 <% unless @post.nil? %>
   <div class="container content-nspace">
