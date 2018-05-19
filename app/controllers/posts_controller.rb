@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :logged_in_user
+  before_action :logged_in_user, except: :show
   before_action :check_post, only: [:show, :tweet]
   before_action :twitter_client, only: :tweet
 

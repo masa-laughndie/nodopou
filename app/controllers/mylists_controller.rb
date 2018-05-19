@@ -1,6 +1,6 @@
 class MylistsController < ApplicationController
 
-  # before_action :logged_in_user
+  before_action :logged_in_user
   before_action :check_user,                only: [:index, :show]
   before_action :check_user_authority,      only: [:edit, :update,
                                                    :update_active, :update_check]
