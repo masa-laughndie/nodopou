@@ -444,6 +444,19 @@ select {
   right: 0;
 }
 
+$locations: top, bottom;
+
+@each $location in $locations {
+  .fixed-#{$location} {
+    background: $base;
+    position: fixed;
+    #{$location}: 0px;
+    left: 0;
+    right: 0;
+    z-index: 210;
+  }
+}
+
 /* parts */
   
   /* button */
@@ -588,6 +601,11 @@ $color:(
       opacity: 0.6;
     }
   }
+}
+
+.popup-login {
+  background: rgba(0,0,0,0.1);
+  display: none;
 }
 
   /* form */
@@ -935,13 +953,16 @@ $color:(
       position: relative;
       width: 100%;
 
-      form {
+      form,
+      .button-dummy {
         height: 100%;
         position: relative;
         width: 100%;
 
-        button {
+        button,
+        a {
           border-radius: 5px;
+          display: block;
           font-size: 10px;
           height: 100%;
           position: relative;
@@ -958,6 +979,10 @@ $color:(
           background: $weak-red;
           color: $base;
         }
+      }
+
+      .button-dummy {
+        line-height: 38px;
       }
     }
   }
