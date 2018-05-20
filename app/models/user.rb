@@ -107,8 +107,8 @@ class User < ApplicationRecord
             end
           end
         end
-
       end
+      
     end
 
     def search(keyword)
@@ -126,6 +126,18 @@ class User < ApplicationRecord
       end
     end
 
+  end
+
+  def update_from_auth(auth)
+    provider = auth[:provider]
+    uid      = auth[:uid]
+    t_token  = auth[:credentials][:token]
+    t_secret = auth[:credentials][:secret]
+
+    update_columns(provider: provider,
+                   uid:      uid,
+                   t_token:  self.secure_for(t_token, uid),
+                   t_secret: self.secure_for(t_secret, uid))
   end
 
   def to_param

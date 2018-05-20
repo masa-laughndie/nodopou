@@ -3,7 +3,16 @@
 <% elsif type == "auto" %>
 <div class="container content-sspace c fixed-bottom popup-login" id="popup2">
 <% end %>
+  <div class="attention c" style="margin: 10px auto">
+    <p style="font-size: 16px;"><%= link_to "nodopouって？", about_path %></p>
+  </div>
   <div class="button-large button-twitter" style="margin: 0 auto;">
     <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
+  </div>
+  <div class="attention c" style="margin: 10px auto">
+    <p style="font-size: 12.5px;">
+      <%= link_to "利用規約", terms_path %> / 
+      <%= link_to "プライバシーポリシー", privacy_path %>
+    </p>
   </div>
 </div>

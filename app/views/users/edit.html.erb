@@ -59,8 +59,11 @@
       </div>
       <div class="label">
         <%= f.label :check_reset_time, "リスト更新時間" %>
-        <p class="label-comment">※リストのチェック数や継続日数を記録する時間です。</p>
-        <p class="label-comment">(推奨)寝てる間、早朝などの一日の始まり</p>
+      </div>
+      <div class="info">
+        <p>
+          <%= fa_icon('info-circle') %> リストのチェック数や継続日数を記録する時間です。（推奨）寝てる間、早朝などの一日の始まり
+        </p>
       </div>
       <div class="field field-select">
         <%= f.select(:check_reset_time,
@@ -85,41 +88,7 @@
     <% end %>
   </div>
 </div>
-<div class="blank"></div>
-<div class="container content-mspace">
-  <div class="title-mspace">
-    <h2>メール通知設定</h2>
-  </div>
-  <div class="form">
-    <%= form_for(@user, url: email_setting_path ) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <div class="label">
-        <%= f.label :email, "メールアドレス" %>
-        <% if @user.email.match(/@example.com/).present? %>
-          <p class="label-comment">※ご自身の正確なメールアドレスに変更してください。</p>
-        <% end %>
-      </div>
-      <div class="field">
-        <%= f.email_field :email %>
-      </div>
-      <div class="field-checkbox clear">
-        <div class="button-checkbox">
-          <%= f.check_box :is_send_email, {}, true, false %>
-          <%= f.label :is_send_email do %>
-            <span></span>
-          <% end %>
-          <div class="slide"></div>
-        </div>
-        <div class="label-checkbox">
-          その日の終わりに振り返りメールを送ります
-        </div>
-      </div>
-      <div class="button-small button-accent">
-        <%= f.submit "更新する", data: { disable_with: "処理中..."} %>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= render 'users/edit_email', user: @user %>
 <% if logged_in? && current_user?(@user) %>
   <div class="blank"></div>
   <div class="container content-mspace">
