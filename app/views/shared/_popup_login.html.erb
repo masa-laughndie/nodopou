@@ -1,12 +1,12 @@
 <% if type == "click" %>
-<div class="container content-sspace c fixed-bottom popup-login" id="popup1">
-<% elsif type == "auto" %>
-<div class="container content-sspace c fixed-bottom popup-login" id="popup2">
-<% end %>
+<div class="container content-nspace c fixed-bottom popup-login" id="click-popup">
   <div class="attention c" style="margin: 10px auto">
     <p style="font-size: 16px;"><%= link_to "nodopouって？", about_path %></p>
   </div>
-  <div class="button-large button-twitter" style="margin: 0 auto;">
+<% elsif type == "auto" %>
+<div class="container content-nspace c fixed-bottom popup-login" id="auto-popup">
+<% end %>
+  <div class="button-large button-twitter" style="margin: 10px auto;">
     <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
   </div>
   <div class="attention c" style="margin: 10px auto">

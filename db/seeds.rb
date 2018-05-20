@@ -1,6 +1,6 @@
 # User
 User.create!(name: "nodopou公式",
-             account_id: "nodopou_official",
+             account_id: "nodopou_2018",
              email: "info@nodopou.com",
              password: "foobar",
              password_confirmation: "foobar",
