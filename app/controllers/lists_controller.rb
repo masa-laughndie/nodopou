@@ -19,14 +19,15 @@ class ListsController < ApplicationController
 
   def create
     @list = current_user.create_lists.build(list_params)
-    if @list.save
+    if params[:list][:content].length > 60
+      flash[:danger] = "文字数制限を超えています！"
+    elsif @list.save
       current_user.avail(@list)
       flash[:success] = "リストの作成が完了しました！"
-      redirect_to current_user
     else
       flash[:danger] = "リストを追加できませんでした<br>リストの内容を入力してください"
-      redirect_to current_user
     end
+    redirect_to current_user
   end
 
   def edit
