@@ -100,45 +100,6 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/*
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    //documentにしないとスマホ無効になる
-    $(document).on('click', "[id^=list-checkbox]", function() {
-      var
-        str = $(this).attr("id"),
-        num = str.match(/\d/g).join("");
-      $('#edit_mylist_' + num).submit();
-    });
-  });
-});
-*/
-/*
-//listのactiveをスライドバーでupdateする
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    //documentにしないとスマホ無効になる
-    $(document).on('click', "[id^=list-checkbox]", function() {
-      var
-        str = $(this).attr("id"),
-        num = str.match(/\d/g).join("");
-      $.ajax({
-        type: 'PATCH',
-        url: '/mylists/' + num + '/active',
-        dataType: 'html',
-        timeout: 20000
-      })
-      .done(function(data) {
-      })
-      .fail(function() {
-        alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
-        return false;
-      });
-      // $('#edit_list_' + num).submit();
-    });
-  });
-});
-*/
 
 //search-field　back-color可変
 document.addEventListener('turbolinks:load', function() {
@@ -239,8 +200,8 @@ document.addEventListener('turbolinks:load', function() {
     $('.ban').on('click', function() {
       alert('登録またはログインしてください！');
 
-      if ($('#popup1').length != 0) {
-        $('#popup1').slideDown();
+      if ($('#click-popup').length != 0) {
+        $('#click-popup').slideDown();
       }
       return false;
     });
@@ -250,10 +211,10 @@ document.addEventListener('turbolinks:load', function() {
 // popup-login auto
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    if ( $('#popup2').length != 0 ) {
+    if ( $('#auto-popup').length != 0 ) {
       setTimeout(function() {
-        $('#popup2').slideDown();
-      }, 5000);
+        $('#auto-popup').slideDown();
+      }, 10000);
     }
   });
 });
