@@ -60,6 +60,12 @@
     <div class="step-image">
       <%= image_tag("/images/sample00.png", alt: "sample00") %>
     </div>
+    <% if logged_in? && current_user.uid.nil? %>
+      <div class="button-middle button-twitter c" style="margin: 20px auto;">
+        <%= link_to fa_icon('twitter') + " Twitter連携する", '/auth/twitter',
+                    data: { disable_with: "処理中..." } %>
+      </div>
+    <% end %>
     <div class="border"></div>
     <div class="step clear">
       <div class="step-figure c">
