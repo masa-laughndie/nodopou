@@ -1,0 +1,40 @@
+<% if current_user?(user) && mylists_count != 0 && user.uid.present? %>
+  <div class="border"></div>
+  <div class="container content-sspace">
+    <div class="title-nspace c" style="padding: 0 0 10px;">
+      <h3>Twitterで宣言しよう！</h3>
+    </div>
+    <div class="info">
+      <div class="attention" style="margin: 0 0 5px;">
+        <p><small>
+          <%= link_to "Twitterで宣言するメリットって？", about_path + "#other-function" %>
+        </small></p> 
+      </div>
+      <p>
+        <%= fa_icon('info-circle') %> まだツイートされません！ツイート画像のプレビューと内容の入力ページへとびます！
+      </p>
+    </div>
+    <div class="button-small button-twitter c" style="margin: 0 auto;">
+      <%= link_to fa_icon('twitter') + " 宣言する！", posts_path,
+                  method: :post, data: { disable_with: "処理中..." } %>
+    </div>
+  </div>
+<% elsif current_user?(user) && mylists_count != 0 %>
+  <div class="border"></div>
+  <div class="container content-sspace">
+    <div class="title-nspace c" style="padding: 0 0 10px;">
+      <h3>Twitterで宣言しよう！</h3>
+    </div>
+    <div class="info">
+      <div class="attention" style="margin: 0 0 5px;">
+        <p><small>
+          <%= link_to "Twitterで宣言するメリットって？", about_path + "#other-function" %>
+        </small></p> 
+      </div>
+    </div>
+    <div class="button-middle button-twitter c" style="margin: 0 auto;">
+      <%= link_to fa_icon('twitter') + " Twitter連携する", '/auth/twitter',
+                  data: { disable_with: "処理中..." } %>
+    </div>
+  </div>
+<% end %>

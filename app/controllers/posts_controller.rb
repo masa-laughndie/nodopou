@@ -59,9 +59,17 @@ class PostsController < ApplicationController
       auth_token  = current_user.unlock_for(current_user.t_token, current_user.uid)
       auth_secret = current_user.unlock_for(current_user.t_secret, current_user.uid)
 
+      if Rails.env.production?
+        con_key = ENV['TWITTER_KEY']
+        con_sec = ENV['TWITTER_SECRET']
+      else
+        con_key = ENV['TWITTER_KEY_DEV']
+        con_sec = ENV['TWITTER_SECRET_DEV']
+      end
+
       @twi_client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = ENV['TWITTER_KEY']
-        config.consumer_secret     = ENV['TWITTER_SECRET']
+        config.consumer_key        = con_key
+        config.consumer_secret     = con_sec
         config.access_token        = auth_token
         config.access_token_secret = auth_secret
       end
