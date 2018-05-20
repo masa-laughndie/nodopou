@@ -28,13 +28,25 @@ class PostsController < ApplicationController
   end
 
   def tweet
-    twi_content = current_user.name + "さんのやらないことリスト\n\n便乗する！→" +
-                  mylists_user_url(current_user) + "\n\n#nodopou #nottodo"
-    file = File.open(@post.picture.path)
-    @twi_client.update_with_media(twi_content, file)
-
-    flash[:success] = "ツイートに成功しました！"
-    redirect_to current_user
+    if params[:content].length > 100
+      flash[:danger] = "ツイート内容の文字数制限を超えています！"
+      redirect_to preview_path
+    else
+      twi_content = params[:content] +
+                    "\n\n#nodopou #nottodo\n" +
+                    mylists_user_url(current_user)
+=begin
+      if Rails.env.development? || Rails.env.test?
+        file = open(@post.picture.path)
+      elsif Rails.env.production?
+        file = open(@post.picture.url)
+      end
+      @twi_client.update_with_media(twi_content, file)
+=end
+      @twi_client.update(twi_content)
+      flash[:success] = "ツイートに成功しました！"
+      redirect_to current_user
+    end
   end
 
   private
@@ -47,9 +59,17 @@ class PostsController < ApplicationController
       auth_token  = current_user.unlock_for(current_user.t_token, current_user.uid)
       auth_secret = current_user.unlock_for(current_user.t_secret, current_user.uid)
 
+      if Rails.env.production?
+        con_key = ENV['TWITTER_KEY']
+        con_sec = ENV['TWITTER_SECRET']
+      else
+        con_key = ENV['TWITTER_KEY_DEV']
+        con_sec = ENV['TWITTER_SECRET_DEV']
+      end
+
       @twi_client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = ENV['TWITTER_KEY']
-        config.consumer_secret     = ENV['TWITTER_SECRET']
+        config.consumer_key        = con_key
+        config.consumer_secret     = con_sec
         config.access_token        = auth_token
         config.access_token_secret = auth_secret
       end

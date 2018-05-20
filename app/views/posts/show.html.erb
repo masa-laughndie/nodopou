@@ -1,32 +1,50 @@
-<% provide(:title, "ツイート画像プレビュー") %>
-<% provide(:og_title, "ツイート画像プレビュー") %>
+<% provide(:title, "ツイート投稿") %>
+<% provide(:og_title, "ツイート投稿") %>
 <% provide(:og_url, preview_url) %>
 
 <% unless @post.nil? %>
   <div class="container content-nspace">
     <div class="title-nspace c">
-      <h2>ツイート画像プレビュー</h2>
+      <h2>ツイート投稿</h2>
+    </div>
+    <div class="demo-image">
+      <div class="explanation">
+        <h3>ツイート画像</h3>
+      </div>
+      <%= image_tag(picture_url(@post), alt: "ツイート画像プレビュー") %>
     </div>
   </div>
   <div class="container content-mspace">
-    <div class="demo-image">
-      <%= image_tag(picture_url(@post), alt: "ツイート画像プレビュー") %>
-    </div>
-    <div class="explanation">
-      <p>
-        <%= fa_icon('info-circle') %> 「宣言する！」をクリックするとツイートされます！
-      </p>
-    </div>
-    <div class="buttons c">
-      <div class="button-left button-back">
-        <%= link_to user_path(current_user), class: 'clear' do %>
-          <%= fa_icon('caret-left') %><span>戻る</span>
-        <% end %>
-      </div>
-      <div class="button-right button-small button-twitter">
-        <%= link_to fa_icon('twitter') + " 宣言する！", posts_tweet_path,
-                    method: :post, data: { disable_with: "処理中..." } %>
-      </div>
+    <div class="form">
+      <%= form_tag(posts_tweet_path, method: "patch") do %>
+        <div class="label">
+          <%= label_tag :content, "ツイート内容（任意）" %>
+        </div>
+        <div class="field field-area list-area">
+          <%= text_area_tag :content, nil, class: "char-count" %>
+        </div>
+        <div class="counter" style="margin-bottom: 20px;">
+          <span class="count-text" id="count-text-100">1文字~100文字まで入力できます</span>
+          <span id="count-100">0</span> / 100
+        </div>
+        <div class="explanation">
+          <p>
+            <%= fa_icon('info-circle') %> 「宣言する！」をクリックするとツイートされます！
+          </p>
+        </div>
+        <div class="buttons c">
+          <div class="button-left button-back">
+            <%= link_to user_path(current_user), class: 'clear' do %>
+              <%= fa_icon('caret-left') %><span>戻る</span>
+            <% end %>
+          </div>
+          <div class="button-right button-small button-twitter">
+            <%= button_tag fa_icon('twitter') + " 宣言する！",
+                           data: { disable_with: "処理中..." },
+                           class: "disabled" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>

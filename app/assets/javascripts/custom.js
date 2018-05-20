@@ -172,18 +172,20 @@ document.addEventListener('turbolinks:load', function() {
       var
         textLength = $(this).val().length,
         $disable = $('.disabled'),
-        $text = $('#count-text');
-      $('#count').text(textLength);
+        $text = $("[id^=count-text]"),
+        charLimit = $text.attr('id').match(/\d/g).join(""),
+        zeroDisabled = ["60"];      //追加要素
+      $('#count-' + charLimit).text(textLength);
 
-      if ( textLength == 0 ) {
+      if ( zeroDisabled.indexOf(charLimit) >= 0 && textLength == 0 ) {
         $disable.prop('disabled', true);
-        $text.text("1文字~60文字まで入力できます");
-      } else if ( textLength > 60 ) {
+        $text.text("1文字~" + charLimit + "文字まで入力できます");
+      } else if ( textLength > Number(charLimit) ) {
         $disable.prop('disabled', true);
         $text.text("※入力できる文字数を超えています！");
       } else {
         $disable.prop('disabled', false);
-        $text.text("1文字~60文字まで入力できます");
+        $text.text("1文字~" + charLimit + "文字まで入力できます");
       }
 
     });
@@ -228,5 +230,30 @@ document.addEventListener('turbolinks:load', function() {
         slideParts.removeClass('slide-on').addClass('slide-off');
       }
     });
+  });
+});
+
+//未ログインアラートボタン
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.ban').on('click', function() {
+      alert('登録またはログインしてください！');
+
+      if ($('#popup1').length != 0) {
+        $('#popup1').slideDown();
+      }
+      return false;
+    });
+  });
+});
+
+// popup-login auto
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#popup2').length != 0 ) {
+      setTimeout(function() {
+        $('#popup2').slideDown();
+      }, 5000);
+    }
   });
 });
