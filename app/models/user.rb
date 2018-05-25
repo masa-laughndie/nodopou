@@ -234,11 +234,13 @@ class User < ApplicationRecord
       mylists ||= self.mylists.includes(:list)
 
       if mylists.any?
-        mylists.each do |mylist|
-          if mylist.check?
-            mylist.add_running_days_and_reset_check
-          else
-            mylist.reset_running_days
+        Mylist.transaction do
+          mylists.each do |mylist|
+            if mylist.check?
+              mylist.add_running_days_and_reset_check
+            else
+              mylist.reset_running_days
+            end
           end
         end
       end
