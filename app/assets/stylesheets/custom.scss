@@ -373,6 +373,11 @@ select {
   color: $twi-blue !important;
 }
 
+.link-blue {
+  color: $link-blue !important;
+  text-decoration: underline;
+}
+
 .cover {
   display: block;
   width: 100%;
