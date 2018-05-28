@@ -80,12 +80,16 @@ textarea {
   -moz-appearance: none;
 }
 
+a:focus {
+  outline: 3px solid rgba(255,244,98,0.7);
+}
+
 button:focus,
 input:focus,
 select:focus,
-textarea:focus,
-a:focus {
-  outline: 3px solid $waccent;
+textarea:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255,244,98,0.7);
+  box-shadow: 0 0 0 0.2rem rgba(255,244,98,0.7);
 }
 
 input,
@@ -361,6 +365,20 @@ select {
   color: $accent !important;
 }
 
+.alist-sub {
+  position: relative;
+
+  .active:after {
+    background: $waccent;
+    content: "";
+    display: block;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+  }
+}
+
 .red {
   color: red !important;
 }
@@ -465,6 +483,27 @@ $locations: top, bottom;
     left: 0;
     right: 0;
     z-index: 210;
+  }
+}
+
+.sub-select {
+  background: $base;
+  border-bottom: 1px solid $weak-grey;
+  height: 41px;
+  width: 100%;
+
+  .sub-select-link {
+    float: left;
+    height: 100%;
+    width: 50%;
+
+    a {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      height: 100%;
+      line-height: 40px;
+    }
   }
 }
 
@@ -1152,11 +1191,11 @@ header {
     line-height: 50px;
 
     .header-center {
-      padding-left: 5%;
       width: 100%;
 
       a {
         display: block;
+        padding-left: 5%;
 
         .logo-font {
           color: $main;
@@ -1382,7 +1421,6 @@ nav {
   background: $weak-grey;
   border-radius: 5px;
   min-width: 60px;
-  padding: 0 5px;
   position: absolute;
   top: 13px;
   right: 13px;
@@ -1636,6 +1674,21 @@ nav {
       margin-right: 5%;
       text-align: right;
       width: 15%;
+    }
+
+    .list-delete {
+      a {
+        display: block;
+        position: relative;
+        height: 40px;
+        width: 40px;
+        z-index: 200;
+        i {
+          display: block;
+          font-size: 28px;
+          line-height: 40px;
+        }
+      }
     }
   }
 }

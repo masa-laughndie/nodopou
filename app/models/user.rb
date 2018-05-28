@@ -114,7 +114,7 @@ class User < ApplicationRecord
     def search(keyword)
       if keyword
         keyword_arys = keyword.split(/[\s　]+/)
-        condition = where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
+        condition = where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
                     "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase])
         for i in 1..(keyword_arys.length - 1) do
           condition = condition.where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",

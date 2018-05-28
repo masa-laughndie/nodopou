@@ -41,8 +41,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.lists.each do |list|
-      list.destroy_or_leaved(@user)
+    List.transaction do
+      @user.lists.each do |list|
+        list.destroy_or_leaved(@user)
+      end
     end
 
     log_out
@@ -117,12 +119,8 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :is_send_email)
     end
 
-    def admin_user
-      redirect_to root_path unless current_user.admin?
-    end
-
     def check_user_authority
-      unless current_user?(@user) || current_user.admin?
+      unless current_user?(@user)
         flash[:danger] = "権限がありません！！"
         redirect_to root_path
       end

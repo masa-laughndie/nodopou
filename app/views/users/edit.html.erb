@@ -134,9 +134,10 @@
 <% end %>
 <% if @user.admin? %>
   <div class="blank"></div>
-  <div class="container content-mspace">
+  <div class="container content-sspace">
     <div class="button-small button-back c" style="margin: 20px auto;">
-      <%= link_to "管理者ページ", current_user %>
+      <%= link_to "管理者ページ", admins_path %>
     </div>
   </div>
 <% end %>
+<div class="border"></div>
