@@ -31,6 +31,8 @@
       <div class="attention">
         <p><%= link_to "自分でリストを作る", user_path(current_user) + "#form-list" %></p>
       </div>
+    <% when 'no-hit-admin' %>
+      <p>検索結果は０件です</p>
     <% else %>
       <p>表示できるデータがありません</p>
     <% end %>
