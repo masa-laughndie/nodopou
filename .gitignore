@@ -23,3 +23,7 @@
 .byebug_history
 
 /.env
+
+.vscode/
+config/sprockets-manifest.json
+public/assets/
