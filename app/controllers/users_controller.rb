@@ -45,11 +45,17 @@ class UsersController < ApplicationController
       @user.lists.each do |list|
         list.destroy_or_leaved(@user)
       end
+      log_out
+      if @user.admin?
+        raise
+      else
+        @user.destroy
+      end
     end
-
-    log_out
-    @user.destroy
-    flash[:success] = "アカウント削除が完了しました。"
+    flash[:success] = "アカウントの削除が完了しました。<br>ご利用ありがとうございました。"
+    redirect_to root_path
+  rescue => e
+    flash[:danger] = "このユーザーは削除できません"
     redirect_to root_path
   end
 
