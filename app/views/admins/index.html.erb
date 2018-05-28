@@ -1,0 +1,53 @@
+<% provide(:title, "管理者ページ") %>
+<% provide(:og_title, "管理者ページ") %>
+<% provide(:og_url, admins_url) %>
+<% provide(:search_url, admins_path) %>
+
+<div class="container content-nspace">
+  <div class="content-mspace form form-inner">
+    <%= render 'shared/search_form', page: "admin" %>
+  </div>
+  <div class="border"></div>
+  <% unless params[:keyword].nil? %>
+    <div class="sub-select c">
+      <div class="sub-select-link alist-sub">
+        <%= link_to "ユーザー",
+            admins_path(keyword: params[:keyword], for: 'user') %>
+      </div>
+      <div class="sub-select-link alist-sub">
+        <%= link_to "リスト",
+            admins_path(keyword: params[:keyword], for: 'list') %>
+      </div>
+    </div>
+    <div class="blank" style="background: #f2f2f2;"></div>
+    <% if params[:for] == 'list' && @lists.any? %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: '便乗人数',
+                           center: '内容',
+                           right: '削除' } %>
+      <ul>
+        <% @lists.each do |list| %>
+          <%= render 'admins/admin_list', list: list %>
+        <% end %>
+      </ul>
+    <% elsif params[:for] == 'user' && @users.any? %>
+      <%= render partial: 'shared/list_item',
+                 locals: { left: 'ID',
+                           center: '表示名',
+                           right: '削除' } %>
+      <ul>
+        <% @users.each do |user| %>
+          <%= render 'admins/admin_user', user: user %>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= render partial: 'shared/no_data',
+                 locals: { icon: nil,
+                           text: 'no-hit-admin' } %>
+    <% end %>
+  <% else %>
+    <%= render partial: 'shared/no_data',
+                 locals: { icon: 'search',
+                           text: 'search' } %>
+  <% end %>
+</div>

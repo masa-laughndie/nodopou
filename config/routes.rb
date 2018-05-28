@@ -52,6 +52,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :admins, only: [:index],
+                     path: '/admin' do
+    member do
+      delete :user, to: 'admins#user_destroy'
+      delete :list, to: 'admins#list_destroy'
+    end
+  end
+
   resource :setting, only: :update,
                      controller: 'users' do
     get '/',        to: 'users#edit'
