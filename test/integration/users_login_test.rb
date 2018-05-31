@@ -32,5 +32,12 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     delete logout_path
     follow_redirect!
     assert_template 'statics/home'
+    get login_path
+    post login_path, params: { account_id: @user.email,
+                               password: 'password' }
+    assert is_logged_in?
+    assert_not_empty cookies['remember_token']
+    assert_redirected_to @user
+    follow_redirect!
   end
 end
