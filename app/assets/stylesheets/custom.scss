@@ -1727,6 +1727,53 @@ nav {
   width: 100%;  
 }
 
+.list-action {
+  position: relative;
+  height: 80px;
+  width: 100%;
+}
+
+.list-strong {
+  height: 60px;
+  margin: 10px auto;
+  width: 60px;
+
+  .form {
+    height: 100%;
+    .field-checkbox4 {
+      height: 100%;
+      .button-checkbox3 {
+        border-radius: 50%;
+        height: 100%;
+        form {
+          height: 100%;
+
+          button {
+            width: 90%;
+            height: 90%;
+            position: relative;
+
+            i {
+              font-size: 30px;
+            }
+          }
+        }
+      }
+
+      .button-normal {
+        background: $back;
+      }
+
+      .button-strong {
+        background: $on-green;
+        i {
+          color: $base;
+        }
+      }
+    }
+  }
+}
+
 .list-info {
   height: auto;
   width: 100%;
