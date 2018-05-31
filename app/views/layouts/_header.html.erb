@@ -1,13 +1,13 @@
 <header>
-  <div class="content-head container">
-    <div class="header-left">
-    </div>
-    <div class="header-center c">
-      <a class="logo-text" href="<%= root_path %>">
-        <span class="logo-font">NoDoBotoke</span>
+  <div class="container content-header">
+    <div class="header-center">
+      <% if logged_in? %>
+        <a class="logo-text" href="<%= user_path(current_user) %>">
+      <% else %>
+        <a class="logo-text" href="<%= root_path %>">
+      <% end %>
+        <span class="logo-font">nodopou<small>～シンプルNot-To-Doリスト～</small></span>
       </a>
-    </div>
-    <div class="header-right">
     </div>
   </div>
 </header>

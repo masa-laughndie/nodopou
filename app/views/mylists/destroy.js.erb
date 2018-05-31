@@ -1,0 +1,2 @@
+$('#list-avail-<%= @list.id %>').html("<%= escape_javascript(render partial: 'lists/avail', locals: { list: @list }) %>");
+$('#active-count-<%= @list.id %>').html("<%= @list.user_count %>");

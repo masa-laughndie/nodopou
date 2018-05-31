@@ -1,0 +1,17 @@
+<% provide(:title, "仮ログインURL送信完了") %>
+<% provide(:og_title, "仮ログインURL送信完了") %>
+<% provide(:og_url, confirm_password_reset_url) %>
+
+<div class="container content-mspace">
+  <div class="title-mspace c">
+    <h1>仮ログインURL送信完了</h1>
+  </div>
+  <div class="attention">
+    <p>仮ログインURLをメールアドレスに送信しました。ご確認の上、<b class="text-danger">２時間以内</b>に仮ログインURLにアクセスしてください。</p>
+  </div>
+  <div class="button-back c">
+    <a href="<%= root_path %>" class="clear">
+      <%= fa_icon("caret-left") %><span>TOPへ</span>
+    </a>
+  </div>
+</div>

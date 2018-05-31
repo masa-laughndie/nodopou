@@ -1,0 +1,23 @@
+<% provide(:title, @user.name + "さんのリストスコア") %>
+<% provide(:og_title, @user.name + "さんのリストスコア") %>
+<% provide(:og_url, mylist_user_url(@user, @mylist)) %>
+
+<div class="container content-mspace">
+  <div class="list-text">
+    <%= @mylist.list.content %>
+  </div>
+  <div class="list-info clear">
+    <div class="list-user-count mylist-count square c">
+      <span class="count-num middle-xy"><%= @mylist.check_count %></span>
+      <span class="count-label middle-x">チェック数</span>
+    </div>
+    <div class="list-user-count mylist-count square c">
+      <span class="count-num middle-xy"><%= @mylist.running_days %></span>
+      <span class="count-label middle-x">継続日数</span>
+    </div>
+    <div class="list-user-count mylist-count square c">
+      <span class="count-num middle-xy"><%= @mylist.max_running_days %></span>
+      <span class="count-label middle-x">最高日数</span>
+    </div>
+  </div>
+</div>

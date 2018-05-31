@@ -19,13 +19,19 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_create
-    @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
-    log_in @user
-    remember @user
-    if @user.created_at > 1.minutes.ago
-      flash[:success] = "登録・ログインに成功しました！"
+    if logged_in?
+      @user = current_user
+      @user.update_from_auth(auth_params)
+      flash[:success] = "Twitter連携が完了しました！"
     else
-      flash[:success] = "ログインに成功しました！"
+      @user = User.find_or_create_from_auth(auth_params)
+      log_in @user
+      remember @user
+      if @user.created_at > 1.minutes.ago
+        flash[:success] = "登録・ログインに成功しました！"
+      else
+        flash[:success] = "ログインに成功しました！"
+      end
     end
     redirect_to @user
   end
@@ -45,6 +51,10 @@ class SessionsController < ApplicationController
         flash[:info] = "既にログイン中です。"
         redirect_to root_url
       end
+    end
+
+    def auth_params
+      request.env['omniauth.auth']
     end
 
 end

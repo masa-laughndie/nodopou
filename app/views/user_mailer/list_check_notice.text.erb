@@ -1,0 +1,11 @@
+今日を振り返って達成項目にチェックをつけましょう！
+
+～実行中のリスト～
+
+<% @contents.each do |content| %>
+  ・<%= content %>
+<% end %>
+
+リスト一覧へ移動してチェックする！
+↓
+<%= mylists_user_url(@user) %>

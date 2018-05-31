@@ -1,7 +1,22 @@
 class UsersController < ApplicationController
 
+  before_action :logged_in_user,       except: [:new, :create]
+  before_action :check_user,           only:   [:show, :destroy]
+  before_action :get_user,             only:   [:edit, :update,
+                                                :email_edit, :email_update]
+  before_action :check_user_authority, only:   :destroy
+
   def show
-    @user = User.find_by(account_id: params[:account_id])
+    @mylists = @user.mylists.where(active: true).includes(:list)
+    @mylists_count = @mylists.size
+    @list = current_user.create_lists.build
+    @post = current_user.posts.build
+    if current_user?(@user)
+      #nilのときは全mylist
+      current_user.confirm_and_reset_check_of(nil)
+    else
+      @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
+    end
   end
 
   def new
@@ -9,11 +24,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(create_params)
     @user.validate_password = true
-    @user.name = params[:user][:account_id]
-    @user.email = "#{params[:user][:account_id]}@example.com"
-    @user.password_confirmation = params[:user][:password]
+
+    @user.set_name_and_email(params[:user][:account_id])
+    @user.set_pass_and_time(params[:user][:password], nil)
+
     if @user.save
       log_in @user
       remember @user
@@ -24,23 +40,99 @@ class UsersController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
+    List.transaction do
+      @user.lists.each do |list|
+        list.destroy_or_leaved(@user)
+      end
+      log_out
+      if @user.admin?
+        raise
+      else
+        @user.destroy
+      end
+    end
+    flash[:success] = "アカウントの削除が完了しました。<br>ご利用ありがとうございました。"
+    redirect_to root_path
+  rescue => e
+    flash[:danger] = "このユーザーは削除できません"
+    redirect_to root_path
   end
 
   def edit
   end
 
   def update
+    @user.validate_name = true
+
+    @user.set_pass_and_time(params[:user][:password],
+                            params[:user][:check_reset_time])
+
+    if @user.update_attributes(edit_params)
+      flash[:success] = "設定の変更が完了しました！"
+      redirect_to setting_path
+    else
+      if params[:user][:name].blank? || params[:user][:account_id].blank?
+        @user.reload
+      end
+      render 'edit'
+    end
+  end
+
+  def email_edit
+    redirect_to setting_path
+  end
+
+  def email_update
+    @user.validate_email = true
+    address = params[:user][:email]
+
+    if address.present? && address.match(/@example.com/).present?
+      if @user.is_send_email?
+        @user.update_attribute(:is_send_email, false)
+      end
+      flash.now[:danger] = "そのメールアドレスは無効です<br>変更してください"
+      render 'edit'
+
+    elsif @user.update_attributes(edit_email_params)
+      @user.send_email(:email_update)
+      flash[:success] = "メール設定の変更が完了しました！"
+      redirect_to setting_path
+
+    else
+      if address.blank?
+        @user.reload
+      end
+      render 'edit'
+    end
   end
 
   private
 
-    def user_params
+    def create_params
       params.require(:user).permit(:account_id, :name, :email,
-                                   :password, :password_confirmation)
+                                   :password, :password_confirmation,
+                                   :check_reset_at)
     end
 
-    def admin_user
-      redirect_to root_path unless current_user.admin?
+    def edit_params
+      params.require(:user).permit(:account_id, :name, :image, :image_cache,
+                                   :profile, :password, :password_confirmation,
+                                   :check_reset_time, :check_reset_at)
+    end
+
+    def edit_email_params
+      params.require(:user).permit(:email, :is_send_email)
+    end
+
+    def check_user_authority
+      unless current_user?(@user)
+        flash[:danger] = "権限がありません！！"
+        redirect_to root_path
+      end
+    end
+
+    def get_user
+      @user = current_user
     end
 end

@@ -4,14 +4,14 @@
 
 <div class="container content-lspace">
   <div class="title-lspace c">
-    <h1>NoDoBoIDで登録</h1>
+    <h1>nodopouIDで登録</h1>
   </div>
   <div class="form">
     <%= form_for(@user, url: signup_path) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       <div class="field">
         <%= f.text_field :account_id,
-                         placeholder: "NoDoBoID (a-z,-0-9,_ 15文字以内)" %>
+                         placeholder: "nodopouID (a-z,-0-9,_ 15文字以内)" %>
       </div>
       <div class="field">
         <%= f.password_field :password,
@@ -26,7 +26,7 @@
         <%= f.submit "登録する", data: { disable_with: "処理中..." } %>
       </div>
       <div class="attention c">
-        <p><%= link_to "アカウントを持っている", '#' %></p>
+        <p><%= link_to "アカウントを持っている", login_path %></p>
       </div>
     <% end %>
   </div>

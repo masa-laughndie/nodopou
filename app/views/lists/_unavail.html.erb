@@ -1,0 +1,8 @@
+<div class="button-availing">
+  <%= form_for(list,
+               url: mylist_path(list),
+               html: { method: :delete },
+               remote: true) do |f| %>
+    <%= f.button "便乗済み", class: 'button-unavail', data: { confirm: "便乗を解除するとこのリストのチェック数などの記録が全て消えます。実行状況を「OFF」にすることでリストを一時停止できますが、本当に解除してしまってよろしいですか？" } %>
+  <% end %>
+</div>

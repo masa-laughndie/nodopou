@@ -1,0 +1,50 @@
+<% provide(:title, "お問い合わせ内容確認") %>
+<% provide(:og_title, "お問い合わせ内容確認") %>
+<% provide(:og_url, confirm_contact_url) %>
+
+<div class="container content-mspace">
+  <div class="title-mspace c">
+    <h1>お問い合わせ内容確認</h1>
+  </div>
+  <div class="attention">
+    <p>以下の内容で送信します。内容をご確認ください。</p>
+    <p class="text-danger">
+      ※ページを再読み込みすると前のページに戻り、内容がクリアされてしまいます！内容を修正したい場合は画面下の「戻る」ボタンを押してください！
+    </p>
+  </div>
+  <div class="form">
+    <%= form_for(@contact, url: contact_path) do |f| %>
+      <div class=label>
+        <p>件名</p>
+      </div>
+      <div><%= f.hidden_field :name %></div>
+      <div class="text back-accent">
+        <%= @contact.name %>
+      </div>
+      <div class="label">
+        <p>メールアドレス</p>
+      </div>
+      <div><%= f.hidden_field :email %></div>
+      <div class="text back-accent">
+        <%= @contact.email %>
+      </div>
+      <div class="label">
+        <p>お問い合わせ内容</p>
+      </div>
+      <div><%= f.hidden_field :content %></div>
+      <div class="text back-accent">
+        <%= @contact.content %>
+      </div>
+      <div class="buttons">
+        <div class="button-left button-back">
+          <%= f.button nil, name: 'back' do %>
+            <%= fa_icon('caret-left') %><span>戻る</span>
+          <% end %>
+        </div>
+        <div class="button-right button-small button-accent">
+          <%= f.submit "送信する", data: { disable_with: "送信する" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
