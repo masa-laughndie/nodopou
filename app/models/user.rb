@@ -242,7 +242,7 @@ class User < ApplicationRecord
       if mylists.any?
         Mylist.transaction do
           mylists.each do |mylist|
-            if mylist.check?
+            if mylist.check? && self.check_reset_at + 1.day > Time.zone.now 
               mylist.add_running_days_and_reset_check
             else
               mylist.reset_running_days
