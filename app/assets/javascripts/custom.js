@@ -100,45 +100,6 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/*
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    //documentにしないとスマホ無効になる
-    $(document).on('click', "[id^=list-checkbox]", function() {
-      var
-        str = $(this).attr("id"),
-        num = str.match(/\d/g).join("");
-      $('#edit_mylist_' + num).submit();
-    });
-  });
-});
-*/
-/*
-//listのactiveをスライドバーでupdateする
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    //documentにしないとスマホ無効になる
-    $(document).on('click', "[id^=list-checkbox]", function() {
-      var
-        str = $(this).attr("id"),
-        num = str.match(/\d/g).join("");
-      $.ajax({
-        type: 'PATCH',
-        url: '/mylists/' + num + '/active',
-        dataType: 'html',
-        timeout: 20000
-      })
-      .done(function(data) {
-      })
-      .fail(function() {
-        alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
-        return false;
-      });
-      // $('#edit_list_' + num).submit();
-    });
-  });
-});
-*/
 
 //search-field　back-color可変
 document.addEventListener('turbolinks:load', function() {
@@ -172,18 +133,20 @@ document.addEventListener('turbolinks:load', function() {
       var
         textLength = $(this).val().length,
         $disable = $('.disabled'),
-        $text = $('#count-text');
-      $('#count').text(textLength);
+        $text = $("[id^=count-text]"),
+        charLimit = $text.attr('id').match(/\d/g).join(""),
+        zeroDisabled = ["60"];      //追加要素
+      $('#count-' + charLimit).text(textLength);
 
-      if ( textLength == 0 ) {
+      if ( zeroDisabled.indexOf(charLimit) >= 0 && textLength == 0 ) {
         $disable.prop('disabled', true);
-        $text.text("1文字~60文字まで入力できます");
-      } else if ( textLength > 60 ) {
+        $text.text("1文字~" + charLimit + "文字まで入力できます");
+      } else if ( textLength > Number(charLimit) ) {
         $disable.prop('disabled', true);
         $text.text("※入力できる文字数を超えています！");
       } else {
         $disable.prop('disabled', false);
-        $text.text("1文字~60文字まで入力できます");
+        $text.text("1文字~" + charLimit + "文字まで入力できます");
       }
 
     });
@@ -228,5 +191,30 @@ document.addEventListener('turbolinks:load', function() {
         slideParts.removeClass('slide-on').addClass('slide-off');
       }
     });
+  });
+});
+
+//未ログインアラートボタン
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.ban').on('click', function() {
+      alert('登録またはログインしてください！');
+
+      if ($('#click-popup').length != 0) {
+        $('#click-popup').slideDown();
+      }
+      return false;
+    });
+  });
+});
+
+// popup-login auto
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    if ( $('#auto-popup').length != 0 ) {
+      setTimeout(function() {
+        $('#auto-popup').slideDown();
+      }, 10000);
+    }
   });
 });

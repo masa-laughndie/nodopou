@@ -20,7 +20,7 @@ class UserMailerPreview < ActionMailer::Preview
   # Preview this email at 
   # http://localhost:3000/rails/mailers/user_mailer/list_check_notice
   def list_check_notice
-    user = User.first
+    user = User.second
     UserMailer.list_check_notice(user)
   end
 

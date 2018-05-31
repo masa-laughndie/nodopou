@@ -1,5 +1,6 @@
-<% provide(:og_title, "nodopou -シンプルnotToDoリスト-") %>
+<% provide(:og_title, "nodopou ～シンプルNot-To-Doリスト～") %>
 <% provide(:og_url, root_url) %>
+<% provide(:og_type, "website") %>
 
 <div class="content-sspace container">
   <div class="top-title c">
@@ -34,6 +35,7 @@
   <div class="title-nspace c">
     <h2>nodopou の使い方</h2>
   </div>
+  <div class="border"></div>
   <div class="side-option c">
     <%= link_to fa_icon("question", class: "middle-x") +
                 "<p>他にできること</p>".html_safe,

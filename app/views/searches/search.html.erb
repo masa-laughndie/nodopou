@@ -1,6 +1,7 @@
 <% provide(:title, "検索") %>
 <% provide(:og_title, "検索") %>
 <% provide(:og_url, search_url) %>
+<% provide(:search_url, search_path) %>
 
 <div class="container content-nspace">
   <div class="title-nspace c">
@@ -13,7 +14,7 @@
   </div>
   <div class="border"></div>
   <div class="content-mspace form form-inner">
-    <%= render 'shared/search_form' %>
+    <%= render 'shared/search_form', page: "search" %>
   </div>
   <div class="border"></div>
   <% unless params[:keyword].nil? %>
