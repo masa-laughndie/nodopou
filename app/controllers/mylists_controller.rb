@@ -3,7 +3,8 @@ class MylistsController < ApplicationController
   before_action :logged_in_user,       except: :index
   before_action :check_user,           only: [:index, :show]
   before_action :check_user_authority, only: [:edit, :update,
-                                              :update_active, :update_check]
+                                              :update_active, :update_check,
+                                              :update_strong]
 
   def index
     @og_image_url = @user.og_image_url
@@ -64,6 +65,15 @@ class MylistsController < ApplicationController
 
   def update_check
     @mylist.toggle_check_and_count!
+    
+    respond_to do |format|
+      format.html { redirect_to mylists_user_path(current_user) }
+      format.js
+    end
+  end
+
+  def update_strong
+    @mylist.toggle!(:strong)
     
     respond_to do |format|
       format.html { redirect_to mylists_user_path(current_user) }
