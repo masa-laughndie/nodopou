@@ -16,10 +16,10 @@ class List < ApplicationRecord
 
     def search(keyword)
       if keyword
-        keyword_arys = keyword.split(/[\s　]+/)
-        condition = where(["lower(content) LIKE (?)", "%#{keyword_arys[0]}%".downcase])
-        for i in 1..(keyword_arys.length - 1) do
-          condition = condition.where(["lower(content) LIKE (?)", "%#{keyword_arys[i]}%".downcase])
+        keyword_ary = keyword.downcase.split(/[\s　]+/)
+        condition = where(["lower(content) LIKE (?)", "%#{keyword_ary[0]}%"])
+        for i in 1..(keyword_ary.length - 1) do
+          condition = condition.where(["lower(content) LIKE (?)", "%#{keyword_ary[i]}%"])
         end
         condition
       else
