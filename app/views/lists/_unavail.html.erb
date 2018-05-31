@@ -3,6 +3,6 @@
                url: mylist_path(list),
                html: { method: :delete },
                remote: true) do |f| %>
-    <%= f.button "便乗済み", class: 'button-unavail', data: { confirm: "便乗を解除するとこのリストの今までの記録が消えます。実行状況を「休息」にすることで一時的にこのリストを停止できますが、解除してしまってよろしいですか？" } %>
+    <%= f.button "便乗済み", class: 'button-unavail', data: { confirm: "便乗を解除するとこのリストのチェック数などの記録が全て消えます。実行状況を「OFF」にすることでリストを一時停止できますが、本当に解除してしまってよろしいですか？" } %>
   <% end %>
 </div>

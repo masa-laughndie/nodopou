@@ -2,12 +2,18 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+    <% if Rails.env.production? %>
+      <%= render 'layouts/analytics' %>
+    <% end %>
     <%= render 'layouts/rails_default' %>
     <%= render 'layouts/meta_data' %>
     <%= render 'layouts/links' %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
+    <% if Rails.env.production? %>
+      <%= render 'layouts/tag_manager' %>
+    <% end %>
     <%= render 'layouts/header' %>
     <%= render 'layouts/flash' %>
     <div id="main">

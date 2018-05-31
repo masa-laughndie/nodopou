@@ -12,6 +12,7 @@ $weak-grey: #f2f2f2;
 $base-grey: #999;
 $twi-blue: #55acee;
 $twi-grey: #657786;
+$link-blue: #3599f0;
 $on-green: #78c4ad;
 $on-green-op: rgba(120, 196, 173, 0.15);
 $weak-red: #ff6666;
@@ -38,9 +39,16 @@ body {
   /*font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;*/
   font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
   /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
+  font-family: 'Comfortaa', cursive;
+  font-family: 'Comfortaa',游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', cursive;
+  font-family: 'Comfortaa',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial, cursive;
   font-size: 1.0em;
   position: relative;
   padding-bottom: 51px;
+}
+
+.font-maru {
+  font-family: 'ヒラギノ丸ゴ Pro W3', 'Hiragino Maru Gothic Pro', -apple-system, system-ui, 'Hiragino Sans', '游ゴシック Medium', 'メイリオ',Meiryo, 'MS Pゴシック','MS PMGothic', sans-serif;
 }
 
 a {
@@ -72,11 +80,16 @@ textarea {
   -moz-appearance: none;
 }
 
+a:focus {
+  outline: 3px solid rgba(255,244,98,0.7);
+}
+
 button:focus,
 input:focus,
 select:focus,
 textarea:focus {
-  
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255,244,98,0.7);
+  box-shadow: 0 0 0 0.2rem rgba(255,244,98,0.7);
 }
 
 input,
@@ -89,6 +102,10 @@ select {
 
 .c {
   text-align: center;
+}
+
+.mb {
+  margin-bottom: 20px;
 }
 
 .middle-y {
@@ -145,12 +162,19 @@ select {
 }
 
 .title-nspace {
-  font-size: 20px;
+  font-size: 18px;
   padding: 20px 0;
+
+  h2 {
+    line-height: 30px;
+  }
 }
 
 .logo-font {
-  font-family: 'Yeon Sung', cursive;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  /*font-family: 'Yeon Sung', cursive;*/
 }
 
 .attention {
@@ -161,7 +185,7 @@ select {
     font-size: 14px;
 
     a {
-      color: #3599f0;
+      color: $link-blue;
       text-decoration: underline;
     }
   }
@@ -191,16 +215,16 @@ select {
   }
 }
 
-.explanation {
+.info {
   color: $main;
   margin-bottom: 10px;
   padding: 5px 5px 5px 10px;
 
   p {
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
-  i {
+  .fa-info-circle {
     color: $on-green;
   }
 }
@@ -208,6 +232,7 @@ select {
 .how-to-use {
   
   .step {
+    padding: 10px 0;
     width: 100%;
 
     .step-figure {
@@ -232,6 +257,54 @@ select {
           line-height: 34px;
         }
       }
+
+      .active-dummy {
+        margin: 5px auto;
+        height: 25px;
+        width: 50px;
+
+        .field-checkbox4 {
+          height: 100%;
+
+          .button-checkbox {
+            line-height: 25px;
+            width: 100%;
+
+            .button-main {
+              .button-slide {
+                height: 25px;
+                width: 100%;
+              }
+
+              .button-active span:after {
+                padding: 0 0 0 21px;
+              }
+
+              .button-passive span:after {
+                padding: 0 23px 0 0;
+              }
+            }
+
+            .slide {
+              height: 21px;
+              width: 21px;
+            }
+
+            .slide-on {
+              transform: translateX(25px);
+            }
+          }
+        }
+      }
+
+      .count-dummy {
+        background: $weak-grey;
+        border-radius: 50%;
+        margin: 0 auto;
+        line-height: 40px;
+        height: 40px;
+        width: 40px;
+      }
     }
 
     .step-text {
@@ -239,7 +312,7 @@ select {
       width: 85%;
 
       p {
-        font-size: 14px;
+        font-size: 12.5px;
         margin: 5px;
       }
 
@@ -254,13 +327,23 @@ select {
       }
     }
   }
+
+  .step-image {
+    margin: 0 20%;
+    padding-bottom: 10px;
+    width: 60%;
+
+    img {
+      width: 100%;
+    }
+  }
 }
 
 
 .counter {
   text-align: right;
 
-  #count-text {
+  .count-text {
     float: left;
     font-size: 14px;
   }
@@ -282,12 +365,35 @@ select {
   color: $accent !important;
 }
 
+.alist-sub {
+  position: relative;
+
+  .active:after {
+    background: $waccent;
+    content: "";
+    display: block;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+  }
+}
+
 .red {
   color: red !important;
 }
 
 .wred {
   color: $weak-red !important;
+}
+
+.twi-blue {
+  color: $twi-blue !important;
+}
+
+.link-blue {
+  color: $link-blue !important;
+  text-decoration: underline;
 }
 
 .cover {
@@ -365,6 +471,40 @@ select {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+$locations: top, bottom;
+
+@each $location in $locations {
+  .fixed-#{$location} {
+    background: $base;
+    position: fixed;
+    #{$location}: 0px;
+    left: 0;
+    right: 0;
+    z-index: 210;
+  }
+}
+
+.sub-select {
+  background: $base;
+  border-bottom: 1px solid $weak-grey;
+  height: 41px;
+  width: 100%;
+
+  .sub-select-link {
+    float: left;
+    height: 100%;
+    width: 50%;
+
+    a {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      height: 100%;
+      line-height: 40px;
+    }
+  }
 }
 
 /* parts */
@@ -496,7 +636,16 @@ $color:(
 
 @each $key, $value in $color {
   .button-#{$key} {
-    background: $value;
+    input,
+    button,
+    a {
+      background: $value;
+    }
+
+    input:disabled,
+    button:disabled {
+      opacity: 0.65;
+    }
   }
 
   .button-accent {
@@ -505,12 +654,12 @@ $color:(
     a {
       color: $main;
     }
-
-    input:disabled {
-      background: $waccent;
-      opacity: 0.6;
-    }
   }
+}
+
+.popup-login {
+  background: rgba(0,0,0,0.1);
+  display: none;
 }
 
   /* form */
@@ -773,7 +922,8 @@ $color:(
     }
   }
 
-  .field-checkbox3 {
+  .field-checkbox3,
+  .field-checkbox4 {
     margin: 0;
     position: relative;
     width: 100%;
@@ -789,6 +939,7 @@ $color:(
       position: relative;
       width: 60px;
 
+      .button-main, 
       form {
         position: relative;
         height: 100%;
@@ -856,13 +1007,16 @@ $color:(
       position: relative;
       width: 100%;
 
-      form {
+      form,
+      .button-dummy {
         height: 100%;
         position: relative;
         width: 100%;
 
-        button {
+        button,
+        a {
           border-radius: 5px;
+          display: block;
           font-size: 10px;
           height: 100%;
           position: relative;
@@ -879,6 +1033,10 @@ $color:(
           background: $weak-red;
           color: $base;
         }
+      }
+
+      .button-dummy {
+        line-height: 38px;
       }
     }
   }
@@ -1037,10 +1195,16 @@ header {
 
       a {
         display: block;
+        padding-left: 5%;
 
         .logo-font {
           color: $main;
           font-size: 20px;
+
+          small {
+            font-size: 11px;
+            margin-left: 10px;
+          }
         }
       }
     }
@@ -1205,6 +1369,37 @@ nav {
 
 /* static */
 
+  /* home */
+
+.top-title {
+  margin: 30px 0 40px;
+
+  h1 {
+    font-size: 23px;
+  }
+}
+
+.top-text {
+  margin: 0 auto;
+  max-width: 330px;
+  padding-left: 20px;
+  p {
+    font-size: 15px;
+    line-height: 20px;
+  }
+}
+
+.top-howtouse {
+  margin: 0 auto;
+  padding-left: 20px;
+
+  p {
+    font-size: 14px;
+  }
+}
+
+  /* other */
+
 .poricy {
   p {
     font-size: 14.5px;
@@ -1226,7 +1421,6 @@ nav {
   background: $weak-grey;
   border-radius: 5px;
   min-width: 60px;
-  padding: 0 5px;
   position: absolute;
   top: 13px;
   right: 13px;
@@ -1235,6 +1429,7 @@ nav {
     color: $main;
     display: block;
     font-size: 20px;
+    padding: 0 5px;
     position: relative;
 
     i {
@@ -1274,6 +1469,15 @@ nav {
   margin-bottom: 5px;
 }
 
+.user-profile {
+  font-size: 12px;
+
+  span .profile-link {
+    color: $link-blue;
+    text-decoration: underline;
+  }
+}
+
 .list-area {
   margin-bottom: 10px !important;
 
@@ -1283,9 +1487,7 @@ nav {
   }
 }
 
-/* list */
-
-  /* index */
+/* list mylist */
 
 .list {
   height: 75px;
@@ -1404,6 +1606,7 @@ nav {
 
       span {
         display: block;
+        font-size: 12px;
         position: relative;
       }
     }
@@ -1473,6 +1676,21 @@ nav {
       text-align: right;
       width: 15%;
     }
+
+    .list-delete {
+      a {
+        display: block;
+        position: relative;
+        height: 40px;
+        width: 40px;
+        z-index: 200;
+        i {
+          display: block;
+          font-size: 28px;
+          line-height: 40px;
+        }
+      }
+    }
   }
 }
 
@@ -1528,19 +1746,21 @@ nav {
     position: relative;
 
     .count-num {
-      display: block;
-      height: 100%;
-      line-height: 100px;
-      width: 100%;
+      position: absolute;
     }
 
     .count-label {
-      font-size: 13px;
+      font-size: 12px;
       position: absolute;
-      bottom: 8px;
+      bottom: 6px;
       line-height: 20px;
       width: 100px;
     }
+  }
+
+  .mylist-count {
+    margin: 0 2.66%;
+    width: 28%;
   }
 
   .list-availing {
@@ -1555,5 +1775,116 @@ nav {
         height: 100%;
       }
     }
+  }
+}
+
+/* post */
+
+  /* preview */
+
+.demo-image {
+  margin: 0 auto;
+  width: 85%;
+
+  img {
+    width: 100%;
+  }
+}
+
+/* other */
+
+  /* demo */
+
+.demo {
+  height: auto;
+  width: 100%;
+  margin:  0 auto;
+  position: relative;
+
+  .out-line {
+    background: $accent;
+    height: 100%;
+    width: 100%;
+    padding: 20px 15px 45px;
+
+    .in-line {
+      background: $base;
+      border-radius: 15px;
+      padding: 10px 20px;
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      .in-text {
+        display: block;
+        font-size: 12px;
+        position: relative;
+
+        p {
+          text-align: left;
+        }
+
+        ul {
+          padding-left: 20px;
+          li {
+            list-style: disc;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    .in-title {
+      height: 40px;
+      margin-left: 10px;
+      width: 100%;
+
+      span {
+        line-height: 40px;
+      }
+    }
+  }
+}
+
+.demo:before {
+  content: "";
+  display: block;
+  padding-top: 57.3% 
+}
+
+  /* ogp */
+
+.ogp {
+  background: $accent;
+  margin: 0 auto;
+  height: 157.5px;
+  width: 300px;
+  padding: 15% 0 10%;
+  position: relative;
+
+  .ogp-title {
+    display: block;
+    font-size: 35px;
+    height: 65%;
+  }
+
+  .ogp-text {
+    display: block;
+    font-size: 12.5px;
+    height: 35%;
+  }
+}
+
+  /* twi_icon */
+
+.twi-icon {
+  background: $accent;
+  width: 100%;
+
+  .twi-icon-text {
+    display: block;
+    font-size: 250px;
+    height: 100%;
+    width: 100%;
   }
 }

@@ -29,6 +29,11 @@ Rails.application.routes.draw do
 
   resources :lists, only: [:show, :create, :destroy]
 
+  resources :posts, only: [:create, :destroy]
+  get   '/preview',     to: 'posts#show'
+  put   '/posts/tweet', to: 'posts#tweet'
+  patch '/posts/tweet', to: 'posts#tweet'
+
   resource :password_reset, only: [:new, :create],
                             path_names: { new: '' } do
     collection do
@@ -44,6 +49,14 @@ Rails.application.routes.draw do
       post '/',        to: 'contacts#create'
       get :confirm,
           :thanks
+    end
+  end
+
+  resources :admins, only: [:index],
+                     path: '/admin' do
+    member do
+      delete :user, to: 'admins#user_destroy'
+      delete :list, to: 'admins#list_destroy'
     end
   end
 

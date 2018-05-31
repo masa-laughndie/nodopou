@@ -1,0 +1,18 @@
+<li class="list" id="list-<%= list.id %>">
+  <a class="list-link" href="<%= list_path(list) %>"></a>
+  <div class="list-content">
+    <div class="list-active">
+      <div class="active-count middle-xy c">
+        <span id="active-count-<%= list.id %>" ><%= list.user_count %></span>
+      </div>
+    </div>
+    <div class="list-text over-text">
+      <span class="middle-y"><%= list.content %></span>
+    </div>
+    <div class="list-avail list-delete">
+      <%= link_to fa_icon('trash'), list_admin_path(list),
+                  method: :delete, class: "middle-xy c",
+                  data: { confirm: "本当に削除してよろしいですか？" } %>
+    </div>
+  </div>
+</li>

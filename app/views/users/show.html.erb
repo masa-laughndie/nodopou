@@ -1,6 +1,7 @@
-<% provide(:title, @user.name + "(@" + @user.account_id + ")さん") %>
-<% provide(:og_title, @user.name + "(@" + @user.account_id + ")さん") %>
+<% provide(:title, @user.name + "さん") %>
+<% provide(:og_title, @user.name + "さん") %>
 <% provide(:og_url, user_url(@user)) %>
+<% provide(:search_url, search_path) %>
 
 <div class="container content-mspace c">
   <% if logged_in? && current_user?(@user) %>
@@ -14,14 +15,16 @@
     <%= image_tag(image_url(@user), size: 100, alt: @user.name) %>
   </div>
   <div class="user-name">
-    <h1><%= @user.name %></h1>
+    <h1><span class="logo-font"><%= @user.name %></span></h1>
   </div>
   <div class="user-aid">
-    @<%= @user.account_id %>
+    <span class="logo-font">@<%= @user.account_id %></span>
   </div>
-  <div class="user-profile">
-    <small><%= @user.profile %></small>
-  </div>
+  <% unless @user.profile.blank? %>
+    <div class="user-profile">
+      <span id="profile"><%= @user.profile %></span>
+    </div>
+  <% end %>
 </div>
 <% if current_user?(@user) && @mylists_count == 0 %>
   <%= render 'users/how_to_use' %>
@@ -44,28 +47,29 @@
     </div>
     <div class="border"></div>
     <div class="content-mspace form form-inner">
-      <div class="explanation">
+      <div class="info">
         <p>
           <%= fa_icon('info-circle') %> 下のフォームからリストを検索できます！
         </p>
       </div>
-      <%= render 'shared/search_form' %>
+      <%= render 'shared/search_form', page: "user-show" %>
     </div>
     <div class="border"></div>
     <div class="content-mspace form" id="form-list">
-      <div class="explanation">
+      <div class="info">
         <p>
           <%= fa_icon('info-circle') %> 検索しても便乗したいリストがないときは下のフォームから自分でリストを追加できます！
         </p>
       </div>
-      <%= form_for(@list, url: lists_url(@user)) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
+      <%= form_for(@list, url: lists_url) do |f| %>
         <div class="field field-area list-area">
           <%= f.text_area :content, class: "char-count" %>
         </div>
         <div class="counter">
-          <span id="count-text">1文字~100文字まで入力できます</span>
-          <span id="count">0</span> / 100
+          <span class="count-text" id="count-text-60">
+            1文字~60文字まで入力できます
+          </span>
+          <span id="count-60">0</span> / 60
         </div>
         <div class="button-small button-accent">
           <%= f.submit "追加する", data: { disable_with: "処理中..." },

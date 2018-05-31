@@ -9,17 +9,17 @@ class List < ApplicationRecord
 
   validates :user_id,  presence: { message: "ユーザーが特定できません" }
   validates :content,  presence: { message: "内容を入力してください" },
-                       length:   { maximum: 100,
-                                   message: "内容は100文字まで入力できます" }
+                       length:   { maximum: 60,
+                                   message: "内容は60文字まで入力できます" }
 
   class << self
 
     def search(keyword)
       if keyword
-        keyword_arys = keyword.split(/[\s　]+/)
-        condition = where(["lower(content) LIKE (?)", "%#{keyword_arys[0]}%".downcase])
-        for i in 1..(keyword_arys.length - 1) do
-          condition = condition.where(["lower(content) LIKE (?)", "%#{keyword_arys[i]}%".downcase])
+        keyword_ary = keyword.downcase.split(/[\s　]+/)
+        condition = where(["lower(content) LIKE (?)", "%#{keyword_ary[0]}%"])
+        for i in 1..(keyword_ary.length - 1) do
+          condition = condition.where(["lower(content) LIKE (?)", "%#{keyword_ary[i]}%"])
         end
         condition
       else
@@ -29,8 +29,12 @@ class List < ApplicationRecord
 
   end
 
-  def availed?
-    user_count == 0
+  def destroy_or_leaved(cuser)
+    if user_count <= 1
+      destroy
+    else
+      cuser.unavail(self)
+    end
   end
 
   def joined_user
@@ -41,8 +45,14 @@ class List < ApplicationRecord
     decrement!(:user_count, by = 1)
   end
 
-  def set_create_user_none
-    update_attribute(user_id: 0)
+  def check_correct_user_count_and_destroy?(real_count)
+    if real_count == 0
+      destroy
+      return true
+    elsif user_count != real_count
+      update_attribute(:user_count, real_count)
+    end
+    return false
   end
 
 end

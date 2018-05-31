@@ -10,13 +10,15 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string    :account_id,        null:    false,
                                       limit:   15
       t.string    :image
-      t.string    :profile,           limit:   160
+      t.string    :profile
       t.string    :password_digest,   null:    false
       t.string    :remember_digest
       t.boolean   :admin,             null:    false,
                                       default: false
       t.string    :uid
       t.string    :provider
+      t.string    :t_token
+      t.string    :t_secret
       t.string    :reset_digest
       t.string    :e_token
       t.datetime  :reset_sent_at

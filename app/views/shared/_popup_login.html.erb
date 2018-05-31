@@ -1,0 +1,18 @@
+<% if type == "click" %>
+<div class="container content-nspace c fixed-bottom popup-login" id="click-popup">
+  <div class="attention c" style="margin: 10px auto">
+    <p style="font-size: 16px;"><%= link_to "nodopouって？", about_path %></p>
+  </div>
+<% elsif type == "auto" %>
+<div class="container content-nspace c fixed-bottom popup-login" id="auto-popup">
+<% end %>
+  <div class="button-large button-twitter" style="margin: 10px auto;">
+    <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
+  </div>
+  <div class="attention c" style="margin: 10px auto">
+    <p style="font-size: 12.5px;">
+      <%= link_to "利用規約", terms_path %> / 
+      <%= link_to "プライバシーポリシー", privacy_path %>
+    </p>
+  </div>
+</div>

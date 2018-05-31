@@ -8,13 +8,14 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  #自分が開いた宗派
-  has_many :create_lists, class_name: "List",
-                          dependent: :destroy
+  #自分が開いたリスト
+  has_many :create_lists, class_name: "List"
 
-  #所属宗派
+  #便乗リスト
   has_many :mylists, dependent: :destroy
   has_many :lists,   through: :mylists
+
+  has_many :posts,   dependent: :destroy
 
   validates :name, presence: { message: "名前を入力してください" },
                    length:   { maximum: 50,
@@ -83,15 +84,20 @@ class User < ApplicationRecord
       email      = User.dummy_email(auth)
       profile    = auth[:info][:description]
       image      = auth[:info][:image].sub("_normal", "")
+      t_token    = auth[:credentials][:token]
+      t_secret   = auth[:credentials][:secret]
 
       find_or_create_by(provider: provider, uid: uid) do |user|
-        user.name = name
-        user.password = SecureRandom.urlsafe_base64(6)
-        user.email = email
-        user.profile = profile
+        user.name             = name
+        user.password         = SecureRandom.urlsafe_base64(6)
+        user.email            = email
+        user.profile          = profile
         user.remote_image_url = image
+        user.t_token          = user.secure_for(t_token, uid)
+        user.t_secret         = user.secure_for(t_secret, uid)
+
         if User.find_by(account_id: account_id).nil?
-          user.account_id = account_id
+          user.account_id     = account_id
         else
           while true
             num = SecureRandom.urlsafe_base64(10)
@@ -102,16 +108,17 @@ class User < ApplicationRecord
           end
         end
       end
+      
     end
 
     def search(keyword)
       if keyword
-        keyword_arys = keyword.split(/[\s　]+/)
-        condition = where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                    "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase])
-        for i in 1..(keyword_arys.length - 1) do
-          condition = condition.where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                                "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase])
+        keyword_ary = keyword.downcase.split(/[\s　]+/)
+        condition = where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
+                    "%#{keyword_ary[0]}%", "%#{keyword_ary[0]}%"])
+        for i in 1..(keyword_ary.length - 1) do
+          condition = condition.where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
+                                "%#{keyword_ary[i]}%", "%#{keyword_ary[i]}%"])
         end
         condition
       else
@@ -121,36 +128,32 @@ class User < ApplicationRecord
 
   end
 
+  def update_from_auth(auth)
+    provider = auth[:provider]
+    uid      = auth[:uid]
+    t_token  = auth[:credentials][:token]
+    t_secret = auth[:credentials][:secret]
+
+    update_columns(provider: provider,
+                   uid:      uid,
+                   t_token:  self.secure_for(t_token, uid),
+                   t_secret: self.secure_for(t_secret, uid))
+  end
+
   def to_param
     account_id
   end
 
-=begin
-  def validate_on?(attribute)
-    validate_target = self.send("validate_#{attribute}")
-    unless validate_target.nil?
-      validate_target.in?(['true', true])
-    else
-      return false
-    end
-  end
-=end
-
-  def validate_name?
-    validate_name.in?(['true', true])
+  ["name", "email", "password"].each do |param|
+    class_eval <<-EOS
+      def validate_#{param}?
+        validate_#{param}.in?(['true', true])
+      end
+    EOS
   end
 
-  def validate_email?
-    validate_email.in?(['true', true])
-  end
-
-  def validate_password?
-    validate_password.in?(['true', true])
-  end
-
-  def set_name_and_email(param)
+  def set_name(param)
     self.name = param
-    self.email = "#{param}@example.com"
   end
 
   def set_pass_and_time(password, time)
@@ -167,6 +170,13 @@ class User < ApplicationRecord
       if time != self.check_reset_time
         check_reset_at = self.check_reset_at.beginning_of_day + time.hours
       end
+    end
+  end
+
+  def check_blank(params)
+    check_params = [params[:account_id], params[:name], params[:email]]
+    if check_params.include?("")
+      self.reload
     end
   end
 
@@ -212,15 +222,17 @@ class User < ApplicationRecord
     list.leaved_user
   end
 
-  def update_check_reset_at
-=begin
-    #テスト用
-    update_attribute(:check_reset_at, 1.minute.ago)
-=end
+  #SQL文が発行され過ぎるため、seedにのみ使用
+  def availing?(list)
+    mylists.pluck(:list_id).include?(list.id)
+  end
+
+  def update_check_reset
     update_attribute(:check_reset_at,
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
   end
+  
 
   def confirm_and_reset_check_of(mylists)
     if self.check_reset_at < Time.zone.now
@@ -228,19 +240,41 @@ class User < ApplicationRecord
       mylists ||= self.mylists.includes(:list)
 
       if mylists.any?
-        mylists.each do |mylist|
-          if mylist.check?
-            mylist.add_running_days_and_reset_check
-          else
-            mylist.reset_running_days
+        Mylist.transaction do
+          mylists.each do |mylist|
+            if mylist.check? && self.check_reset_at + 1.day > Time.zone.now 
+              mylist.add_running_days_and_reset_check
+            else
+              mylist.reset_running_days
+            end
           end
         end
       end
 
-      update_check_reset_at
+      self.update_check_reset
     end
   end
 
+  def secure_for(string, uid)
+    space = uid.length + 1
+    n = space + uid.to_i % (string.length - space)
+    char = SecureRandom.hex(1)[0]
+    string.insert(n, char)
+  end
+
+  def unlock_for(string, uid)
+    space = uid.length + 1
+    n = space + uid.to_i % (string.length - space - 1)
+    string.slice(0..(n - 1)) + string.slice((n + 1)..string.length)
+  end
+
+  def og_image_url
+    if self.posts.any?
+      posts.last.picture.url
+    else
+      ""
+    end
+  end
   
   private
 

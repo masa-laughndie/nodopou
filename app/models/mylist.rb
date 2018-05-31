@@ -6,6 +6,7 @@ class Mylist < ApplicationRecord
   validates :user_id, presence: true
   validates :list_id, presence: true
 
+
   def toggle!(attribute)
     update(attribute.to_sym => !self.send("#{attribute}"))
   end
@@ -19,11 +20,15 @@ class Mylist < ApplicationRecord
   end
 
   def add_running_days_and_reset_check
-    update_attributes(running_days: (self.running_days + 1), check: false)
-  end
-
-  def remove_running_days
-    decrement!(:running_days, by = 1)
+    add_days = self.running_days + 1
+    
+    if self.max_running_days <= self.running_days
+      update_attributes(running_days: add_days,
+                        max_running_days: add_days,
+                        check: false)
+    else
+      update_attributes(running_days: add_days, check: false)
+    end
   end
 
   def reset_running_days

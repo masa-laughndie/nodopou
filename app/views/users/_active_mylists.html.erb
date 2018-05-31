@@ -34,3 +34,6 @@
     </ul>
   <% end %>
 </div>
+<%= render partial: 'shared/post_lead',
+           locals: { user: user,
+                     mylists_count: @mylists_count } %>

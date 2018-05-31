@@ -1,32 +1,14 @@
-# NoDoBotoke(NotToDoリスト)
+# Nodopou ～シンプルNot-To-Doリスト～
 
+## URL
 
-## 使い方
+https://www.nodopou.com/
 
-このアプリケーションを動かす場合は、まずはリポジトリを手元にクローンしてください。
-その後、次のコマンドで必要になる RubyGems をインストールします。
+## 概要
 
-```
-$ bundle install --without production
-```
+シンプルな「やらない(Not-To-Do)」リストが簡単に作れるサービスです。Twitterで宣言することで実行度を上げたり、他の人の「やらない」に便乗できて、みんなで作業の効率化をはかれます。
 
-その後、データベースへのマイグレーションを実行します。
+## バージョン
 
-```
-$ rails db:migrate
-```
-
-最後に、テストを実行してうまく動いているかどうか確認してください。
-
-```
-$ rails test
-```
-
-テストが無事に通ったら、Railsサーバーを立ち上げる準備が整っているはずです。
-
-```
-$ rails server
-```
-
-詳しくは、[*Ruby on Rails チュートリアル*](https://railstutorial.jp/)
-を参考にしてください。
+Ruby       : 2.4.2
+Rails      : 5.1.4
