@@ -71,6 +71,15 @@ class MylistsController < ApplicationController
     end
   end
 
+  def update_strong
+    @mylist.toggle!(:strong)
+    
+    respond_to do |format|
+      format.html { redirect_to mylists_user_path(current_user) }
+      format.js
+    end
+  end
+
   private
 
     def check_user_authority
