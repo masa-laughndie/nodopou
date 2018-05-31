@@ -1,0 +1,15 @@
+<% if mylist.active? %>
+  <% button_status = "button-passive" %>
+  <% slide_status = "slide-on" %>
+<% else %>
+  <% button_status = "button-active" %>
+  <% slide_status = "slide-off" %>
+<% end %>
+<div class="button-checkbox">
+  <%= form_for(mylist, url: active_mylist_path(mylist), remote: true) do |f| %>
+    <%= button_tag "", class: "button-slide #{button_status}" do %>
+      <span></span>
+    <% end %>
+  <% end %>
+  <div class="slide <%= slide_status %>"></div>
+</div>

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       put   '/active',  to: 'mylists#update_active'
       patch '/check',   to: 'mylists#update_check'
       put   '/check',   to: 'mylists#update_check'
+      patch '/strong',  to: 'mylists#update_strong'
+      put   '/strong',  to: 'mylists#update_strong'
     end
   end
 

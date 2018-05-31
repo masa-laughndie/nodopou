@@ -1,0 +1,9 @@
+var
+  $target = $('#list-strong-<%= @mylist.id %>'),
+  buttonChange = $target.find('.button-checkbox3'),
+  buttonStrong = $target.find('.button-strong');
+if ( buttonStrong.length != 0 ) {
+  buttonChange.removeClass('button-strong').addClass('button-normal');
+} else {
+  buttonChange.removeClass('button-normal').addClass('button-strong');
+}
