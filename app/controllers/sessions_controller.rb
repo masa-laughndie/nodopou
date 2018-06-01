@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(account_id: params[:account_id].downcase)
+    auth_key = params[:account_id].downcase
+    @user = User.find_by(account_id: auth_key) || User.find_by(email: auth_key)
     if @user && @user.authenticate(params[:password])
       log_in @user
       remember @user

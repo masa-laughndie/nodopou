@@ -62,6 +62,15 @@
         <%= f.text_field :name %>
       </div>
       <div class="label">
+        <%= f.label :email, "メールアドレス" %>
+        <% unless @email_check.nil? %>
+          <p class="label-comment">※ご自身の正確なメールアドレスに変更してください。</p>
+        <% end %>
+      </div>
+      <div class="field">
+        <%= f.email_field :email %>
+      </div>
+      <div class="label">
         <%= f.label :check_reset_time, "リスト更新時間" %>
       </div>
       <div class="info">

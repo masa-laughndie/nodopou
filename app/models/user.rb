@@ -113,12 +113,12 @@ class User < ApplicationRecord
 
     def search(keyword)
       if keyword
-        keyword_arys = keyword.split(/[\s　]+/)
+        keyword_ary = keyword.downcase.split(/[\s　]+/)
         condition = where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
-                    "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase])
-        for i in 1..(keyword_arys.length - 1) do
-          condition = condition.where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                                "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase])
+                    "%#{keyword_ary[0]}%", "%#{keyword_ary[0]}%"])
+        for i in 1..(keyword_ary.length - 1) do
+          condition = condition.where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
+                                "%#{keyword_ary[i]}%", "%#{keyword_ary[i]}%"])
         end
         condition
       else
@@ -152,9 +152,8 @@ class User < ApplicationRecord
     EOS
   end
 
-  def set_name_and_email(param)
+  def set_name(param)
     self.name = param
-    self.email = "#{param}@example.com"
   end
 
   def set_pass_and_time(password, time)
@@ -171,6 +170,13 @@ class User < ApplicationRecord
       if time != self.check_reset_time
         check_reset_at = self.check_reset_at.beginning_of_day + time.hours
       end
+    end
+  end
+
+  def check_blank(params)
+    check_params = [params[:account_id], params[:name], params[:email]]
+    if check_params.include?("")
+      self.reload
     end
   end
 
@@ -236,7 +242,7 @@ class User < ApplicationRecord
       if mylists.any?
         Mylist.transaction do
           mylists.each do |mylist|
-            if mylist.check?
+            if mylist.check? && self.check_reset_at + 1.day > Time.zone.now 
               mylist.add_running_days_and_reset_check
             else
               mylist.reset_running_days

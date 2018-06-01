@@ -9,6 +9,8 @@ class CreateMylists < ActiveRecord::Migration[5.1]
                                       default:     true
       t.boolean    :check,            null:        false,
                                       default:     false
+      t.boolean    :strong,           null:        false,
+                                      default:     false
       t.integer    :check_count,      null:        false,
                                       default:     0
       t.integer    :running_days,     null:        false,
