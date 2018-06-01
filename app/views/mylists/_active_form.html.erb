@@ -3,13 +3,8 @@
   <% if current_user?(user) %>
     <div class="form middle-xy">
       <div id="list-active-<%= mylist.id %>" class="field-checkbox3 clear">
-        <% if mylist.active? %>
-          <%= render partial: 'mylists/passive',
-                     locals: { mylist: mylist } %>
-        <% else %>
-          <%= render partial: 'mylists/active',
-                     locals: { mylist: mylist } %>
-        <% end %>
+        <%= render partial: 'mylists/active_button',
+                   locals: { mylist: mylist } %>
       </div>
     </div>
   <% elsif mylist.active? %>

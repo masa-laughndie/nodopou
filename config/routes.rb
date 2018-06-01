@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       put   '/active',  to: 'mylists#update_active'
       patch '/check',   to: 'mylists#update_check'
       put   '/check',   to: 'mylists#update_check'
+      patch '/strong',  to: 'mylists#update_strong'
+      put   '/strong',  to: 'mylists#update_strong'
     end
   end
 
@@ -49,6 +51,14 @@ Rails.application.routes.draw do
       post '/',        to: 'contacts#create'
       get :confirm,
           :thanks
+    end
+  end
+
+  resources :admins, only: [:index],
+                     path: '/admin' do
+    member do
+      delete :user, to: 'admins#user_destroy'
+      delete :list, to: 'admins#list_destroy'
     end
   end
 

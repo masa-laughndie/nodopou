@@ -6,6 +6,11 @@
   <div class="list-text">
     <%= @mylist.list.content %>
   </div>
+  <% if false %>
+  <div class="list-action">
+    <%= render 'mylists/strong_form', mylist: @mylist %>
+  </div>
+  <% end %>
   <div class="list-info clear">
     <div class="list-user-count mylist-count square c">
       <span class="count-num middle-xy"><%= @mylist.check_count %></span>

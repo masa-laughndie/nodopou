@@ -1,0 +1,10 @@
+<% if mylist.strong? %>
+  <% button_status = "button-strong" %>
+<% else %>
+  <% button_status = "button-normal" %>
+<% end %>
+<div class="button-checkbox3 <%= button_status %>">
+  <%= form_for(mylist, url: strong_mylist_path(mylist), remote: true) do |f| %>
+    <%= button_tag fa_icon('power-off'), class: "middle-xy" %>
+  <% end %>
+</div>

@@ -8,7 +8,9 @@
   </div>
   <div class="list-info clear">
     <div class="list-user-count square c">
-      <span class="count-num middle-xy"><%= @list.user_count %></span>
+      <span class="count-num middle-xy" id="active-count-<%= @list.id %>">
+        <%= @list.user_count %>
+      </span>
       <span class="count-label middle-x">便乗人数</span>
     </div>
     <div class="list-availing square">

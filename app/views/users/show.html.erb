@@ -1,6 +1,7 @@
 <% provide(:title, @user.name + "さん") %>
 <% provide(:og_title, @user.name + "さん") %>
 <% provide(:og_url, user_url(@user)) %>
+<% provide(:search_url, search_path) %>
 
 <div class="container content-mspace c">
   <% if logged_in? && current_user?(@user) %>
@@ -51,7 +52,7 @@
           <%= fa_icon('info-circle') %> 下のフォームからリストを検索できます！
         </p>
       </div>
-      <%= render 'shared/search_form' %>
+      <%= render 'shared/search_form', page: "user-show" %>
     </div>
     <div class="border"></div>
     <div class="content-mspace form" id="form-list">
