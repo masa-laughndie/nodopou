@@ -396,6 +396,10 @@ select {
   text-decoration: underline;
 }
 
+.back-accent {
+  background: $accent !important;
+}
+
 .cover {
   display: block;
   width: 100%;
