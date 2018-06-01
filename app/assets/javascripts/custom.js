@@ -218,3 +218,16 @@ document.addEventListener('turbolinks:load', function() {
     }
   });
 });
+
+document.addEventListener('turbolink:load', function() {
+  $(function() {
+    $("#lists").infiniteScroll({
+      path: '.next a',
+      append: '.list',
+      button: '.button-more',
+      scrollThreshold: false,
+      status: '.list-load-status',
+      history: false
+    });
+  });
+});
