@@ -1172,6 +1172,41 @@ $color:(
   }
 }
 
+  /* pagination */
+
+.pagination {
+  display: none;
+  width: 0;
+}
+
+.list-load {
+  background: $back;
+  height: 60px;
+  .list-load-status {
+    display: none;
+    height: 100%;
+    width: 100%;
+    p {
+      height: 100%;
+      line-height: 60px;
+
+      img {
+        display: block;
+        position: relative;
+      }
+    }
+  }
+
+  .button-more {
+    height: 100%;
+    width: 100%;
+  }
+
+  .button-more:disabled {
+    display: none;
+  }
+}
+
 /* layouts */
   
   /* header */

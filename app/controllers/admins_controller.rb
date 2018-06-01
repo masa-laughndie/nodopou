@@ -9,7 +9,13 @@ class AdminsController < ApplicationController
       @for_param = params[:for]
     end
     @users = User.search(params[:keyword])
+    @users_count = @users.size
+    @users = @users.page(params[:page]).per(50)
+
     @lists = List.search(params[:keyword]).order(user_count: :desc)
+    @lists_count = @lists.size
+    @lists = @lists.page(params[:page]).per(50)
+    
     @cuser_list_ids = []
   end
 
