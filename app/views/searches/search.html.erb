@@ -23,11 +23,16 @@
                  locals: { left: '便乗人数',
                            center: '内容',
                            right: '便乗？' } %>
-      <ul class="rank">
+      <ul class="rank" id="lists">
         <%= render partial: @lists,
                    locals: { user: current_user,
                              cuser_list_ids: @cuser_list_ids } %>
       </ul>
+      <%= render partial: 'shared/loading',
+                 locals: { count: @lists_count,
+                           per: 30 } %>
+      <%= paginate @lists, remote: true %>
+      <div class="border"></div>
       <div class="content-sspace attention c">
         <p>追加したいリストがないときは</p>
         <p class="mb">自分で簡単に作ることもできます</p>
@@ -44,3 +49,4 @@
                            text: 'search' } %>
   <% end %>
 </div>
+<%= render 'shared/loading_script' %>

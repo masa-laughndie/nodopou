@@ -25,21 +25,29 @@
                  locals: { left: '便乗人数',
                            center: '内容',
                            right: '削除' } %>
-      <ul>
+      <ul id="lists">
         <% @lists.each do |list| %>
           <%= render 'admins/admin_list', list: list %>
         <% end %>
       </ul>
+      <%= render partial: 'shared/loading',
+                 locals: { count: @lists_count,
+                           per: 50 } %>
+      <%= paginate @lists, remote: true %>
     <% elsif params[:for] == 'user' && @users.any? %>
       <%= render partial: 'shared/list_item',
                  locals: { left: 'ID',
                            center: '表示名',
                            right: '削除' } %>
-      <ul>
+      <ul id="lists">
         <% @users.each do |user| %>
           <%= render 'admins/admin_user', user: user %>
         <% end %>
       </ul>
+      <%= render partial: 'shared/loading',
+                 locals: { count: @users_count,
+                           per: 50 } %>
+      <%= paginate @users, remote: true %>
     <% else %>
       <%= render partial: 'shared/no_data',
                  locals: { icon: nil,
@@ -51,3 +59,4 @@
                            text: 'search' } %>
   <% end %>
 </div>
+<%= render 'shared/loading_script' %>
