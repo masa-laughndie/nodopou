@@ -7,7 +7,8 @@
 <% end %>
 <div class="button-checkbox">
   <%= form_for(mylist, url: active_mylist_path(mylist), remote: true) do |f| %>
-    <%= button_tag "", class: "button-slide #{button_status}" do %>
+    <%= button_tag "", class: "button-slide #{button_status}",
+                       id: "active-button-#{mylist.id}" do %>
       <span></span>
     <% end %>
   <% end %>

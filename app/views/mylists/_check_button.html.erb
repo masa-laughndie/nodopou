@@ -1,0 +1,13 @@
+<% if mylist.check? %>
+  <% button_status = "button-uncheck" %>
+  <% icon = "check-square-o" %>
+<% else %>
+  <% button_status = "button-check" %>
+  <% icon = "square-o" %>
+<% end %>
+<div class="button-checkbox2 <%= button_status %>">
+  <%= form_for(mylist, url: check_mylist_path(mylist), remote: true) do |f| %>
+    <%= button_tag fa_icon(icon), class: "middle-xy",
+                   id: "check-button-#{mylist.id}" %>
+  <% end %>
+</div>
