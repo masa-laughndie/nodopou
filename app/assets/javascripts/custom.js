@@ -237,14 +237,12 @@ document.addEventListener('turbolinks:load', function() {
 // numは依存度が高くデベロッパーツールでいじられると厄介だからできるだけthisで操作
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    $(document).on('click', '[id^=active-button]', function() {
+    $('[id^=active-button]').on('click', function() {
       var
         _target      = $(this).parents('.button-checkbox'),
         buttonToggle = _target.find('.button-slide'),
         slideParts   = _target.find('.slide'),
-        judgeActive  = $(this).attr('class'),
-        num          = $(this).attr('id').match(/\d/g).join(""),
-        $buttonCheck = $('#active-check-' + num);
+        judgeActive  = $(this).attr('class');
 
       if ( judgeActive.match(/button-active/) ) {
         buttonToggle.removeClass('button-active').addClass('button-passive');

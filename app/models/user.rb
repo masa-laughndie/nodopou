@@ -24,14 +24,14 @@ class User < ApplicationRecord
                    if: :validate_name?
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
-  validates :account_id, presence:   { message: "NoDoBoIDを入力してください" },
+  validates :account_id, presence:   { message: "nodopouIDを入力してください" },
                          length:     { maximum: 15,
-                                       message: "NoDoBoIDは15文字以内まで有効です" },
+                                       message: "nodopouIDは15文字以内まで有効です" },
                          format:     { with: VALID_MYSIZE_ID_REGIX,
-                                       message: "NoDoBoIDは英数字,_(アンダーバー)のみ使用できます",
+                                       message: "nodopouIDは英数字,_(アンダーバー)のみ使用できます",
                                        allow_blank: true },
                          uniqueness: { case_sensitive: false,
-                                       message: "そのNoDoBoIDは既に使われています",
+                                       message: "そのnodopouIDは既に使われています",
                                        allow_nil: true }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
