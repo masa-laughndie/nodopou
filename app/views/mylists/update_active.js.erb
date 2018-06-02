@@ -1,3 +1,5 @@
+// 無記述（js.erbだと切り替えが遅いため、jsで処理）
+/*
 var
   $target = $('#list-active-<%= @mylist.id %>'),
   buttonToggle = $target.find('.button-slide'),
@@ -12,3 +14,5 @@ if ( buttonActive.length != 0 ) {
   slideParts.removeClass('slide-on').addClass('slide-off');
 }
 $buttonCheck.html("<%= escape_javascript(render partial: 'mylists/check_form', locals: { mylist: @mylist }) %>");
+*/
+$('#active-check-<%= @mylist.id %>').html("<%= escape_javascript(render 'mylists/check_form', mylist: @mylist) %>");
