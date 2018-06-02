@@ -219,7 +219,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-document.addEventListener('turbolink:load', function() {
+document.addEventListener('turbolinks:load', function() {
   $(function() {
     $("#lists").infiniteScroll({
       path: '.next a',
@@ -228,6 +228,50 @@ document.addEventListener('turbolink:load', function() {
       scrollThreshold: false,
       status: '.list-load-status',
       history: false
+    });
+  });
+});
+
+// mylist active切り替え
+// js.erbだと遅いからこっちに変更
+// numは依存度が高くデベロッパーツールでいじられると厄介だからできるだけthisで操作
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('[id^=active-button]').on('click', function() {
+      var
+        _target      = $(this).parents('.button-checkbox'),
+        buttonToggle = _target.find('.button-slide'),
+        slideParts   = _target.find('.slide'),
+        judgeActive  = $(this).attr('class');
+
+      if ( judgeActive.match(/button-active/) ) {
+        buttonToggle.removeClass('button-active').addClass('button-passive');
+        slideParts.removeClass('slide-off').addClass('slide-on');
+      } else {
+        buttonToggle.removeClass('button-passive').addClass('button-active');
+        slideParts.removeClass('slide-on').addClass('slide-off');
+      }
+    });
+  });
+});
+
+// mylist check切り替え
+// activeと同様
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.list-check').on('click', '[id^=check-button]', function() {
+      var
+        buttonCheck = $(this).parents('.button-checkbox2'),
+        buttonIcon  = $(this).find('i'),
+        judgeCheck  = buttonCheck.attr('class');
+
+      if ( judgeCheck.match(/button-uncheck/) ) {
+        buttonCheck.removeClass('button-uncheck').addClass('button-check');
+        buttonIcon.removeClass('fa-check-square-o').addClass('fa-square-o');
+      } else {
+        buttonCheck.removeClass('button-check').addClass('button-uncheck');
+        buttonIcon.removeClass('fa-square-o').addClass('fa-check-square-o');
+      }
     });
   });
 });
