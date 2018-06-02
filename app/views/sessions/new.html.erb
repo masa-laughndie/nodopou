@@ -27,4 +27,12 @@
       </div>
     <% end %>
   </div>
+  <div class="attention c" style="margin: 0 auto 10px;">
+    <p>Twitter連携済み、または</p>
+    <p>登録・ログインする方はこちらから</p>
+    <p><%= fa_icon('arrow-down') %></p>
+  </div>
+  <div class="c button-large button-twitter" style="margin: 0 auto 20px;">
+    <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
+  </div>
 </div>

@@ -9,7 +9,7 @@ class ListsInterfaceTest < ActionDispatch::IntegrationTest
 
   test "create list interface" do
     get user_path(@user)
-    assert_redirected_to login_path
+    assert_redirected_to root_path
     log_in_as(@user)
     get user_path(@user)
     content = "Listテスト"
