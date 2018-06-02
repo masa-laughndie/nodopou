@@ -34,7 +34,7 @@ class PostsController < ApplicationController
     else
       twi_content = params[:content] +
                     "\n\n#nodopou #やらないことリスト\n" +
-                    mylists_user_url(current_user)
+                    mylists_user_url(current_user, p: @post.id)
 =begin
       if Rails.env.development? || Rails.env.test?
         file = open(@post.picture.path)
