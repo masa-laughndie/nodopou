@@ -95,6 +95,7 @@ class User < ApplicationRecord
         user.remote_image_url = image
         user.t_token          = user.secure_for(t_token, uid)
         user.t_secret         = user.secure_for(t_secret, uid)
+        user.t_url            = "https://twitter.com/" + account_id
 
         if User.find_by(account_id: account_id).nil?
           user.account_id     = account_id
@@ -129,15 +130,17 @@ class User < ApplicationRecord
   end
 
   def update_from_auth(auth)
-    provider = auth[:provider]
-    uid      = auth[:uid]
-    t_token  = auth[:credentials][:token]
-    t_secret = auth[:credentials][:secret]
+    provider   = auth[:provider]
+    uid        = auth[:uid]
+    account_id = auth[:info][:nickname]
+    t_token    = auth[:credentials][:token]
+    t_secret   = auth[:credentials][:secret]
 
     update_columns(provider: provider,
                    uid:      uid,
                    t_token:  self.secure_for(t_token, uid),
-                   t_secret: self.secure_for(t_secret, uid))
+                   t_secret: self.secure_for(t_secret, uid),
+                   t_url:    "https://twitter.com/" + account_id)
   end
 
   def to_param
