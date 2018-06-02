@@ -33,7 +33,7 @@ class PostsController < ApplicationController
       redirect_to preview_path
     else
       twi_content = params[:content] +
-                    "\n\n#nodopou #nottodo\n" +
+                    "\n\n#nodopou #やらないことリスト\n" +
                     mylists_user_url(current_user)
 =begin
       if Rails.env.development? || Rails.env.test?
