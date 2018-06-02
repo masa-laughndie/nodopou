@@ -272,8 +272,8 @@ class User < ApplicationRecord
   end
 
   def og_image_url(post_id)
-    if self.posts.any? && !post_id.blank?
-      post = self.posts.find_by(id: post_id)
+    if self.posts.any? && !post_id.blank? &&
+       post = self.posts.find_by(id: post_id)
       post.picture.url
     else
       ""
