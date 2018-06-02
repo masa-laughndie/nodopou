@@ -219,6 +219,7 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
+/*
 document.addEventListener('turbolinks:load', function() {
   $(function() {
     $("#lists").infiniteScroll({
@@ -231,6 +232,7 @@ document.addEventListener('turbolinks:load', function() {
     });
   });
 });
+*/
 
 // mylist active切り替え
 // js.erbだと遅いからこっちに変更
