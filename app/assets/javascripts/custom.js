@@ -259,7 +259,7 @@ document.addEventListener('turbolinks:load', function() {
 // activeと同様
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    $(document).on('click', '[id^=check-button]', function() {
+    $('.list-check').on('click', '[id^=check-button]', function() {
       var
         buttonCheck = $(this).parents('.button-checkbox2'),
         buttonIcon  = $(this).find('i'),
