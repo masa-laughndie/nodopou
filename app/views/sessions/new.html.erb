@@ -1,0 +1,38 @@
+<% provide(:title, "ログイン") %>
+<% provide(:og_title, "ログイン") %>
+<% provide(:og_url, login_url) %>
+
+<div class="container content-lspace">
+  <div class="title-lspace c">
+    <h1>nodopouIDでログイン</h1>
+  </div>
+  <div class="form">
+    <%= form_tag('/login', method: "post") do %>
+      <div class="field">
+        <%= text_field_tag :account_id, nil,
+                           placeholder: "nodopouIDまたはメールアドレス" %>
+      </div>
+      <div class="field">
+        <%= password_field_tag :password, nil,
+                               placeholder: "パスワード" %>
+      </div>
+      <div class="button-small button-accent">
+        <%= submit_tag "ログイン", data: { disable_with: "処理中..." } %>
+      </div>
+      <div class="attention c">
+        <p><%= link_to "パスワードを忘れた", new_password_reset_path %></p>
+      </div>
+      <div class="attention c">
+        <p><%= link_to "アカウントを持っていない", signup_path %></p>
+      </div>
+    <% end %>
+  </div>
+  <div class="attention c" style="margin: 0 auto 10px;">
+    <p>Twitter連携済み、または</p>
+    <p>登録・ログインする方はこちらから</p>
+    <p><%= fa_icon('arrow-down') %></p>
+  </div>
+  <div class="c button-large button-twitter" style="margin: 0 auto 20px;">
+    <%= link_to fa_icon("twitter") + "Twitterで登録/ログイン", '/auth/twitter' %>
+  </div>
+</div>
