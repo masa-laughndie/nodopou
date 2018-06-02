@@ -271,9 +271,10 @@ class User < ApplicationRecord
     string.slice(0..(n - 1)) + string.slice((n + 1)..string.length)
   end
 
-  def og_image_url
-    if self.posts.any?
-      posts.last.picture.url
+  def og_image_url(post_id)
+    if self.posts.any? && !post_id.blank?
+      post = self.posts.find_by(id: post_id)
+      post.picture.url
     else
       ""
     end

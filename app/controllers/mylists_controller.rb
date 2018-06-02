@@ -7,7 +7,7 @@ class MylistsController < ApplicationController
                                               :update_strong]
 
   def index
-    @og_image_url = @user.og_image_url
+    @og_image_url = @user.og_image_url(params[:p])
     @mylists = @user.mylists.includes(:list).order(active: :desc)
     if logged_in? && current_user?(@user)
       current_user.confirm_and_reset_check_of(@mylists)
