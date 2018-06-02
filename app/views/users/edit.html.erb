@@ -64,7 +64,9 @@
       <div class="label">
         <%= f.label :email, "メールアドレス" %>
         <% unless @email_check.nil? %>
-          <p class="label-comment">※ご自身の正確なメールアドレスに変更してください。</p>
+          <div class="text-danger">
+            <p style="font-size: 12.5px;">※ご自身の正確なメールアドレスに変更してください。</p>
+          </div>
         <% end %>
       </div>
       <div class="field">
