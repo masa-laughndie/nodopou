@@ -21,7 +21,7 @@
       <% if current_user?(user) %>
         <p>以下からリストをキーワード検索して追加できます</p>
         <div class="content-mspace form form-inner">
-          <%= render 'shared/search_form' %>
+          <%= render 'shared/search_form', page: "index" %>
         </div>
       <% end %>
     <% when 'search' %>
