@@ -1,8 +1,2 @@
-var
-  $target = $('#list-check-<%= @mylist.id %>'),
-  uncheckButton = $target.find('.button-uncheck');
-if ( uncheckButton.length != 0 ) {
-  $target.html("<%= escape_javascript(render partial: 'mylists/check', locals: { mylist: @mylist }) %>");
-} else {
-  $target.html("<%= escape_javascript(render partial: 'mylists/uncheck', locals: { mylist: @mylist }) %>");
-}
+// 無記述（js.erbだと切り替えが遅いため、jsで処理）
+// $('#list-check-<%= @mylist.id %>').html("<%= escape_javascript(render 'mylists/check_button', mylist: @mylist) %>");

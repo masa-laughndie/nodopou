@@ -1,6 +1,7 @@
 <% provide(:title, @user.name + "さん") %>
 <% provide(:og_title, @user.name + "さん") %>
 <% provide(:og_url, user_url(@user)) %>
+<% provide(:search_url, search_path) %>
 
 <div class="container content-mspace c">
   <% if logged_in? && current_user?(@user) %>
@@ -17,7 +18,15 @@
     <h1><span class="logo-font"><%= @user.name %></span></h1>
   </div>
   <div class="user-aid">
-    <span class="logo-font">@<%= @user.account_id %></span>
+    <% if @user.t_url.nil? %>
+      <span class="logo-font">@<%= @user.account_id %></span>
+    <% else %>
+      <span class="logo-font">
+        <%= link_to "@" + @user.account_id, @user.t_url,
+                    rel: "noopener noreferrer", target: "_blank",
+                    class: "twi-blue" %>
+      </span>
+    <% end %>
   </div>
   <% unless @user.profile.blank? %>
     <div class="user-profile">
@@ -46,16 +55,16 @@
     </div>
     <div class="border"></div>
     <div class="content-mspace form form-inner">
-      <div class="explanation">
+      <div class="info">
         <p>
           <%= fa_icon('info-circle') %> 下のフォームからリストを検索できます！
         </p>
       </div>
-      <%= render 'shared/search_form' %>
+      <%= render 'shared/search_form', page: "user-show" %>
     </div>
     <div class="border"></div>
     <div class="content-mspace form" id="form-list">
-      <div class="explanation">
+      <div class="info">
         <p>
           <%= fa_icon('info-circle') %> 検索しても便乗したいリストがないときは下のフォームから自分でリストを追加できます！
         </p>

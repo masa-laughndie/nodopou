@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(account_id: params[:account_id].downcase)
+    auth_key = params[:account_id].downcase
+    @user = User.find_by(account_id: auth_key) || User.find_by(email: auth_key)
     if @user && @user.authenticate(params[:password])
       log_in @user
       remember @user
@@ -19,13 +20,19 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_create
-    @user = User.find_or_create_from_auth(auth_params)
-    log_in @user
-    remember @user
-    if @user.created_at > 1.minutes.ago
-      flash[:success] = "登録・ログインに成功しました！"
+    if logged_in?
+      @user = current_user
+      @user.update_from_auth(auth_params)
+      flash[:success] = "Twitter連携が完了しました！"
     else
-      flash[:success] = "ログインに成功しました！"
+      @user = User.find_or_create_from_auth(auth_params)
+      log_in @user
+      remember @user
+      if @user.created_at > 1.minutes.ago
+        flash[:success] = "登録・ログインに成功しました！"
+      else
+        flash[:success] = "ログインに成功しました！"
+      end
     end
     redirect_to @user
   end

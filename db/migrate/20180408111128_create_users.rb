@@ -19,6 +19,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string    :provider
       t.string    :t_token
       t.string    :t_secret
+      t.string    :t_url
       t.string    :reset_digest
       t.string    :e_token
       t.datetime  :reset_sent_at

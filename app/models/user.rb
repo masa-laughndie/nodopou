@@ -24,14 +24,14 @@ class User < ApplicationRecord
                    if: :validate_name?
 
   VALID_MYSIZE_ID_REGIX = /\A[a-zA-Z0-9_]+\z/
-  validates :account_id, presence:   { message: "NoDoBoIDを入力してください" },
+  validates :account_id, presence:   { message: "nodopouIDを入力してください" },
                          length:     { maximum: 15,
-                                       message: "NoDoBoIDは15文字以内まで有効です" },
+                                       message: "nodopouIDは15文字以内まで有効です" },
                          format:     { with: VALID_MYSIZE_ID_REGIX,
-                                       message: "NoDoBoIDは英数字,_(アンダーバー)のみ使用できます",
+                                       message: "nodopouIDは英数字,_(アンダーバー)のみ使用できます",
                                        allow_blank: true },
                          uniqueness: { case_sensitive: false,
-                                       message: "そのNoDoBoIDは既に使われています",
+                                       message: "そのnodopouIDは既に使われています",
                                        allow_nil: true }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -95,6 +95,7 @@ class User < ApplicationRecord
         user.remote_image_url = image
         user.t_token          = user.secure_for(t_token, uid)
         user.t_secret         = user.secure_for(t_secret, uid)
+        user.t_url            = "https://twitter.com/" + account_id
 
         if User.find_by(account_id: account_id).nil?
           user.account_id     = account_id
@@ -107,18 +108,18 @@ class User < ApplicationRecord
             end
           end
         end
-
       end
+      
     end
 
     def search(keyword)
       if keyword
-        keyword_arys = keyword.split(/[\s　]+/)
-        condition = where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                    "%#{keyword_arys[0]}%".downcase, "%#{keyword_arys[0]}%".downcase])
-        for i in 1..(keyword_arys.length - 1) do
-          condition = condition.where(["lower(name) LIKE (?) OR lower(acount_id) LIKE (?)",
-                                "%#{keyword_arys[i]}%".downcase, "%#{keyword_arys[i]}%".downcase])
+        keyword_ary = keyword.downcase.split(/[\s　]+/)
+        condition = where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
+                    "%#{keyword_ary[0]}%", "%#{keyword_ary[0]}%"])
+        for i in 1..(keyword_ary.length - 1) do
+          condition = condition.where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
+                                "%#{keyword_ary[i]}%", "%#{keyword_ary[i]}%"])
         end
         condition
       else
@@ -126,6 +127,20 @@ class User < ApplicationRecord
       end
     end
 
+  end
+
+  def update_from_auth(auth)
+    provider   = auth[:provider]
+    uid        = auth[:uid]
+    account_id = auth[:info][:nickname]
+    t_token    = auth[:credentials][:token]
+    t_secret   = auth[:credentials][:secret]
+
+    update_columns(provider: provider,
+                   uid:      uid,
+                   t_token:  self.secure_for(t_token, uid),
+                   t_secret: self.secure_for(t_secret, uid),
+                   t_url:    "https://twitter.com/" + account_id)
   end
 
   def to_param
@@ -140,9 +155,8 @@ class User < ApplicationRecord
     EOS
   end
 
-  def set_name_and_email(param)
+  def set_name(param)
     self.name = param
-    self.email = "#{param}@example.com"
   end
 
   def set_pass_and_time(password, time)
@@ -159,6 +173,13 @@ class User < ApplicationRecord
       if time != self.check_reset_time
         check_reset_at = self.check_reset_at.beginning_of_day + time.hours
       end
+    end
+  end
+
+  def check_blank(params)
+    check_params = [params[:account_id], params[:name], params[:email]]
+    if check_params.include?("")
+      self.reload
     end
   end
 
@@ -222,11 +243,13 @@ class User < ApplicationRecord
       mylists ||= self.mylists.includes(:list)
 
       if mylists.any?
-        mylists.each do |mylist|
-          if mylist.check?
-            mylist.add_running_days_and_reset_check
-          else
-            mylist.reset_running_days
+        Mylist.transaction do
+          mylists.each do |mylist|
+            if mylist.check? && self.check_reset_at + 1.day > Time.zone.now 
+              mylist.add_running_days_and_reset_check
+            else
+              mylist.reset_running_days
+            end
           end
         end
       end
@@ -248,9 +271,10 @@ class User < ApplicationRecord
     string.slice(0..(n - 1)) + string.slice((n + 1)..string.length)
   end
 
-  def og_image_url
-    if self.posts.any?
-      posts.last.picture.url
+  def og_image_url(post_id)
+    if self.posts.any? && !post_id.blank? &&
+       post = self.posts.find_by(id: post_id)
+      post.picture.url
     else
       ""
     end

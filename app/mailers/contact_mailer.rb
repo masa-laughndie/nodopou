@@ -7,6 +7,6 @@ class ContactMailer < ApplicationMailer
   #
   def message_received(contact)
     @contact = contact
-    mail to: 'nodobotoke@outlook.jp', subject: "お問い合わせを受け取りました。(お問い合わせ番号 #{contact.id})"
+    mail to: 'nodobotoke2018@outlook.jp', subject: "お問い合わせを受け取りました。(お問い合わせ番号 #{contact.id})"
   end
 end

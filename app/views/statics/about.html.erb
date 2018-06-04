@@ -3,17 +3,40 @@
 <% provide(:og_url, about_url) %>
 
 <div class="blank "></div>
-<div class="container content-nspace">
+<div class="container content-nspace" id="what">
   <div class="title-nspace c">
     <h2>nodopouとは？</h2>
   </div>
   <div class="border"></div>
   <div class="content-sspace c">
-    <p>シンプルなやらないこと(Not-To-Do)リストが簡単に作れるサービスです。</p>
+    <p>シンプルなやらないこと（Not-To-Do）リストが気軽に簡単に作れるサービスです。</p>
   </div>
 </div>
 <div class="blank "></div>
-<div class="container content-nspace">
+<div class="container content-nspace" id="why">
+  <div class="title-nspace c">
+    <h2>なんでNot-To-Do？</h2>
+  </div>
+</div>
+<div class="border"></div>
+<div class="container content-sspace">
+  <div class="info c" style="margin: 0;">
+    <p>小学校の夏休みの宿題</p>
+    <p>今年こそ早めに終わらよう！って思ってたけど</p>
+    <p>いろんな誘惑に負けて、ついつい後回し</p>
+    <p class="mb">そして、気づいたら8月ももう終わり...</p>
+    <p class="mb">いくつになっても同じことってありませんか？</p>
+    <p>それは「やるべきこと（To-Do）」に目がいき過ぎて</p>
+    <p class="mb">「やらないこと（Not-To-Do）」を無視してしまっているからかも...</p>
+    <p>でも、やるべきことにはエネルギーがいるけど</p>
+    <p class="mb">やるないことにエネルギーは必要ない</p>
+    <p class="mb">だから、「やらない」ことは気軽に始められる</p>
+    <p>「やるべきこと」につなげるために</p>
+    <p class="mb">まずは、「やらないこと」から始めてみましょう！</p>
+  </div>
+</div>
+<div class="blank "></div>
+<div class="container content-nspace" id="how">
   <div class="title-nspace c">
     <h2>使い方</h2>
   </div>
@@ -31,6 +54,7 @@
       <div class="step-figure twi-blue c"><%= fa_icon('twitter') %></div>
       <div class="step-text">
         <p><b>・Twitterに投稿してシェア（宣言）できる</b></p>
+        <p class="wred"><small>　※Twitter連携をする必要があります。</small></p>
         <p>→ 人に宣言することで実行度（やらない度）を上げられる</p>
         <p>→ まわりに認知してもらえて、誘いなどをシャットアウトできる</p>
         <p>→ あなたの投稿が誰かの「やらない」につながる</p>
@@ -39,6 +63,12 @@
     <div class="step-image">
       <%= image_tag("/images/sample00.png", alt: "sample00") %>
     </div>
+    <% if logged_in? && current_user.uid.nil? %>
+      <div class="button-middle button-twitter c" style="margin: 20px auto;">
+        <%= link_to fa_icon('twitter') + " Twitter連携する", '/auth/twitter',
+                    data: { disable_with: "処理中..." } %>
+      </div>
+    <% end %>
     <div class="border"></div>
     <div class="step clear">
       <div class="step-figure c">

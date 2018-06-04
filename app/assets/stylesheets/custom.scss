@@ -40,9 +40,15 @@ body {
   font-family: 'Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','メイリオ', Meiryo,'ＭＳ ゴシック',sans-serif;
   /*font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;*/
   font-family: 'Comfortaa', cursive;
+  font-family: 'Comfortaa',游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', cursive;
+  font-family: 'Comfortaa',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial, cursive;
   font-size: 1.0em;
   position: relative;
   padding-bottom: 51px;
+}
+
+.font-maru {
+  font-family: 'ヒラギノ丸ゴ Pro W3', 'Hiragino Maru Gothic Pro', -apple-system, system-ui, 'Hiragino Sans', '游ゴシック Medium', 'メイリオ',Meiryo, 'MS Pゴシック','MS PMGothic', sans-serif;
 }
 
 a {
@@ -74,12 +80,16 @@ textarea {
   -moz-appearance: none;
 }
 
+a:focus {
+  outline: 3px solid rgba(255,244,98,0.7);
+}
+
 button:focus,
 input:focus,
 select:focus,
-textarea:focus,
-a:focus {
-  outline: 3px solid $waccent;
+textarea:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255,244,98,0.7);
+  box-shadow: 0 0 0 0.2rem rgba(255,244,98,0.7);
 }
 
 input,
@@ -205,16 +215,16 @@ select {
   }
 }
 
-.explanation {
+.info {
   color: $main;
   margin-bottom: 10px;
   padding: 5px 5px 5px 10px;
 
   p {
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
-  i {
+  .fa-info-circle {
     color: $on-green;
   }
 }
@@ -302,7 +312,7 @@ select {
       width: 85%;
 
       p {
-        font-size: 14px;
+        font-size: 12.5px;
         margin: 5px;
       }
 
@@ -355,6 +365,20 @@ select {
   color: $accent !important;
 }
 
+.alist-sub {
+  position: relative;
+
+  .active:after {
+    background: $waccent;
+    content: "";
+    display: block;
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+  }
+}
+
 .red {
   color: red !important;
 }
@@ -365,6 +389,15 @@ select {
 
 .twi-blue {
   color: $twi-blue !important;
+}
+
+.link-blue {
+  color: $link-blue !important;
+  text-decoration: underline;
+}
+
+.back-accent {
+  background: $accent !important;
 }
 
 .cover {
@@ -454,6 +487,27 @@ $locations: top, bottom;
     left: 0;
     right: 0;
     z-index: 210;
+  }
+}
+
+.sub-select {
+  background: $base;
+  border-bottom: 1px solid $weak-grey;
+  height: 41px;
+  width: 100%;
+
+  .sub-select-link {
+    float: left;
+    height: 100%;
+    width: 50%;
+
+    a {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      height: 100%;
+      line-height: 40px;
+    }
   }
 }
 
@@ -1122,6 +1176,41 @@ $color:(
   }
 }
 
+  /* pagination */
+
+.pagination {
+  display: none;
+  width: 0;
+}
+
+.list-load {
+  background: $back;
+  height: 60px;
+  .list-load-status {
+    display: none;
+    height: 100%;
+    width: 100%;
+    p {
+      height: 100%;
+      line-height: 60px;
+
+      img {
+        display: block;
+        position: relative;
+      }
+    }
+  }
+
+  .button-more {
+    height: 100%;
+    width: 100%;
+  }
+
+  .button-more:disabled {
+    display: none;
+  }
+}
+
 /* layouts */
   
   /* header */
@@ -1141,11 +1230,11 @@ header {
     line-height: 50px;
 
     .header-center {
-      padding-left: 5%;
       width: 100%;
 
       a {
         display: block;
+        padding-left: 5%;
 
         .logo-font {
           color: $main;
@@ -1371,7 +1460,6 @@ nav {
   background: $weak-grey;
   border-radius: 5px;
   min-width: 60px;
-  padding: 0 5px;
   position: absolute;
   top: 13px;
   right: 13px;
@@ -1380,6 +1468,7 @@ nav {
     color: $main;
     display: block;
     font-size: 20px;
+    padding: 0 5px;
     position: relative;
 
     i {
@@ -1410,12 +1499,13 @@ nav {
 }
 
 .user-name {
-  font-size: 26px;
+  font-size: 23px;
   margin-bottom: 5px;
 }
 
 .user-aid {
   color: $base-grey;
+  font-size: 14px;
   margin-bottom: 5px;
 }
 
@@ -1626,6 +1716,21 @@ nav {
       text-align: right;
       width: 15%;
     }
+
+    .list-delete {
+      a {
+        display: block;
+        position: relative;
+        height: 40px;
+        width: 40px;
+        z-index: 200;
+        i {
+          display: block;
+          font-size: 28px;
+          line-height: 40px;
+        }
+      }
+    }
   }
 }
 
@@ -1660,6 +1765,53 @@ nav {
   position: absolute;
   bottom: 5%;
   width: 100%;  
+}
+
+.list-action {
+  position: relative;
+  height: 80px;
+  width: 100%;
+}
+
+.list-strong {
+  height: 60px;
+  margin: 10px auto;
+  width: 60px;
+
+  .form {
+    height: 100%;
+    .field-checkbox4 {
+      height: 100%;
+      .button-checkbox3 {
+        border-radius: 50%;
+        height: 100%;
+        form {
+          height: 100%;
+
+          button {
+            width: 90%;
+            height: 90%;
+            position: relative;
+
+            i {
+              font-size: 30px;
+            }
+          }
+        }
+      }
+
+      .button-normal {
+        background: $back;
+      }
+
+      .button-strong {
+        background: $on-green;
+        i {
+          color: $base;
+        }
+      }
+    }
+  }
 }
 
 .list-info {

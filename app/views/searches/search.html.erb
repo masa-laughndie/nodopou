@@ -1,6 +1,7 @@
 <% provide(:title, "検索") %>
 <% provide(:og_title, "検索") %>
 <% provide(:og_url, search_url) %>
+<% provide(:search_url, search_path) %>
 
 <div class="container content-nspace">
   <div class="title-nspace c">
@@ -13,7 +14,7 @@
   </div>
   <div class="border"></div>
   <div class="content-mspace form form-inner">
-    <%= render 'shared/search_form' %>
+    <%= render 'shared/search_form', page: "search" %>
   </div>
   <div class="border"></div>
   <% unless params[:keyword].nil? %>
@@ -22,11 +23,16 @@
                  locals: { left: '便乗人数',
                            center: '内容',
                            right: '便乗？' } %>
-      <ul class="rank">
+      <ul class="rank" id="lists">
         <%= render partial: @lists,
                    locals: { user: current_user,
                              cuser_list_ids: @cuser_list_ids } %>
       </ul>
+      <%= render partial: 'shared/loading',
+                 locals: { count: @lists_count,
+                           per: 30 } %>
+      <%= paginate @lists, remote: true %>
+      <div class="border"></div>
       <div class="content-sspace attention c">
         <p>追加したいリストがないときは</p>
         <p class="mb">自分で簡単に作ることもできます</p>
@@ -43,3 +49,4 @@
                            text: 'search' } %>
   <% end %>
 </div>
+<%= render 'shared/loading_script' %>

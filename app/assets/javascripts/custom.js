@@ -100,45 +100,6 @@ document.addEventListener('turbolinks:load', function() {
   });
 });
 
-/*
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    //documentにしないとスマホ無効になる
-    $(document).on('click', "[id^=list-checkbox]", function() {
-      var
-        str = $(this).attr("id"),
-        num = str.match(/\d/g).join("");
-      $('#edit_mylist_' + num).submit();
-    });
-  });
-});
-*/
-/*
-//listのactiveをスライドバーでupdateする
-document.addEventListener('turbolinks:load', function() {
-  $(function() {
-    //documentにしないとスマホ無効になる
-    $(document).on('click', "[id^=list-checkbox]", function() {
-      var
-        str = $(this).attr("id"),
-        num = str.match(/\d/g).join("");
-      $.ajax({
-        type: 'PATCH',
-        url: '/mylists/' + num + '/active',
-        dataType: 'html',
-        timeout: 20000
-      })
-      .done(function(data) {
-      })
-      .fail(function() {
-        alert('ページの読み込みに失敗しました。電波の良い場所で再度読み込んでください。');
-        return false;
-      });
-      // $('#edit_list_' + num).submit();
-    });
-  });
-});
-*/
 
 //search-field　back-color可変
 document.addEventListener('turbolinks:load', function() {
@@ -239,8 +200,8 @@ document.addEventListener('turbolinks:load', function() {
     $('.ban').on('click', function() {
       alert('登録またはログインしてください！');
 
-      if ($('#popup1').length != 0) {
-        $('#popup1').slideDown();
+      if ($('#click-popup').length != 0) {
+        $('#click-popup').slideDown();
       }
       return false;
     });
@@ -250,10 +211,69 @@ document.addEventListener('turbolinks:load', function() {
 // popup-login auto
 document.addEventListener('turbolinks:load', function() {
   $(function() {
-    if ( $('#popup2').length != 0 ) {
+    if ( $('#auto-popup').length != 0 ) {
       setTimeout(function() {
-        $('#popup2').slideDown();
-      }, 5000);
+        $('#auto-popup').slideDown();
+      }, 10000);
     }
+  });
+});
+
+/*
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $("#lists").infiniteScroll({
+      path: '.next a',
+      append: '.list',
+      button: '.button-more',
+      scrollThreshold: false,
+      status: '.list-load-status',
+      history: false
+    });
+  });
+});
+*/
+
+// mylist active切り替え
+// js.erbだと遅いからこっちに変更
+// numは依存度が高くデベロッパーツールでいじられると厄介だからできるだけthisで操作
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('[id^=active-button]').on('click', function() {
+      var
+        _target      = $(this).parents('.button-checkbox'),
+        buttonToggle = _target.find('.button-slide'),
+        slideParts   = _target.find('.slide'),
+        judgeActive  = $(this).attr('class');
+
+      if ( judgeActive.match(/button-active/) ) {
+        buttonToggle.removeClass('button-active').addClass('button-passive');
+        slideParts.removeClass('slide-off').addClass('slide-on');
+      } else {
+        buttonToggle.removeClass('button-passive').addClass('button-active');
+        slideParts.removeClass('slide-on').addClass('slide-off');
+      }
+    });
+  });
+});
+
+// mylist check切り替え
+// activeと同様
+document.addEventListener('turbolinks:load', function() {
+  $(function() {
+    $('.list-check').on('click', '[id^=check-button]', function() {
+      var
+        buttonCheck = $(this).parents('.button-checkbox2'),
+        buttonIcon  = $(this).find('i'),
+        judgeCheck  = buttonCheck.attr('class');
+
+      if ( judgeCheck.match(/button-uncheck/) ) {
+        buttonCheck.removeClass('button-uncheck').addClass('button-check');
+        buttonIcon.removeClass('fa-check-square-o').addClass('fa-square-o');
+      } else {
+        buttonCheck.removeClass('button-check').addClass('button-uncheck');
+        buttonIcon.removeClass('fa-square-o').addClass('fa-check-square-o');
+      }
+    });
   });
 });

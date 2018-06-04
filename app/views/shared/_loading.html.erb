@@ -1,0 +1,16 @@
+<div class="list-load c">
+  <% if count > per %>
+    <div class="list-load-status">
+      <p class="infinite-scroll-request">
+        <%= image_tag('/images/loading.gif',
+                      size: 32, alt: "読み込み中...",
+                      class: "middle-xy") %>
+      </p>
+      <p class="infinite-scroll-last"><%= count %>件全て読み込みました</p>
+      <p class="infinite-scroll-error">ページが読めこめませんでした</p>
+    </div>
+    <button class="button-more">さらに読み込む</button>
+  <% else %>
+    <p style="line-height: 60px;"><%= count %>件全て読み込みました</p>
+  <% end %>
+</div>

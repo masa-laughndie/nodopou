@@ -25,9 +25,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(create_params)
+    @user.validate_email = true
     @user.validate_password = true
 
-    @user.set_name_and_email(params[:user][:account_id])
+    @user.set_name(params[:user][:account_id])
     @user.set_pass_and_time(params[:user][:password], nil)
 
     if @user.save
@@ -41,21 +42,35 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.lists.each do |list|
-      list.destroy_or_leaved(@user)
+    List.transaction do
+      @user.lists.each do |list|
+        list.destroy_or_leaved(@user)
+      end
+      log_out
+      if @user.admin?
+        raise
+      else
+        @user.destroy
+      end
     end
-
-    log_out
-    @user.destroy
-    flash[:success] = "アカウント削除が完了しました。"
+    flash[:success] = "アカウントの削除が完了しました。<br>ご利用ありがとうございました。"
+    redirect_to root_path
+  rescue => e
+    flash[:danger] = "このユーザーは削除できません"
     redirect_to root_path
   end
 
   def edit
+    if @user.email.match(/@example.com/).present?
+      @email_check = "check"
+    else
+      @email_check = nil
+    end
   end
 
   def update
     @user.validate_name = true
+    @user.validate_email = true
 
     @user.set_pass_and_time(params[:user][:password],
                             params[:user][:check_reset_time])
@@ -64,9 +79,7 @@ class UsersController < ApplicationController
       flash[:success] = "設定の変更が完了しました！"
       redirect_to setting_path
     else
-      if params[:user][:name].blank? || params[:user][:account_id].blank?
-        @user.reload
-      end
+      @user.check_blank(params[:user])
       render 'edit'
     end
   end
@@ -110,19 +123,15 @@ class UsersController < ApplicationController
     def edit_params
       params.require(:user).permit(:account_id, :name, :image, :image_cache,
                                    :profile, :password, :password_confirmation,
-                                   :check_reset_time, :check_reset_at)
+                                   :check_reset_time, :check_reset_at, :email)
     end
 
     def edit_email_params
       params.require(:user).permit(:email, :is_send_email)
     end
 
-    def admin_user
-      redirect_to root_path unless current_user.admin?
-    end
-
     def check_user_authority
-      unless current_user?(@user) || current_user.admin?
+      unless current_user?(@user)
         flash[:danger] = "権限がありません！！"
         redirect_to root_path
       end
