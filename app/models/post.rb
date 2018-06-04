@@ -40,9 +40,12 @@ class Post < ApplicationRecord
     if contents_num > 8 || char_sum > 123
       font_size = 17
       line_char_num = 25
-    else
+    elsif contents_num > 4 || char_sum > 50
       font_size = 21
       line_char_num = 20
+    else
+      font_size = 28
+      line_char_num = 15
     end
 
     sentense = self.connect_and_insert_new_line(contents, line_char_num)
@@ -50,7 +53,7 @@ class Post < ApplicationRecord
     img = MiniMagick::Image.open("#{Rails.root}/public/images/twitter_frame00.png")
     img.combine_options do |i|
       i.gravity "West"
-      i.font "fonts/GenJyuuGothic-Heavy.ttf"
+      i.font "fonts/GenJyuuGothic-Medium.ttf"
       i.pointsize font_size
       i.fill "black"
       i.draw "text 67,0 '#{sentense}'"
