@@ -6,8 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    auth_key = params[:account_id].downcase
-    @user = User.find_by(account_id: auth_key) || User.find_by(email: auth_key)
+    @user = find_user(params[:account_id])
     if @user && @user.authenticate(params[:password])
       log_in @user
       remember @user
@@ -28,11 +27,7 @@ class SessionsController < ApplicationController
       @user = User.find_or_create_from_auth(auth_params)
       log_in @user
       remember @user
-      if @user.created_at > 1.minutes.ago
-        flash[:success] = "登録・ログインに成功しました！"
-      else
-        flash[:success] = "ログインに成功しました！"
-      end
+      flash[:success] = @user.created_at > 1.minutes.ago ? "登録・ログインに成功しました！" : "ログインに成功しました！"
     end
     redirect_to @user
   end
@@ -47,15 +42,17 @@ class SessionsController < ApplicationController
 
   private
 
-    def logged_in
-      if logged_in?
-        flash[:info] = "既にログイン中です。"
-        redirect_to root_url
-      end
-    end
+  def logged_in
+    return unless logged_in?
+    flash[:info] = "既にログイン中です。"
+    redirect_to root_url
+  end
 
-    def auth_params
-      request.env['omniauth.auth']
-    end
+  def auth_params
+    request.env['omniauth.auth']
+  end
 
+  def find_user(param)
+    User.find_by(account_id: param.downcase) || User.find_by(email: param.downcase)
+  end
 end
