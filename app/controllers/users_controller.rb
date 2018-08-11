@@ -27,9 +27,7 @@ class UsersController < ApplicationController
     @user = User.new(create_params)
     @user.validate_email = true
     @user.validate_password = true
-
-    @user.set_name(params[:user][:account_id])
-    @user.set_pass_and_time(params[:user][:password], nil)
+    @user.set_create_params(params[:user])
 
     if @user.save
       log_in @user
@@ -47,11 +45,7 @@ class UsersController < ApplicationController
         list.destroy_or_leaved(@user)
       end
       log_out
-      if @user.admin?
-        raise
-      else
-        @user.destroy
-      end
+      @user.admin? ? raise : @user.destroy
     end
     flash[:success] = "アカウントの削除が完了しました。<br>ご利用ありがとうございました。"
     redirect_to root_path
@@ -61,19 +55,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if @user.email.match(/@example.com/).present?
-      @email_check = "check"
-    else
-      @email_check = nil
-    end
+    @email_check = invalid_email?(@user.email) ? "check" : nil
   end
 
   def update
     @user.validate_name = true
     @user.validate_email = true
-
-    @user.set_pass_and_time(params[:user][:password],
-                            params[:user][:check_reset_time])
+    @user.set_update_params(params[:user])
 
     if @user.update_attributes(edit_params)
       flash[:success] = "設定の変更が完了しました！"
@@ -90,54 +78,51 @@ class UsersController < ApplicationController
 
   def email_update
     @user.validate_email = true
-    address = params[:user][:email]
 
-    if address.present? && address.match(/@example.com/).present?
-      if @user.is_send_email?
-        @user.update_attribute(:is_send_email, false)
-      end
+    if invalid_email?(params[:user][:email])
+      @user.update_attribute(:is_send_email, false) if @user.is_send_email?
       flash.now[:danger] = "そのメールアドレスは無効です<br>変更してください"
       render 'edit'
-
     elsif @user.update_attributes(edit_email_params)
       @user.send_email(:email_update)
       flash[:success] = "メール設定の変更が完了しました！"
       redirect_to setting_path
-
     else
-      if address.blank?
-        @user.reload
-      end
+      @user.reload if params[:user][:email].blank?
       render 'edit'
     end
   end
 
   private
 
-    def create_params
-      params.require(:user).permit(:account_id, :name, :email,
-                                   :password, :password_confirmation,
-                                   :check_reset_at)
-    end
+  def create_params
+    params.require(:user).permit(:account_id, :name, :email,
+                                  :password, :password_confirmation,
+                                  :check_reset_at)
+  end
 
-    def edit_params
-      params.require(:user).permit(:account_id, :name, :image, :image_cache,
-                                   :profile, :password, :password_confirmation,
-                                   :check_reset_time, :check_reset_at, :email)
-    end
+  def edit_params
+    params.require(:user).permit(:account_id, :name, :image, :image_cache,
+                                  :profile, :password, :password_confirmation,
+                                  :check_reset_time, :check_reset_at, :email)
+  end
 
-    def edit_email_params
-      params.require(:user).permit(:email, :is_send_email)
-    end
+  def edit_email_params
+    params.require(:user).permit(:email, :is_send_email)
+  end
 
-    def check_user_authority
-      unless current_user?(@user)
-        flash[:danger] = "権限がありません！！"
-        redirect_to root_path
-      end
+  def check_user_authority
+    unless current_user?(@user)
+      flash[:danger] = "権限がありません！！"
+      redirect_to root_path
     end
+  end
 
-    def get_user
-      @user = current_user
-    end
+  def get_user
+    @user = current_user
+  end
+
+  def invalid_email?(email)
+    email.present? && email.match(/@example.com/).present?
+  end
 end

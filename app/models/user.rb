@@ -1,7 +1,10 @@
 class User < ApplicationRecord
+  extend Search
 
   attr_accessor :validate_name, :validate_email, :validate_password,
                 :remember_token, :reset_token
+
+  search_fields :name, :account_id
 
   before_save :downcase_email, if: :validate_email?
   before_save :downcase_nodoboid
@@ -99,22 +102,6 @@ class User < ApplicationRecord
         user.account_id     = user.set_account_id(account_id)
       end
     end
-
-    def search(keyword)
-      if keyword
-        keyword_ary = keyword.downcase.split(/[\s　]+/)
-        condition = where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
-                    "%#{keyword_ary[0]}%", "%#{keyword_ary[0]}%"])
-        for i in 1..(keyword_ary.length - 1) do
-          condition = condition.where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
-                                "%#{keyword_ary[i]}%", "%#{keyword_ary[i]}%"])
-        end
-        condition
-      else
-        all
-      end
-    end
-
   end
 
   def set_account_id(aid)
@@ -151,23 +138,31 @@ class User < ApplicationRecord
     EOS
   end
 
+  def set_create_params(params)
+    set_name(params[:account_id])
+    set_password(params[:password])
+    set_check_reset_time
+  end
+
+  def set_update_params(params)
+    set_password(params[:password], update: true)
+    set_check_reset_time(params[:check_reset_time])
+  end
+
   def set_name(param)
     self.name = param
   end
 
-  def set_pass_and_time(password, time)
-    if time.nil?
-      password_confirmation = password
-      check_reset_at = Time.zone.now.beginning_of_day + 1.day + 6.hours
-    else
-      unless password.nil?
-        validate_password = true
-        password_confirmation = password
-      end
-
-      time = time.to_i
-      check_reset_at = self.check_reset_at.beginning_of_day + time.hours if time != self.check_reset_time
+  def set_password(password, update: false)
+    if update == true
+      return if password.blank?
+      validate_password = true
     end
+    self.password_confirmation = password
+  end
+
+  def set_check_reset_time(time = nil)
+    self.check_reset_at = time.nil? ? first_check_reset_at : self.check_reset_at.beginning_of_day + time.to_i.hours
   end
 
   def check_blank(params)
@@ -289,5 +284,9 @@ class User < ApplicationRecord
 
   def self.dummy_email(auth)
     "#{auth.uid}-#{auth.provider}@example.com"
+  end
+
+  def first_check_reset_at
+    Time.zone.now.beginning_of_day + 1.day + 6.hours
   end
 end
