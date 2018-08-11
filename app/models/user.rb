@@ -1,7 +1,10 @@
 class User < ApplicationRecord
+  extend Search
 
   attr_accessor :validate_name, :validate_email, :validate_password,
                 :remember_token, :reset_token
+
+  search_fields :name, :account_id
 
   before_save :downcase_email, if: :validate_email?
   before_save :downcase_nodoboid
@@ -99,22 +102,6 @@ class User < ApplicationRecord
         user.account_id     = user.set_account_id(account_id)
       end
     end
-
-    def search(keyword)
-      if keyword
-        keyword_ary = keyword.downcase.split(/[\s　]+/)
-        condition = where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
-                    "%#{keyword_ary[0]}%", "%#{keyword_ary[0]}%"])
-        for i in 1..(keyword_ary.length - 1) do
-          condition = condition.where(["lower(name) LIKE (?) OR lower(account_id) LIKE (?)",
-                                "%#{keyword_ary[i]}%", "%#{keyword_ary[i]}%"])
-        end
-        condition
-      else
-        all
-      end
-    end
-
   end
 
   def set_account_id(aid)
