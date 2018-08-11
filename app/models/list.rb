@@ -14,11 +14,8 @@ class List < ApplicationRecord
                                    message: "内容は60文字まで入力できます" }
 
   def destroy_or_leaved(cuser)
-    if user_count <= 1
-      destroy
-    else
-      cuser.unavail(self)
-    end
+    return destroy if user_count <= 1
+    cuser.unavail(self)
   end
 
   def joined_user
