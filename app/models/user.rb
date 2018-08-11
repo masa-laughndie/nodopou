@@ -166,9 +166,7 @@ class User < ApplicationRecord
       end
 
       time = time.to_i
-      if time != self.check_reset_time
-        check_reset_at = self.check_reset_at.beginning_of_day + time.hours
-      end
+      check_reset_at = self.check_reset_at.beginning_of_day + time.hours if time != self.check_reset_time
     end
   end
 
