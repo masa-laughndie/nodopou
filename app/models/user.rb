@@ -172,9 +172,7 @@ class User < ApplicationRecord
 
   def check_blank(params)
     check_params = [params[:account_id], params[:name], params[:email]]
-    if check_params.include?("")
-      self.reload
-    end
+    self.reload if check_params.include?("")
   end
 
   def remember
