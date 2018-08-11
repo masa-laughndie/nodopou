@@ -96,20 +96,8 @@ class User < ApplicationRecord
         user.t_token          = user.secure_for(t_token, uid)
         user.t_secret         = user.secure_for(t_secret, uid)
         user.t_url            = "https://twitter.com/" + account_id
-
-        if User.find_by(account_id: account_id).nil?
-          user.account_id     = account_id
-        else
-          while true
-            num = SecureRandom.urlsafe_base64(10)
-            if User.find_by(account_id: num).nil?
-              user.account_id = num
-              break
-            end
-          end
-        end
+        user.account_id     = user.set_account_id(account_id)
       end
-      
     end
 
     def search(keyword)
@@ -127,6 +115,14 @@ class User < ApplicationRecord
       end
     end
 
+  end
+
+  def set_account_id(aid)
+    return aid if User.find_by(account_id: aid).nil?
+    while true
+      num = SecureRandom.urlsafe_base64(10)
+      ruturn num if User.find_by(account_id: num).nil?
+    end
   end
 
   def update_from_auth(auth)
