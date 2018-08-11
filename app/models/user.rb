@@ -96,20 +96,8 @@ class User < ApplicationRecord
         user.t_token          = user.secure_for(t_token, uid)
         user.t_secret         = user.secure_for(t_secret, uid)
         user.t_url            = "https://twitter.com/" + account_id
-
-        if User.find_by(account_id: account_id).nil?
-          user.account_id     = account_id
-        else
-          while true
-            num = SecureRandom.urlsafe_base64(10)
-            if User.find_by(account_id: num).nil?
-              user.account_id = num
-              break
-            end
-          end
-        end
+        user.account_id     = user.set_account_id(account_id)
       end
-      
     end
 
     def search(keyword)
@@ -127,6 +115,14 @@ class User < ApplicationRecord
       end
     end
 
+  end
+
+  def set_account_id(aid)
+    return aid if User.find_by(account_id: aid).nil?
+    while true
+      num = SecureRandom.urlsafe_base64(10)
+      ruturn num if User.find_by(account_id: num).nil?
+    end
   end
 
   def update_from_auth(auth)
@@ -170,17 +166,13 @@ class User < ApplicationRecord
       end
 
       time = time.to_i
-      if time != self.check_reset_time
-        check_reset_at = self.check_reset_at.beginning_of_day + time.hours
-      end
+      check_reset_at = self.check_reset_at.beginning_of_day + time.hours if time != self.check_reset_time
     end
   end
 
   def check_blank(params)
     check_params = [params[:account_id], params[:name], params[:email]]
-    if check_params.include?("")
-      self.reload
-    end
+    self.reload if check_params.include?("")
   end
 
   def remember
@@ -235,27 +227,29 @@ class User < ApplicationRecord
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
   end
-  
+
+  def check_reset_at_over?
+    check_reset_at + 1.day > Time.zone.now
+  end
 
   def confirm_and_reset_check_of(mylists)
-    if self.check_reset_at < Time.zone.now
+    return if self.check_reset_at >= Time.zone.now
 
-      mylists ||= self.mylists.includes(:list)
+    mylists ||= self.mylists.includes(:list)
 
-      if mylists.any?
-        Mylist.transaction do
-          mylists.each do |mylist|
-            if mylist.check? && self.check_reset_at + 1.day > Time.zone.now 
-              mylist.add_running_days_and_reset_check
-            else
-              mylist.reset_running_days
-            end
-          end
+    return if mylists.blank?
+
+    Mylist.transaction do
+      mylists.each do |mylist|
+        if mylist.check? && check_reset_at_over?
+          mylist.add_running_days_and_reset_check
+        else
+          mylist.reset_running_days
         end
       end
-
-      self.update_check_reset
     end
+
+    update_check_reset
   end
 
   def secure_for(string, uid)
@@ -272,8 +266,7 @@ class User < ApplicationRecord
   end
 
   def og_image_url(post_id)
-    if self.posts.any? && !post_id.blank? &&
-       post = self.posts.find_by(id: post_id)
+    if self.posts.any? && !post_id.blank? && post = self.posts.find_by(id: post_id)
       post.picture.url
     else
       ""
@@ -282,21 +275,19 @@ class User < ApplicationRecord
   
   private
 
-    def downcase_email
-      email.downcase!
-    end
+  def downcase_email
+    email.downcase!
+  end
 
-    def downcase_nodoboid
-      account_id.downcase!
-    end
+  def downcase_nodoboid
+    account_id.downcase!
+  end
 
-    def image_size
-      if image.size > 5.megabytes
-        error.add(:image, "画像サイズは最大5MBまで設定できます")
-      end
-    end
+  def image_size
+    error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
+  end
 
-    def self.dummy_email(auth)
-      "#{auth.uid}-#{auth.provider}@example.com"
-    end
+  def self.dummy_email(auth)
+    "#{auth.uid}-#{auth.provider}@example.com"
+  end
 end
