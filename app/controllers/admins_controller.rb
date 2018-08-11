@@ -3,11 +3,7 @@ class AdminsController < ApplicationController
   before_action :admin_user
 
   def index
-    if params[:for].blank?
-      @for_param = "list"
-    else
-      @for_param = params[:for]
-    end
+    @for_param = params[:for].present? ? params[:for] : "list"
     @users = User.search(params[:keyword])
     @users_count = @users.size
     @users = @users.page(params[:page]).per(50)
@@ -40,9 +36,8 @@ class AdminsController < ApplicationController
   private
 
     def admin_user
-      unless current_user.admin?
-        flash[:danger] = "権限がありません！"
-        redirect_to root_path
-      end
+      return if current_user.admin?
+      flash[:danger] = "権限がありません！"
+      redirect_to root_path
     end
 end
