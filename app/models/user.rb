@@ -283,9 +283,7 @@ class User < ApplicationRecord
     end
 
     def image_size
-      if image.size > 5.megabytes
-        error.add(:image, "画像サイズは最大5MBまで設定できます")
-      end
+      error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
     end
 
     def self.dummy_email(auth)
