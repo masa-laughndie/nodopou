@@ -227,27 +227,33 @@ class User < ApplicationRecord
                      Time.zone.now.beginning_of_day +
                      1.day + self.check_reset_time.hours)
   end
-  
+
+  def has_not_mylists?
+    !mylists.any?
+  end
+
+  def over_check_reset_time?
+    check_reset_at > Time.zone.now
+  end
 
   def confirm_and_reset_check_of(mylists)
-    if self.check_reset_at < Time.zone.now
+    return if self.check_reset_at >= Time.zone.now
 
-      mylists ||= self.mylists.includes(:list)
+    mylists ||= self.mylists.includes(:list)
 
-      if mylists.any?
-        Mylist.transaction do
-          mylists.each do |mylist|
-            if mylist.check? && self.check_reset_at + 1.day > Time.zone.now 
-              mylist.add_running_days_and_reset_check
-            else
-              mylist.reset_running_days
-            end
-          end
+    return if self.has_not_mylists?
+    
+    Mylist.transaction do
+      mylists.each do |mylist|
+        if mylist.check? && over_check_reset_time?
+          mylist.add_running_days_and_reset_check
+        else
+          mylist.reset_running_days
         end
       end
-
-      self.update_check_reset
     end
+
+    update_check_reset
   end
 
   def secure_for(string, uid)
@@ -264,8 +270,7 @@ class User < ApplicationRecord
   end
 
   def og_image_url(post_id)
-    if self.posts.any? && !post_id.blank? &&
-       post = self.posts.find_by(id: post_id)
+    if self.posts.any? && !post_id.blank? && post = self.posts.find_by(id: post_id)
       post.picture.url
     else
       ""
@@ -274,19 +279,19 @@ class User < ApplicationRecord
   
   private
 
-    def downcase_email
-      email.downcase!
-    end
+  def downcase_email
+    email.downcase!
+  end
 
-    def downcase_nodoboid
-      account_id.downcase!
-    end
+  def downcase_nodoboid
+    account_id.downcase!
+  end
 
-    def image_size
-      error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
-    end
+  def image_size
+    error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytesd
+  end
 
-    def self.dummy_email(auth)
-      "#{auth.uid}-#{auth.provider}@example.com"
-    end
+  def self.dummy_email(auth)
+    "#{auth.uid}-#{auth.provider}@example.com"
+  end
 end
