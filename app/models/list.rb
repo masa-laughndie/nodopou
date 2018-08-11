@@ -1,9 +1,10 @@
 class List < ApplicationRecord
+  extend Search
 
-  #開祖
+  search_fields :content
+
   belongs_to :user
 
-  #実行者たち
   has_many   :mylists, dependent: :destroy
   has_many   :users,   through:   :mylists
 
@@ -11,23 +12,6 @@ class List < ApplicationRecord
   validates :content,  presence: { message: "内容を入力してください" },
                        length:   { maximum: 60,
                                    message: "内容は60文字まで入力できます" }
-
-  class << self
-
-    def search(keyword)
-      if keyword
-        keyword_ary = keyword.downcase.split(/[\s　]+/)
-        condition = where(["lower(content) LIKE (?)", "%#{keyword_ary[0]}%"])
-        for i in 1..(keyword_ary.length - 1) do
-          condition = condition.where(["lower(content) LIKE (?)", "%#{keyword_ary[i]}%"])
-        end
-        condition
-      else
-        all
-      end
-    end
-
-  end
 
   def destroy_or_leaved(cuser)
     if user_count <= 1
