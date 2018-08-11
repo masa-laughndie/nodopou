@@ -32,9 +32,7 @@ class Mylist < ApplicationRecord
   end
 
   def reset_running_days
-    if self.running_days != 0
-      update_attribute(:running_days, 0)
-    end
+    update_attribute(:running_days, 0) if self.running_days != 0
   end
 
 end

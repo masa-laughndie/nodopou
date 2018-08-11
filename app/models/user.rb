@@ -228,12 +228,8 @@ class User < ApplicationRecord
                      1.day + self.check_reset_time.hours)
   end
 
-  def has_not_mylists?
-    !mylists.any?
-  end
-
-  def over_check_reset_time?
-    check_reset_at > Time.zone.now
+  def check_reset_at_over?
+    check_reset_at + 1.day > Time.zone.now
   end
 
   def confirm_and_reset_check_of(mylists)
@@ -241,11 +237,11 @@ class User < ApplicationRecord
 
     mylists ||= self.mylists.includes(:list)
 
-    return if self.has_not_mylists?
-    
+    return if mylists.blank?
+
     Mylist.transaction do
       mylists.each do |mylist|
-        if mylist.check? && over_check_reset_time?
+        if mylist.check? && check_reset_at_over?
           mylist.add_running_days_and_reset_check
         else
           mylist.reset_running_days
@@ -288,7 +284,7 @@ class User < ApplicationRecord
   end
 
   def image_size
-    error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytesd
+    error.add(:image, "画像サイズは最大5MBまで設定できます") if image.size > 5.megabytes
   end
 
   def self.dummy_email(auth)
