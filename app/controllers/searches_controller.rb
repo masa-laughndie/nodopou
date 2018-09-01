@@ -7,6 +7,6 @@ class SearchesController < ApplicationController
     @lists = List.search(params[:keyword]).order(user_count: :desc)
     @lists_count = @lists.size
     @lists = @lists.page(params[:page]).per(30)
-    @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id) if params[:keyword].present?
+    @cuser_list_ids = current_user.mylists.includes(:list).pluck(:list_id)
   end
 end
