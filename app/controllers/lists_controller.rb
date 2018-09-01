@@ -4,6 +4,9 @@ class ListsController < ApplicationController
   before_action :check_list,           only: :show
   before_action :check_user_authority, only: :destroy
 
+  def index
+  end
+
   def show
     users = @list.users
     # lists.user_count調整

@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :lists, only: [:show, :create, :destroy]
+  resources :lists, only: [:index, :show, :create, :destroy]
 
   resources :posts, only: [:create, :destroy]
   get   '/preview',     to: 'posts#show'
