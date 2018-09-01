@@ -17,9 +17,11 @@
 !/log/.keep
 !/tmp/.keep
 
-/node_modules
-/yarn-error.log
+/frontend/node_modules
+/frontend/yarn-error.log
 
 .byebug_history
 
 /.env
+
+/.vscode
