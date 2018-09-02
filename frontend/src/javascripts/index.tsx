@@ -1,4 +1,8 @@
-import * as react from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Hello } from "./components/Hello";
 
-ReactDOM.render(<div>Hello, World!</div>, document.querySelector("react"));
+ReactDOM.render(
+  <Hello message="Hello, World!" />,
+  document.getElementById("root")
+);

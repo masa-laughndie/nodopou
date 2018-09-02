@@ -1,25 +1,24 @@
 {
   "name": "nodopou-frontend",
+  "private": true,
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "src/javascripts/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js --mode production",
+    "watch": "webpack --config webpack.config.js --mode development --progress --watch"
   },
-  "keywords": [],
-  "author": "masa-laughndie",
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.4.13",
     "@types/react-dom": "^16.0.7",
     "@types/react-redux": "^6.0.6",
     "@types/redux-logger": "^3.0.6",
-    "babel-loader": "^8.0.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "npm-run-all": "^4.1.3",
     "prettier": "^1.14.2",
+    "ts-loader": "^4.5.0",
     "typescript": "^3.0.3",
-    "webpack": "^4.17.1"
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
