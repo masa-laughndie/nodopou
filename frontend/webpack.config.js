@@ -1,22 +1,24 @@
+const path = require("path");
+
 module.exports = {
-  entry: {
-    app: "./src/javascripts"
-  },
+  entry: "./src/javascripts/index.tsx",
 
   output: {
-    path: "../app/assets/javascripts",
-    filename: "[name].js"
+    path: path.resolve(__dirname, "../app/assets/javascripts"),
+    filename: "bundle.js"
+  },
+
+  // devtool: "source-map",
+
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
   },
 
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.(js|jsx)$/,
-        loader: "babel",
-        exclude: /node_modules/,
-        query: {
-          presets: ["es2015", "react"]
-        }
+        test: /\.(ts|tsx)$/,
+        use: [{ loader: "ts-loader" }]
       }
     ]
   }
