@@ -18,17 +18,12 @@
 !/tmp/.keep
 
 /frontend/node_modules
-/frontend/yarn-error.log
-/frontend/dist
+/yarn-error.log
 
 .byebug_history
 
 /.env
 
-<<<<<<< HEAD
 .vscode/
 config/sprockets-manifest.json
 public/assets/
-=======
-/.vscode
->>>>>>> 067cc30... Start introducing react & Install first node_modules
