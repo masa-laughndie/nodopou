@@ -18,7 +18,12 @@
 !/tmp/.keep
 
 /frontend/node_modules
+<<<<<<< HEAD
 /yarn-error.log
+=======
+/frontend/yarn-error.log
+/frontend/dist
+>>>>>>> c970508... Change output
 
 .byebug_history
 
