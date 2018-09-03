@@ -1,11 +1,13 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/javascripts/index.tsx",
+  entry: {
+    "frontend/app": "./src/javascripts/index.tsx"
+  },
 
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "bundle.js"
+    filename: "[name].js"
   },
 
   // devtool: "source-map",
