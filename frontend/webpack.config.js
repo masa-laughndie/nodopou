@@ -1,3 +1,4 @@
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -6,11 +7,12 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "[name].js"
+    path: path.resolve(__dirname, "../public/assets"),
+    filename: "[name].js",
+    publicPath: "/assets"
   },
 
-  // devtool: "source-map",
+  devtool: "inline-source-map",
 
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
@@ -23,5 +25,12 @@ module.exports = {
         use: [{ loader: "ts-loader" }]
       }
     ]
-  }
+  },
+
+  plugins: [
+    new CleanWebpackPlugin(["frontend"], {
+      root: path.resolve(__dirname, `../public/assets`),
+      verbose: true
+    })
+  ]
 };
