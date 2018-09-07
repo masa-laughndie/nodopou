@@ -4,5 +4,5 @@ import { Hello } from "./components/Hello";
 
 ReactDOM.render(
   <Hello message="Hello, World!!" />,
-  document.getElementById("root")
+  document.querySelector('[data-react-entry="root"]')
 );
