@@ -8,6 +8,7 @@
     <%= render 'layouts/rails_default' %>
     <%= render 'layouts/meta_data' %>
     <%= render 'layouts/links' %>
+    <%= yield(:javascript_application) if content_for?(:javascript_application) %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
