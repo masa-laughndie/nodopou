@@ -18,12 +18,12 @@
 !/tmp/.keep
 
 /frontend/node_modules
-/yarn-error.log
+/frontend/yarn-error.log
+/public/assets
+/config/sprockets-manifest.json
 
 .byebug_history
 
 /.env
 
 .vscode/
-config/sprockets-manifest.json
-public/assets/
