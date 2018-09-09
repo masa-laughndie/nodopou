@@ -1,11 +1,12 @@
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const WebpackSprocketsRailsManifestPlugin = require("webpack-sprockets-rails-manifest-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const webpack = require("webpack");
-
+const webpack = require("webpack");
 const path = require("path");
 
-const FILENAME = "[name]-[chunkhash]";
+const isProduction = process.env.NODE_ENV === "production";
+
+const FILENAME = isProduction ? "[name]-[chunkhash]" : "[name]";
 
 const extractCSS = new ExtractTextPlugin(`${FILENAME}.css`);
 
@@ -21,7 +22,7 @@ module.exports = {
     chunkFilename: `${FILENAME}.js`
   },
 
-  devtool: "inline-source-map",
+  devtool: isProduction ? undefined : "inline-source-map",
 
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
@@ -55,6 +56,9 @@ module.exports = {
     new CleanWebpackPlugin(["frontend"], {
       root: path.resolve(__dirname, `../public/assets`),
       verbose: true
+    }),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: isProduction ? "production" : "development"
     }),
     extractCSS,
     new WebpackSprocketsRailsManifestPlugin({

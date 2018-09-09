@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "main": "src/javascripts/index.tsx",
   "scripts": {
-    "build": "webpack --config webpack.config.js --mode production",
+    "build": "NODE_ENV=producation webpack --config webpack.config.js --mode production",
     "watch": "webpack --config webpack.config.js --mode development --progress --watch"
   },
   "license": "MIT",
