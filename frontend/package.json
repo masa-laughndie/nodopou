@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.0.1",
   "main": "src/javascripts/index.tsx",
+  "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=producation webpack --config webpack.config.js --mode production",
     "watch": "webpack --config webpack.config.js --mode development --progress --watch",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -c .storybook"
   },
-  "license": "MIT",
   "devDependencies": {
     "@storybook/addon-actions": "4.0.0-alpha.8",
     "@storybook/addon-knobs": "4.0.0-alpha.8",
