@@ -1,51 +1,51 @@
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const WebpackSprocketsRailsManifestPlugin = require("webpack-sprockets-rails-manifest-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const webpack = require("webpack");
-const path = require("path");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WebpackSprocketsRailsManifestPlugin = require('webpack-sprockets-rails-manifest-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === 'production';
 
-const FILENAME = isProduction ? "[name]-[chunkhash]" : "[name]";
+const FILENAME = isProduction ? '[name]-[chunkhash]' : '[name]';
 
 const extractCSS = new ExtractTextPlugin(`${FILENAME}.css`);
 
 module.exports = {
   entry: {
-    "frontend/vendor": ["jquery"],
-    "frontend/app": "./src/javascripts/index.tsx"
+    'frontend/vendor': ['jquery'],
+    'frontend/app': './src/javascripts/index.tsx'
   },
 
   output: {
-    path: path.resolve(__dirname, "../public/assets"),
+    path: path.resolve(__dirname, '../public/assets'),
     filename: `${FILENAME}.js`,
     chunkFilename: `${FILENAME}.js`
   },
 
-  devtool: isProduction ? undefined : "inline-source-map",
+  devtool: isProduction ? undefined : 'inline-source-map',
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js", "json"]
+    extensions: ['.ts', '.tsx', '.js', 'json']
   },
 
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        use: [{ loader: "ts-loader" }]
+        use: [{ loader: 'ts-loader' }]
       },
       {
         test: /\.css$/,
-        use: extractCSS.extract(["css-loader"])
+        use: extractCSS.extract(['css-loader'])
       },
       {
         test: /\.(jpeg|jpg|gif|png|svg|eot|woff|woff2|ttf|wav|mp3)$/,
         use: {
-          loader: "file-loader",
+          loader: 'file-loader',
           options: {
-            name: "[path][name]-[hash].[ext]",
-            outputPath: "frontend/images/",
-            publicPath: "/assets/frontend/images/"
+            name: '[path][name]-[hash].[ext]',
+            outputPath: 'frontend/images/',
+            publicPath: '/assets/frontend/images/'
           }
         }
       }
@@ -53,16 +53,16 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(["frontend"], {
+    new CleanWebpackPlugin(['frontend'], {
       root: path.resolve(__dirname, `../public/assets`),
       verbose: true
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: isProduction ? "production" : "development"
+      NODE_ENV: isProduction ? 'production' : 'development'
     }),
     extractCSS,
     new WebpackSprocketsRailsManifestPlugin({
-      manifestFile: "../../config/sprockets-manifest.json"
+      manifestFile: '../../config/sprockets-manifest.json'
     })
   ],
 
@@ -72,7 +72,7 @@ module.exports = {
       minChunks: Infinity
     },
     runtimeChunk: {
-      name: "frontend/manifest"
+      name: 'frontend/manifest'
     }
   }
 };
