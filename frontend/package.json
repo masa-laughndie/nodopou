@@ -5,14 +5,26 @@
   "main": "src/javascripts/index.tsx",
   "scripts": {
     "build": "NODE_ENV=producation webpack --config webpack.config.js --mode production",
-    "watch": "webpack --config webpack.config.js --mode development --progress --watch"
+    "watch": "webpack --config webpack.config.js --mode development --progress --watch",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "build-storybook": "build-storybook -c .storybook"
   },
   "license": "MIT",
   "devDependencies": {
+    "@storybook/addon-actions": "4.0.0-alpha.8",
+    "@storybook/addon-knobs": "4.0.0-alpha.8",
+    "@storybook/addon-links": "4.0.0-alpha.8",
+    "@storybook/addons": "4.0.0-alpha.8",
+    "@storybook/react": "4.0.0-alpha.8",
     "@types/react": "^16.4.13",
     "@types/react-dom": "^16.0.7",
     "@types/react-redux": "^6.0.6",
     "@types/redux-logger": "^3.0.6",
+    "@types/storybook__addon-actions": "^3.4.1",
+    "@types/storybook__addon-knobs": "^3.4.1",
+    "@types/storybook__react": "^3.0.9",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
