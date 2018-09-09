@@ -3,6 +3,6 @@ import * as ReactDOM from "react-dom";
 import { Hello } from "./components/Hello";
 
 ReactDOM.render(
-  <Hello message="Hello, World!!" />,
+  <Hello message="Hello, World!" />,
   document.querySelector('[data-react-entry="root"]')
 );
