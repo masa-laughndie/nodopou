@@ -25,7 +25,7 @@ module.exports = {
   devtool: isProduction ? undefined : "inline-source-map",
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js", "json"]
   },
 
   module: {
@@ -43,7 +43,7 @@ module.exports = {
         use: {
           loader: "file-loader",
           options: {
-            name: "[path][name].[hash].[ext]",
+            name: "[path][name]-[hash].[ext]",
             outputPath: "frontend/images/",
             publicPath: "/assets/frontend/images/"
           }
