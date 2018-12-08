@@ -12,7 +12,5 @@
 //
 //= require rails-ujs
 //= require jquery
-//= require jquery.turbolinks
 //= require "infinite-scroll.pkgd.min"
-//= require turbolinks
 //= require_tree .
