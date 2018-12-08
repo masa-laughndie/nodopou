@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noFallthroughCasesInSwitch": false,
+    "noEmitOnError": true,
     "alwaysStrict": true,
+    "rootDir": ".",
     "outDir": "./dist/",
     "sourceMap": true,
     "lib": ["dom", "es2017"],
-    "module": "es2015",
+    "module": "commonjs",
     "target": "es5",
     "jsx": "react"
-  }
+  },
+  "includes": ["./custom.d.ts", "./src", "./stories"],
+  "exclude": ["node_modules"]
 }
