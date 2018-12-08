@@ -36,6 +36,7 @@ function getLoaders({ modules }) {
 
 module.exports = {
   entry: {
+    'frontend/global': './src/javascripts/global.ts',
     'frontend/app': './src/javascripts/index.tsx',
   },
 
