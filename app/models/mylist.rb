@@ -19,7 +19,7 @@ class Mylist < ApplicationRecord
     end
 
     def find_format_gon_params_by(id)
-      map_gon_hah(self.find_by(id))
+      map_gon_hah(self.find_by(id: id))
     end
 
     private
@@ -34,7 +34,9 @@ class Mylist < ApplicationRecord
         gon_params.map do |ep|
           [ep, mylist.send(ep)]
         end
-      ]
+      ].merge({
+        originalList: List.find_format_gon_params_by(mylist.list_id)
+      })
     end
   end
 

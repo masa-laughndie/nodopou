@@ -12,6 +12,39 @@ class List < ApplicationRecord
   validates :content,  presence: { message: "内容を入力してください" },
                        length:   { maximum: 60,
                                    message: "内容は60文字まで入力できます" }
+  
+  class << self
+    def all_format_gon_params
+      all.map do |list|
+        map_gon_hah(list)
+      end
+    end
+
+    def find_format_gon_params(ids)
+      find(ids).map do |list|
+        map_gon_hah(list)
+      end
+    end
+
+    def find_format_gon_params_by(id)
+      map_gon_hah(self.find_by(id: id))
+    end
+
+    private
+
+    def gon_params
+      [:id, :user_id, :content, :user_count]
+    end
+
+    def map_gon_hah(list)
+      return if list.blank?
+      Hash[
+        gon_params.map do |ep|
+          [ep, list.send(ep)]
+        end
+      ]
+    end
+  end
 
   def destroy_or_leaved(cuser)
     return destroy if user_count <= 1
@@ -35,5 +68,4 @@ class List < ApplicationRecord
     end
     return false
   end
-
 end
