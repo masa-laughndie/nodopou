@@ -10,6 +10,11 @@ export interface GonMylist {
   max_running_days: number;
 }
 
+export interface GonCurrentUserInfo {
+  isLoggedIn: boolean;
+}
+
 export interface Gon {
   mylists: GonMylist[];
+  currentInfo: GonCurrentUserInfo;
 }

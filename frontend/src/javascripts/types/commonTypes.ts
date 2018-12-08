@@ -9,3 +9,7 @@ export interface Mylist {
   running_days: number;
   max_running_days: number;
 }
+
+export interface CurrentUserInfo {
+  isLoggedIn: boolean;
+}

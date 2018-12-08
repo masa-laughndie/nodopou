@@ -17,6 +17,7 @@ class MylistsController < ApplicationController
       @cuser_list_ids = []
     end
     gon.mylists = Mylist.find_format_gon_params(@mylists.ids.uniq)
+    gon.currentUserInfo = { isLoggedIn: logged_in? }
   end
 
   def show
