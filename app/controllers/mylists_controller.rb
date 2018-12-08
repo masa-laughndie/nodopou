@@ -16,6 +16,7 @@ class MylistsController < ApplicationController
     else
       @cuser_list_ids = []
     end
+    gon.mylists = Mylist.find_format_gon_params(@mylists.ids.uniq)
   end
 
   def show
