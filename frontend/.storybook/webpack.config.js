@@ -17,38 +17,82 @@
 //   },
 // };
 
-const isProduction = process.env.NODE_ENV === "production";
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// const isProduction = process.env.NODE_ENV === 'production';
 
 // const FILENAME = isProduction ? "[name]-[chunkhash]" : "[name]";
 
 module.exports = {
   resolve: {
-    extensions: [".ts", ".tsx", ".js", "json"]
+    extensions: ['.ts', '.tsx', '.js', 'json', '.css', '.scss']
   },
 
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: { loader: require.resolve('babel-loader') }
+      },
+      {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: { loader: "ts-loader" }
+        use: { loader: 'ts-loader' }
       },
       {
         test: /\.css$/,
-        use: { loader: "css-loader" }
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                localIdentName: '[local]',
+                modules: true
+              }
+            },
+            'sass-loader'
+          ]
+        })
       },
-
+      {
+        test: /\.module\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                localIdentName: '[local]',
+                modules: true,
+                importLoaders: 2
+              }
+            },
+            'sass-loader'
+          ]
+        })
+      },
       {
         test: /\.(jpeg|jpg|gif|png|svg|eot|woff|woff2|ttf|wav|mp3)$/,
         use: {
-          loader: "file-loader",
+          loader: 'file-loader',
           options: {
-            name: "[name]-[hash].[ext]"
+            name: '[name]-[hash].[ext]'
           }
         }
       }
     ]
   },
+
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
+    new ExtractTextPlugin({ filename: 'styles.css', allChunks: true })
+  ],
 
   stats: {
     // Suppress useless output
