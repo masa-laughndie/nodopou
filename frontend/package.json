@@ -58,6 +58,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "hypernova": "^2.4.0",
+    "hypernova-react": "^2.1.0",
     "mini-css-extract-plugin": "^0.4.4",
     "moment": "^2.22.2",
     "qs": "^6.5.2",
