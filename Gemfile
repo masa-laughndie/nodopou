@@ -13,7 +13,7 @@ gem 'coffee-rails',             '4.2.2'    #coffeer.script使用のため
 gem 'jquery-rails',             '4.3.1'    #js使用のため
 gem 'jquery-turbolinks',        '2.1.0'
 gem 'turbolinks',               '5.0.1'    #
-gem 'kaminari',                 '1.1.1'
+gem 'kaminari',                 '1.2.1'
 gem 'jbuilder',                 '2.7.0'    #
 gem 'font-awesome-rails',     '4.7.0.3'    #
 gem 'omniauth',              '~> 1.8.1'
