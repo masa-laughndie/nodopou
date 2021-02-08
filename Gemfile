@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails',                    '5.1.4'    #rails各コマンド
 gem 'bcrypt',               '~> 3.1.11'    #暗号化(ハッシュ化)
 gem 'faker',                    '1.7.3'    #疑似ユーザー追加
-gem 'carrierwave',              '1.2.2'    #画像アップローダー
+gem 'carrierwave',              '1.3.2'    #画像アップローダー
 gem 'mini_magick',              '4.7.0'    #
 gem 'piet',                     '0.2.6'
 gem 'puma',                     '3.11.0'   #serverに使用
