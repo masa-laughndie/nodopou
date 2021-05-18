@@ -6,7 +6,7 @@ gem 'faker',                    '1.7.3'    #疑似ユーザー追加
 gem 'carrierwave',              '1.2.2'    #画像アップローダー
 gem 'mini_magick',              '4.7.0'    #
 gem 'piet',                     '0.2.6'
-gem 'puma',                     '3.11.0'   #serverに使用
+gem 'puma',                     '4.3.8'    #serverに使用
 gem 'sass-rails',               '5.0.6'    #sass使用のため
 gem 'uglifier',                 '3.2.0'    #jsの軽量化?
 gem 'coffee-rails',             '4.2.2'    #coffeer.script使用のため
