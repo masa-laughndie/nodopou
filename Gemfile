@@ -16,7 +16,7 @@ gem 'turbolinks',               '5.0.1'    #
 gem 'kaminari',                 '1.1.1'
 gem 'jbuilder',                 '2.7.0'    #
 gem 'font-awesome-rails',     '4.7.0.3'    #
-gem 'omniauth',              '~> 1.8.1'
+gem 'omniauth',              '~> 1.9.2'
 gem 'omniauth-twitter',      '~> 1.4.0'
 gem 'twitter',                  '6.2.0'
 gem 'dotenv-rails',          '~> 2.2.1'    #key管理
